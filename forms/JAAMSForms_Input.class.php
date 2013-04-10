@@ -19,9 +19,8 @@ class JAAMSForms_Input extends JAAMSForms_Base
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $groups					= array();
-	protected $inputs					= array();
-	protected $type						= 0;
+	protected $type						= JAAMSForms_InputTypes::text;
+	protected $args						= array();
 	protected $atts						= array();
 	
 	// METHODS
