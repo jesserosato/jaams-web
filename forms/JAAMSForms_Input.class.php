@@ -20,8 +20,8 @@ class JAAMSForms_Input extends JAAMSForms_Base
 	// PROPERTIES
 	// - PROTECTED
 	protected $type						= JAAMSForms_InputTypes::text;
-	protected $args						= array();
 	protected $atts						= array();
+	protected $args						= array();
 	
 	// METHODS
 	// - PUBLIC
@@ -42,4 +42,3 @@ class JAAMSForms_Input extends JAAMSForms_Base
 	 
 	// - PROTECTED
 }
-		

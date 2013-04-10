@@ -1,0 +1,423 @@
+<html>
+
+<head>
+<meta name=Title content="">
+<meta name=Keywords content="">
+<meta http-equiv=Content-Type content="text/html; charset=macintosh">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:"Courier New";
+	panose-1:2 7 3 9 2 2 5 2 4 4;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"\FF2D\FF33 \660E\671D";}
+@font-face
+	{font-family:"\FF2D\FF33 \660E\671D";}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"Menlo Regular";
+	panose-1:2 11 6 9 3 8 4 2 2 4;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:Helvetica;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:Cambria;}
+.MsoChpDefault
+	{font-family:Helvetica;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=EN-US>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><b><span style='font-size:18.0pt'>JAAMSForms_Input Class</span></b></p>
+
+<p class=MsoNormal><b>&nbsp;</b></p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>Class Description</span></p>
+
+<p class=MsoNormal>Generates HTML for inputs using templates.</p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>Class Inheritance</span></p>
+
+<p class=MsoNormal>Extends JAAMSForms_Base</p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>Class Properties</span></p>
+
+<p class=MsoNormal><b>type</b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Type: Integer</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Default value: JAAMSForms_InputTypes::::_TEXT</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Expected values: An integer (usually in the form
+of a provided constant, see Description) indicating the type of input to
+generate.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Description: The JAAMSForms_Input class
+definition file contains the JAAMSForms_InputTypes class which defines a series
+of constants:</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::text</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>HTML input tag with “type”
+attribute set to “text”.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::textarea</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>HTML textarea tag.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::select</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>HTML select tag.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::submit</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>HTML input tag with “type”
+attribute set to “submit”.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::button</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>HTML input tag with “type”
+attribute set to “button”.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::checkbox</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>HTML input tag with “type”
+attribute set to “checkbox”.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::checkboxes</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>A set of HTML input tags with
+“type” attribute set to “checkbox”.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>JAAMSForms_InputTypes::radios</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>A set of HTML input tags with
+“type” attribute set to “radio”.</span></p>
+
+<p class=MsoNormal><b>atts</b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Type: Array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Default value: Empty array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Expected values: An array describing the
+attributes of the input.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Description: This array is used to set the HTML
+attributes of the input as key =&gt; value pairs (i.e. $atts[‘class’] =&gt;
+‘class1 class2 class3’ becomes &lt;input class=”class1 class2 class3” /&gt;).</span></p>
+
+<p class=MsoNormal><b>args</b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Type: Array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Default value: Empty array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Description: an array with arguments pertinent to
+the input:</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><b><span style='font-family:Helvetica'>default_value</span></b></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Mixed</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: None</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: A value of a
+type corresponding to the ‘type’ property of this object.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: The default
+value for this input.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><b><span style='font-family:Helvetica'>current_value</span></b></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Mixed</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: None</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: A value of a
+type corresponding to the ‘type’ property of this object.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: The current
+value for this input.</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><b><span style='font-family:Helvetica'>options</span></b></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Array</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: None</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: An array of
+key-value pairs describing a set of options (specifically for an HTML “select”
+tag).</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>{<b>other}</b></span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>Class Methods</span></p>
+
+<p class=MsoNormal><b>__construct</b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span>-<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+style='font-family:Helvetica'>Parameters</span></p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>name (see Class Properties),
+required.</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><span style='font-size:16.0pt'>Class Usage Example</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#878787'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>&lt;?php</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Some examples of how to use the JAAMS
+Framework (patent pending).</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Init</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#0045AA'>require_once</span><span style='font-family:"Menlo Regular"'>(<span
+style='color:#DD2400'>'init.php'</span>);</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Load the Forms class (JAAMS_ROOT is defined
+in init.php).</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#0045AA'>require_once</span><span style='font-family:"Menlo Regular"'>(JAAMS_ROOT
+<span style='color:#006FF8'>.</span> <span style='color:#DD2400'>'/forms/init.php'</span>);</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Instantiate a JAAMSForms Form object, for a
+form named 'my_form'.</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$form</span><span style='font-family:"Menlo Regular"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#0045AA'>new</span> <span
+style='color:#3F6E7D'>JAAMSForms_Form</span>(<span style='color:#DD2400'>'my_form'</span>);</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Create a fieldset</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$fieldset</span><span style='font-family:"Menlo Regular"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#0045AA'>new</span> <span
+style='color:#3F6E7D'>JAAMSForms_Fieldset</span>(<span style='color:#DD2400'>'first_fieldset'</span>);</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$fieldset</span><span style='font-family:"Menlo Regular";
+color:#006FF8'>-&gt;</span><span style='font-family:"Menlo Regular"'>label&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#DD2400'>'First Fieldset'</span>;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Create an input and register it with the
+fieldset.</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$input</span><span style='font-family:"Menlo Regular"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#0045AA'>new</span> <span
+style='color:#3F6E7D'>JAAMSForms_Input</span>(<span style='color:#DD2400'>'first_input'</span>);</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$input</span><span style='font-family:"Menlo Regular";
+color:#006FF8'>-&gt;</span><span style='font-family:"Menlo Regular"'>label&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#DD2400'>'First Input Label'</span>;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$input</span><span style='font-family:"Menlo Regular";
+color:#006FF8'>-&gt;</span><span style='font-family:"Menlo Regular"'>type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> JAAMSForms_InputTypes::text;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Be careful when setting fieldsets, groups and
+inputs, that you don't overwrite</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// previously added elements.&nbsp; See php
+array_merge.</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$fieldset</span><span style='font-family:"Menlo Regular";
+color:#006FF8'>-&gt;</span><span style='font-family:"Menlo Regular"'>inputs&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#0045AA'>array</span>(<span
+style='color:#DD2400'>'first_input'</span> <span style='color:#006FF8'>=&gt;</span>
+<span style='color:#8735A5'>$input</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Register the fieldset with the form.</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Be careful when setting fieldsets, groups and
+inputs, that you don't overwrite</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// previously added elements.&nbsp; See php
+array_merge.</span></i></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular";
+color:#8735A5'>$form</span><span style='font-family:"Menlo Regular";color:#006FF8'>-&gt;</span><span
+style='font-family:"Menlo Regular"'>fieldsets&nbsp;&nbsp;&nbsp;&nbsp; <span
+style='color:#006FF8'>=</span> <span style='color:#0045AA'>array</span>(<span
+style='color:#DD2400'>'first_fieldset'</span> <span style='color:#006FF8'>=&gt;</span>
+<span style='color:#8735A5'>$fieldset</span>);</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:none'><i><span style='font-family:
+"Menlo Regular";color:#878787'>// Output the form</span></i></p>
+
+<p class=MsoNormal><span style='font-family:"Menlo Regular";color:#8735A5'>$form</span><span
+style='font-family:"Menlo Regular";color:#006FF8'>-&gt;</span><span
+style='font-family:"Menlo Regular";color:#3F6E7D'>print_html</span><span
+style='font-family:"Menlo Regular"'>();</span></p>
+
+<p class=MsoNormal><span style='font-family:"Menlo Regular"'>&nbsp;</span></p>
+
+<p class=MsoNormal><span>See <i>forms/default_templates/default-inputs.php</i>
+for template structure.</span></p>
+
+</div>
+
+</body>
+
+</html>

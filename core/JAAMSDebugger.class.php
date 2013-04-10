@@ -10,8 +10,15 @@ class JAAMSDebugger
 	protected $path;
 	protected $msgs = array();
 	
-	function __construct($path)
-	{
+	function __construct ( $path = false ) {	
+		// Use the constant if no path is provided.	
+		if ( empty( $path ) ) {
+			if ( ! defined( 'JAAMS_DEBUGGER_LOG' ) )
+				throw new Exception("JAAMSDebugger requires a .txt or .log filename.");
+			else
+				$path = JAAMS_DEBUGGER_LOG;
+		}
+		// Make sure the path is valid.
 		if ( !preg_match( '/\.(txt|log)$/', $path ) )
 			throw new Exception("JAAMSDebugger requires a .txt or .log filename.");
 		
@@ -22,8 +29,7 @@ class JAAMSDebugger
 			throw new Exception("Error opening file at " . $this->path . ".");
 	}
 	
-	function __destruct()
-	{
+	function __destruct() {
 		// Write messages when object leaves scope.
 		foreach( $this->msgs as $key => $msg ) {
 			$msg = "[" . $key . "] " . $msg . "\n";
@@ -33,14 +39,13 @@ class JAAMSDebugger
 		fclose($this->file);
 	}
 	
-	public function debug_log( $string )
-	{
-		if ( is_array( $string ) )
-			$string = print_r($string, true);
+	public function debug_log( $data ) {
+		if ( is_array( $data ) )
+			$data = print_r($data, true);
 		
-		if ( !is_string( $string ) )
+		if ( !is_string( $data ) )
 			throw new Exception("Function JAAMSDebugger::debug_log() requires string or array parameter.");
 		 
-		$this->msgs[date('Y-m-d H:i')] = $string;
+		$this->msgs[date('Y-m-d H:i')] = $data;
 	}
 }
