@@ -15,8 +15,6 @@ class JAAMSForms_Base extends JAAMSTemplatable
 	protected $errors					= array();
 	protected $template_dir_paths		= array(JAAMS_DEF_TEMPLATE_DIR_PATH);
 	
-	
-	
 	// METHODS
 	// - PUBLIC
 	
@@ -48,12 +46,7 @@ class JAAMSForms_Base extends JAAMSTemplatable
 	 *
 	 */
 	public function get_html() {
-		return $this->get_template(
-			$this->template_hierarchy, 
-			$this, 
-			$this->template_ext, 
-			$this->template_sep
-		);
+		return $this->get_template();
 	}
 	
 	/**

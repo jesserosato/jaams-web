@@ -7,4 +7,7 @@ extract($this->get_template_data());
 ?>
 <fieldset <?php echo $atts; ?> >
 	<legend><?php echo $label; ?></legend>
+	<?php foreach ( $inputs as $input ) {
+		$input->print_html();
+	} ?>
 </fieldset>
