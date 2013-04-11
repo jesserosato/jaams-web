@@ -14,3 +14,4 @@ TODO:
 - JAAMSForms_Processor class - Jesse.
 - Javascript and CSS - ?
 - AJAX form handling - ?
+- Error messages - ?
