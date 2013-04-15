@@ -22,8 +22,9 @@ class JAAMSForms_Fieldset extends JAAMSForms_Base
 	public function __construct( $name, array $template_dir_paths = array() ) {
 		// Instantiate JAAMSTemplatable parent.
 		parent::__construct($name);
-		$this->template_hierarchy = array('default', 'fieldset');
-		
+		$this->hierarchies = array(
+			'view'		=> array('default', 'fieldset'),
+		);
 	}
 	 
 	// - PROTECTED

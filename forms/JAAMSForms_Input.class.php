@@ -36,7 +36,9 @@ class JAAMSForms_Input extends JAAMSForms_Base
 	public function __construct( $name, array $template_dir_paths = array() ) {
 		// Instantiate JAAMSTemplatable parent.
 		parent::__construct($name);
-		$this->template_hierarchy = array('default','inputs');
+		$this->hierarchies = array(
+			'view'		=> array('default','inputs'),
+		);
 		
 	}
 	 

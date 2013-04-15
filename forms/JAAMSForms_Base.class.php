@@ -1,11 +1,12 @@
 <?php
 // Include the JAAMS templatable class from core.
-require_once JAAMS_ROOT . '/core/JAAMSTemplatable.class.php';
+require_once JAAMS_ROOT . '/core/JAAMSController.class.php';
 
 // Define default template path.
-define('JAAMS_DEF_TEMPLATE_DIR_PATH', dirname(__FILE__).'/default_templates');
+define('JAAMS_FORMS_VIEWS_DIR_PATH', dirname(__FILE__).'/default_templates');
+define('JAAMS_FORMS_MODELS_DIR_PATH', dirname(__FILE__));
 
-class JAAMSForms_Base extends JAAMSTemplatable
+class JAAMSForms_Base extends JAAMSController
 {
 	// PROPERTIES
 	// - PUBLIC
@@ -13,7 +14,6 @@ class JAAMSForms_Base extends JAAMSTemplatable
 	protected $name;
 	protected $label					= '';
 	protected $errors					= array();
-	protected $template_dir_paths		= array(JAAMS_DEF_TEMPLATE_DIR_PATH);
 	
 	// METHODS
 	// - PUBLIC
@@ -22,13 +22,23 @@ class JAAMSForms_Base extends JAAMSTemplatable
 	 * __CONSTRUCT
 	 *
 	 * @param	$name				String	HTML form tag “name” attribute. Used internally as a handle for the form.
-	 * @param	$template_paths		Array	Array of paths to template directories, in desired search order.
+	 * @param	$dir_paths			Array	Array of paths to view and model directories, in desired search order.
 	 *
 	 */
-	public function __construct( $name, array $template_dir_paths = array() ) {
-		// Instantiate JAAMSTemplatable parent with default template dir path 
-		// appended to the provided dir paths array.
-		parent::__construct(array_merge($template_dir_paths, $this->template_dir_paths));
+	public function __construct( $name, array $dir_paths = array() ) {
+		// Set up the directory paths
+		if ( empty( $dir_paths['view'] ) || ! is_array( $dir_paths['view'] ) ) {
+			$dir_paths['view']	= array(JAAMS_FORMS_VIEWS_DIR_PATH);
+		} else {
+			array_push($dir_paths['view'], JAAMS_FORMS_VIEWS_DIR_PATH);
+		}
+		if ( empty( $dir_paths['model'] ) || ! is_array($dir_paths['model'] ) ) {
+			$dir_paths['model']	= array(JAAMS_FORMS_MODELS_DIR_PATH);
+		} else {
+			array_push($dir_paths['view'], JAAMS_FORMS_MODELS_DIR_PATH);
+		}
+		// Instantiate parent.
+		parent::__construct($dir_paths);
 		// Initialize data.
 		$this->name	= $name;
 	}
@@ -46,7 +56,31 @@ class JAAMSForms_Base extends JAAMSTemplatable
 	 *
 	 */
 	public function get_html() {
-		return $this->get_template();
+		return $this->get_view();
+	}
+	
+	/**
+	 * "Abstract" method to sanitize form input data.
+	 *
+	 */
+	public function sanitize() {
+		
+	}
+	
+	/**
+	 * "Abstract" method to validate form input data.
+	 *
+	 */
+	public function validate() {
+		
+	}
+	
+	/**
+	 * "Abstract" method to save form input data.
+	 *
+	 */
+	public function save() {
+		// Probably something like: return $this->model->save();
 	}
 	
 	/**

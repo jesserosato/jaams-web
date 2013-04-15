@@ -3,12 +3,11 @@
 // Init
 require_once('init.php');
 
-// Load the Forms class (JAAMS_ROOT is defined in init.php).
+// Load the Forms class (JAAMS_ROOT is defined in init.php above).
 require_once(JAAMS_ROOT . '/forms/init.php');
 
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form				= new JAAMSForms_Form('my_form');
-
 // Create a fieldset
 $fieldset			= new JAAMSForms_Fieldset('first_fieldset');
 $fieldset->label	= 'First Fieldset';

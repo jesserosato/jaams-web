@@ -1,8 +1,5 @@
 <?php
-define('JAAMS_ROOT', dirname(__FILE__));
-
-define('JAAMS_DEBUG', true);
-define('JAAMS_DEBUGGER_LOG', JAAMS_ROOT.'/logs/debug.log');
+require_once('config.php');
 
 global $JAAMS;
 $JAAMS = array();

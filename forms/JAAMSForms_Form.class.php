@@ -30,7 +30,9 @@ class JAAMSForms_Form extends JAAMSForms_Base
 		// Instantiate JAAMSForms_Base parent.
 		parent::__construct($name);
 		// Set the template hierarchy.
-		$this->template_hierarchy = array('default', 'form');
+		$this->hierarchies = array(
+			'view'		=> array('default', 'form'),
+		);
 	}
 }
 		

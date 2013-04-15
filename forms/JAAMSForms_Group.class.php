@@ -20,8 +20,9 @@ class JAAMSForms_Group extends JAAMSForms_Base
 	public function __construct( $name, array $template_dir_paths = array() ) {
 		// Instantiate JAAMSTemplatable parent.
 		parent::__construct($name);
-		$this->template_hierarchy = array('default', 'group');
-		
+		$this->hierarchies = array(
+			'view'		=> array('default', 'group'),
+		);
 	}
 	 
 	// - PROTECTED
