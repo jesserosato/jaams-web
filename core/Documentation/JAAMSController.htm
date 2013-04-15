@@ -15,11 +15,9 @@
 	{font-family:Wingdings;
 	panose-1:5 0 0 0 0 0 0 0 0 0;}
 @font-face
-	{font-family:"ＭＳ 明朝";
-	panose-1:0 0 0 0 0 0 0 0 0 0;}
+	{font-family:"ＭＳ 明朝";}
 @font-face
-	{font-family:"ＭＳ 明朝";
-	panose-1:0 0 0 0 0 0 0 0 0 0;}
+	{font-family:"ＭＳ 明朝";}
 @font-face
 	{font-family:Cambria;
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
@@ -79,6 +77,47 @@ for that property must be passed in the class constructor.</span></p>
 
 <p class=MsoNormal><span style='font-family:Helvetica'>&nbsp;</span></p>
 
+<p class=MsoNormal><b><span style='font-family:Helvetica'>model</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Mixed</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: null</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: Any class
+that accepts a JAAMSController object as the first parameter of its
+constructor.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: Data store
+interface.</span></p>
+
+<p class=MsoNormal><b><span style='font-family:Helvetica'>view</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: String</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: Empty string</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: String of
+HTML.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: The HTML to
+display the object.</span></p>
+
 <p class=MsoNormal><b><span style='font-family:Helvetica'>dir_paths*</span></b></p>
 
 <p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
@@ -102,6 +141,74 @@ Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&
 to search (in order) for view and model file(s).  See the public methods “get_view”
 and “get_model” for more information about how the class searches for view and
 model files.</span></p>
+
+<p class=MsoNormal><b><span style='font-family:Helvetica'>hierarchies</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: Array with ‘view’
+and ‘model’ elements.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: An array
+containing two arrays, keyed to ‘view’ and ‘node’.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: An array
+describing the filename structure for views and models.  Basically, the
+elements of ‘view’ and ‘model’ arrays each get imploded using the appropriate
+value in class property ‘seps’, the appropriate extension (in class property ‘exts’)
+is appended, and the appropriate directory paths are searched for that
+filename.  If none is found, the last element of the array is removed, and the
+process is repeated.</span></p>
+
+<p class=MsoNormal><b><span style='font-family:Helvetica'>sets</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: Array with two
+empty elements: ‘view’ and ‘model’.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: An array
+containing two arrays, keyed to ‘view’ and ‘node’. </span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: The separators
+to use for filename parts (see ‘hierarchies’).</span></p>
+
+<p class=MsoNormal><b><span style='font-family:Helvetica'>exts</span></b></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Type: Array</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Default value: Array with two
+empty elements: ‘view’ and ‘model’.</span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Expected values: An array
+containing two arrays, keyed to ‘view’ and ‘node’. </span></p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><span style='font-family:
+Helvetica'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:Helvetica'>Description: The file
+extensions to use (see ‘hierarchies’).</span></p>
 
 <p class=MsoNormal><span style='font-family:Helvetica'>&nbsp;</span></p>
 
