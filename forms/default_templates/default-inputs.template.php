@@ -1,8 +1,13 @@
 <?php
-extract( $this->get_template_data() );
+extract($this->get_template_data());
+
+$data = array(
+	'type' => 'text',
+	'name' => 'name_of_input',
+	'atts' => 'class="classname" value="value"'
+);
 
 switch ( $type ) {
-
 	case JAAMSForms_InputTypes::textarea :
 	?>
 		<p class="error">
@@ -13,9 +18,18 @@ switch ( $type ) {
 	
 	case JAAMSForms_InputTypes::select :
 	?>
-		<p class="error">
-			select input html here in file: <?php echo __FILE__; ?>
-		</p>
+		<?php if ( !empty( $errors ) ) { ?>
+			<div class="error">
+				<?php foreach ( $errors as $error ) {
+				?>
+					<p class="error"><?php echo $error; ?></p>
+				<?php
+				}
+				?>
+			</div>
+		<?php } ?>
+		<select name="<?php echo $name; ?>" <?php echo $atts; ?> >
+		</select>
 	<?php
 	break;
 	

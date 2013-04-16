@@ -15,7 +15,7 @@ $fieldset->label	= 'First Fieldset';
 // Create an input and register it with the fieldset.
 $input				= new JAAMSForms_Input('first_input');
 $input->label		= 'First Input Label';
-$input->type		= JAAMSForms_InputTypes::text;
+$input->type		= JAAMSForms_InputTypes::select;
 
 // Be careful when setting fieldsets, groups and inputs, that you don't overwrite
 // previously added elements.  See php array_merge.
@@ -26,5 +26,22 @@ $fieldset->inputs	= array('first_input' => $input);
 // previously added elements.  See php array_merge.
 $form->fieldsets	= array('first_fieldset' => $fieldset);
 
-// Output the form
 $form->print_html();
+
+/*
+if ( empty ( $_POST['first_form'] ) ) {
+	// Output the form
+	$form->print_html();
+} else {
+	$form->sanitize();
+	if ( $form->validate() ) {
+		if ( $form->save() ) {
+			//display success
+		} else {
+			$form->errors('database' => 'Unable to save data');
+		}
+	} else {
+		$form->print_html();
+	}
+}
+*/
