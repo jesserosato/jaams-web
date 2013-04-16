@@ -28,12 +28,12 @@ Documentation
 
 **Forms (Use this as an example for new 'modules')
 --------------------------------------------------
-- <a href="Forms/Documentation/JAAMSForms_MVC.png">MVC in JAAMS Forms</a>
-- <a href="Forms/Documentation/JAAMSForms_Base.htm">JAAMSForms_Base "abstract" controller class</a>
-- <a href="Forms/Documentation/JAAMSForms_Form.htm">JAAMSForms_Form controller class</a>
-- <a href="Forms/Documentation/JAAMSForms_Fieldset.htm">JAAMSForms_Fieldset controller class</a>
-- <a href="Forms/Documentation/JAAMSForms_Group.htm">JAAMSForms_Group controller class</a>
-- <a href="Forms/Documentation/JAAMSForms_Input.htm">JAAMSForms_Input controller class</a>
+- <a href="forms/Documentation/JAAMSForms_MVC.png">MVC in JAAMS Forms</a>
+- <a href="forms/Documentation/JAAMSForms_Base.htm">JAAMSForms_Base "abstract" controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Form.htm">JAAMSForms_Form controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Fieldset.htm">JAAMSForms_Fieldset controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Group.htm">JAAMSForms_Group controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Input.htm">JAAMSForms_Input controller class</a>
 
 **TODO:
 ---------------------------------------
