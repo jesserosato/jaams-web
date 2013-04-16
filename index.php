@@ -4,7 +4,7 @@
 require_once('init.php');
 
 // Load the Forms class (JAAMS_ROOT is defined in init.php above).
-require_once(JAAMS_ROOT . '/forms/init.php');
+require_once(JAAMS_ROOT . '/Forms/init.php');
 
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form				= new JAAMSForms_Form('my_form');
