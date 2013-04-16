@@ -9,6 +9,8 @@ Initialize the core functionality by including init.php, initialize any other 'm
 
 See 'core/Documentation' and '{module}/Documentation' for class documentation and usage examples.
 
+Test updated.
+
 TODO:
 - JAAMSForms_Input templates - Anthony.
 - JAAMSForms_Processor class - Jesse.
