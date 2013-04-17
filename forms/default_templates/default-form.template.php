@@ -10,6 +10,9 @@ extract($this->get_template_data());
 	<?php foreach ( $fieldsets as $fieldset ) {
 		$fieldset->print_html(); 
 	}
+	foreach ( $groups as $group ) {
+		$group->print_html();
+	}
 	foreach ( $inputs as $input ) {
 		$input->print_html();	
 	}

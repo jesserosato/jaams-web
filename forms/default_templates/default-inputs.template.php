@@ -35,7 +35,7 @@ switch ( $type ) {
 				
 					<option
 						value="<?php echo $opt_value; ?>" 
-						selected="<?php echo ( $value == $opt_value ) ? 'selected' : ''; ?>"
+						<?php echo ( $value == $opt_value ) ? 'selected="selected"' : ''; ?>
 					>
 						<?php echo $opt_label;  ?>
 					</option>
@@ -64,7 +64,7 @@ switch ( $type ) {
 			type="checkbox" 
 			name="<?php echo $name; ?>"
 			value="<?php echo $args['value']; ?>"
-			checked="<?php echo $value ? 'checked' : ''; ?>"
+			<?php echo $value ? 'checked="checked"' : ''; ?>
 			<?php echo $atts; ?>
 		/>
 		
@@ -74,14 +74,14 @@ switch ( $type ) {
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		
 		<?php $i = 0;
-		foreach ( $args['options'] as $option ) { ?>
+		foreach ( $args['options'] as $opt_value => $opt_label ) { ?>
 		
-			<label for="<?php echo $name."[$i]"; ?>"><?php echo $option['label']; ?></label>
+			<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
 			<input
 				type="checkbox" 
 				name="<?php echo $name."[$i]"; ?>"
-				value="<?php echo $option['value']; ?>"
-				checked="<?php echo empty( $value[$i] ) ? '' : 'checked'; ?>"
+				value="<?php echo $opt_value; ?>"
+				<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
 				<?php echo $atts; ?>
 			/>
 			
@@ -92,14 +92,14 @@ switch ( $type ) {
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		<?php $i = 0;
-		foreach ($this->args['options'] as $option ) { ?>
+		foreach ($this->args['options'] as $opt_value => $opt_label ) { ?>
 		
-			<label for="<?php echo $name."[$i]"; ?>"><?php echo $option['label']; ?>
+			<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?>
 			<input
 				type="radio"
 				name="<?php echo $name."[$i]"; ?>"
-				value="<?php echo $option['value']; ?>"
-				checked="<?php echo empty( $value[$i] ) ? '' : 'checked'; ?>"
+				value="<?php echo $opt_value; ?>"
+				<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
 				<?php echo $atts; ?>
 			/>
 			
