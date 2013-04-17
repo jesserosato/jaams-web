@@ -76,13 +76,14 @@ class JAAMSBase {
 		// we would need to know something about its type.
 		if ( $property === 'model' ) {
 			$this->model = $value;
+			return;
 		}
 		$defaults = get_class_vars(get_class($this));
 		// Make sure the new value is of the same type as the default value.
 		if ( gettype( $value ) != gettype( $defaults[$property] ) )
 			return;
 		
-		$this->$property = $value;
+		$this->{$property} = $value;
 	}
 	
 	/**
@@ -94,7 +95,7 @@ class JAAMSBase {
 	 *
 	 * @return	Mixed
 	 */
-	public function __get ( $property ) {
+	public function &__get ( $property ) {
 		switch ( $property ) {
 			case 'view' :
 				return $this->get_view();
@@ -121,11 +122,7 @@ class JAAMSBase {
 		if ( ! empty( $this->view ) && ! $reset )
 			return $this->view;
 		// Get the path to the view file.  If it's empty, return an empty string.
-		$filename = $this->get_path(
-			$this->hierarchies['view'],
-			$this->exts['view'],
-			$this->seps['view']
-		);
+		$filename = $this->get_path();
 		if ( ! ( $filename ) )
 			return ( $this->view  = '' );
 		// Get the contents of the view file.s
@@ -151,12 +148,7 @@ class JAAMSBase {
 		if ( ! empty( $this->model ) && ! $reset )
 			return $this->model;
 		// Get the path to the model.
-		$filename = $this->get_path(
-			$this->hierarchies['model'], 
-			$this->exts['model'], 
-			$this->seps['model'], 
-			'model'
-		);
+		$filename = $this->get_path('model');
 		// Can't load the model if we couldn't read any fiels.
 		if ( ! ( $filename ) )
 			return null;
@@ -212,8 +204,7 @@ class JAAMSBase {
 			array_pop($order);
 		}
 		
-		return empty( $filename ) ? false : $filename;
-		
+		return is_readable( $filename ) ? $filename : false;
 	}
 	
 	/**

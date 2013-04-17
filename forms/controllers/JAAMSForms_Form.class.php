@@ -26,9 +26,9 @@ class JAAMSForms_Form extends JAAMSForms_Base
 	 * @param	$template_paths		Array	Array of paths to template directories, in desired search order.
 	 *
 	 */
-	public function __construct( $name, array $template_dir_paths = array() ) {
+	public function __construct( $name, array $dir_paths = array() ) {
 		// Instantiate JAAMSForms_Base parent.
-		parent::__construct($name);
+		parent::__construct($name, $dir_paths);
 		// Set the template hierarchy.
 		$this->hierarchies = array(
 			'view'		=> array('default', 'form'),
