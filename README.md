@@ -3,13 +3,40 @@ jaams-web
 
 JAAMS CSC131 Project - Web portion
 
-A very very simple web framework, mostly centered around form handling.
+A (hopefully) easy to use web framework focused on extensiblity.
 
-Initialize the core functionality by including init.php, initialize any other 'modules' (Forms, etc.) by including '{module}/init.php'.
+Original Authors (ordered for maximum acronym awesomeness) :
+- (J) + Jesse Rosato
+- (A) + Adrian Chambers
+- (A) + Anthony Cristiano
+- (M) + Mark Talent
+- (S) + Sairam Srinavasan
 
-See 'core/Documentation' and '{module}/Documentation' for class documentation and usage examples.
+Usage:
+Initialize the core functionality by including JAAMS_ROOT/init.php.
 
-TODO:
+
+Documentation
+=============
+
+**Core
+------
+- <a href="core/Documentation/JAAMS_MVC.png">MVC in JAAMS</a>
+- <a href="core/Documentation/JAAMSBase.htm">JAAMSBase "abstract" controller class</a>
+- <a href="core/Documentation/JAAMSModel.htm">JAAMSModel "abstract" model class</a>
+- <a href="core/Documentation/JAAMSDebugger.htm">JAAMSDebugger class</a>
+
+**Forms (Use this as an example for new 'modules')
+--------------------------------------------------
+- <a href="forms/Documentation/JAAMSForms_MVC.png">MVC in JAAMS Forms</a>
+- <a href="forms/Documentation/JAAMSForms_Base.htm">JAAMSForms_Base "abstract" controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Form.htm">JAAMSForms_Form controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Fieldset.htm">JAAMSForms_Fieldset controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Group.htm">JAAMSForms_Group controller class</a>
+- <a href="forms/Documentation/JAAMSForms_Input.htm">JAAMSForms_Input controller class</a>
+
+**TODO:
+---------------------------------------
 - JAAMSForms_Input templates - Anthony.
 - JAAMSForms_Processor class - Jesse.
 - Javascript and CSS - ?
