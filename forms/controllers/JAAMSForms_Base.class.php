@@ -98,14 +98,15 @@ class JAAMSForms_Base extends JAAMSBase {
 			 $data[$key] = $this->$key;
 		 }
 		 // Attributes get converted to HTML strings.
-		 if ( !empty ( $this->atts ) ) {
-			 $data['atts'] = array();
-			 foreach( $this->atts as $att => $val ) {
-				 $data['atts'][] = $att . '="' . $val . '"';
-			 }
-			 $data['atts'] = implode(' ', $data['atts']);
+		 if ( empty ( $this->atts ) ) {
+		 	$data['atts'] = '';
+		 } else {
+		 	$data['atts'] = array();
+			foreach( $this->atts as $att => $val ) {
+				$data['atts'][] = $att . '="' . $val . '"';
+			}
+			$data['atts'] = implode(' ', $data['atts']);
 		 }
-		 
 		 return $data;
 	 }
 	 

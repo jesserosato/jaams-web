@@ -1,6 +1,7 @@
 <?php
 extract($this->get_template_data());
-
+// Set the value
+$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
 // Print out the error message first.
 if ( !empty( $errors ) ) { ?>
 
