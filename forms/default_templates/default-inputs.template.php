@@ -95,7 +95,7 @@ switch ( $type ) {
 		<?php $i = 0;
 		foreach ($this->args['options'] as $opt_value => $opt_label ) { ?>
 		
-			<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?>
+			<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
 			<input
 				type="radio"
 				name="<?php echo $name."[$i]"; ?>"
