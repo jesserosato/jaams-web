@@ -100,7 +100,7 @@ switch ( $type ) {
 				type="radio"
 				name="<?php echo $name."[$i]"; ?>"
 				value="<?php echo $opt_value; ?>"
-				<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
+				<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
 				<?php echo $atts; ?>
 			/>
 			
