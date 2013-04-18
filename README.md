@@ -37,8 +37,6 @@ Documentation
 
 **TODO:
 ---------------------------------------
-- JAAMSForms_Input templates - Anthony.
 - JAAMSForms_Processor class - Jesse.
-- Javascript and CSS - ?
-- AJAX form handling - ?
+- Javascript - ?
 - Error messages - ?
