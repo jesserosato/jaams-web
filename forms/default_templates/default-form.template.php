@@ -6,7 +6,6 @@
 extract($this->get_template_data());
 ?>
 <form <?php echo $atts; ?> >
-	<h1>The FORM template is working!</h1>
 	<?php foreach ( $fieldsets as $fieldset ) {
 		$fieldset->print_html(); 
 	}

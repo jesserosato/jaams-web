@@ -10,13 +10,13 @@ require_once(JAAMS_ROOT . '/Forms/init.php');
 $form						= new JAAMSForms_Form('my_form');
 
 // Create Project Information fieldset
-$info_fieldset				= new JAAMSForms_Fieldset('info_fieldset');
+$info_fieldset				= new JAAMSForms_Fieldset('info_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
 $info_fieldset->label		= 'Project Information';
+$info_fieldset->hierarchies['view'] = array('fieldset', 'project_info');
 
 // Create Team Information fieldset
-$team_fieldset 				= new JAAMSForms_Fieldset('team_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
+$team_fieldset 				= new JAAMSForms_Fieldset('team_fieldset');
 $team_fieldset->label   	= 'Team Information';
-$team_fieldset->hierarchies['view'] = array('fieldset', 'project_info');
 
 // Create Accounts to Create fieldset
 $account_fieldset 			= new JAAMSForms_Fieldset('account_fieldset');
