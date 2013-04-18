@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 <div class="group-container">
 <?php
 // Print out the error message first.
@@ -16,9 +18,14 @@ if ( !empty( $errors ) ) { ?>
 	</div>
 <?php } ?>
 
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 <?php
 extract($data = $this->get_template_data());
 foreach( $inputs as $input ) {
 	$input->print_html();
+<<<<<<< HEAD
+}
+=======
 } ?>
 </div>
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339

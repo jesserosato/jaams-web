@@ -5,16 +5,10 @@
 // from functions scope.
 extract($this->get_template_data());
 ?>
-<form <?php echo $atts; ?> >
-	<h1>The FORM template is working!</h1>
-	<?php foreach ( $fieldsets as $fieldset ) {
-		$fieldset->print_html(); 
-	}
-	foreach ( $groups as $group ) {
-		$group->print_html();
-	}
-	foreach ( $inputs as $input ) {
-		$input->print_html();	
-	}
-	?>
-</form>
+<fieldset <?php echo $atts; ?> >
+	<legend><?php echo $label; ?></legend>
+		<?php $inputs['mysql_host']->print_html();
+			  $groups['db_permissions']->print_html();
+			  $inputs['db_comments']->print_html();
+		?>
+</fieldset>

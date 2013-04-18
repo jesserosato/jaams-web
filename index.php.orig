@@ -10,6 +10,15 @@ require_once(JAAMS_ROOT . '/Forms/init.php');
 $form						= new JAAMSForms_Form('my_form');
 
 // Create Project Information fieldset
+<<<<<<< HEAD
+$info_fieldset				= new JAAMSForms_Fieldset('info_fieldset');
+$info_fieldset->label		= 'Project Information';
+
+// Create Team Information fieldset
+$team_fieldset 				= new JAAMSForms_Fieldset('team_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
+$team_fieldset->label   	= 'Team Information';
+$team_fieldset->hierarchies['view'] = array('fieldset', 'project_info');
+=======
 $info_fieldset				= new JAAMSForms_Fieldset('info_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
 $info_fieldset->label		= 'Project Information';
 $info_fieldset->hierarchies['view'] = array('fieldset', 'info');
@@ -18,15 +27,21 @@ $info_fieldset->hierarchies['view'] = array('fieldset', 'info');
 $team_fieldset 				= new JAAMSForms_Fieldset('team_fieldset');
 $team_fieldset->label   	= 'Team Information';
 //$team_fieldset->hierarchies['view'] = array('fieldset', 'team_fieldset');
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 
 // Create Accounts to Create fieldset
 $account_fieldset 			= new JAAMSForms_Fieldset('account_fieldset');
 $account_fieldset->label 	= 'Accounts To Create';
 
 // Create Database Information fieldset
+<<<<<<< HEAD
+$database_fieldset 			= new JAAMSForms_Fieldset('database_fieldset');
+$database_fieldset->label 	= 'Database Information';
+=======
 $database_fieldset 			= new JAAMSForms_Fieldset('database_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
 $database_fieldset->label 	= 'Database Information';
 $database_fieldset->hierarchies['view'] = array('fieldset', 'database');
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 
 // Create Project Account Information fieldset
 $project_fieldset 			= new JAAMSForms_Fieldset("project_fieldset");
@@ -34,10 +49,17 @@ $project_fieldset->label 	= 'Project Account Information';
 
 
 // Inputs for Project Information fieldset.
+<<<<<<< HEAD
+$particpants				= new JAAMSForms_Input('particpants');
+$particpants->label			= 'Number of Particpants';
+$particpants->type			= JAAMSForms_InputTypes::select;
+$particpants->args 			= array(
+=======
 $participants				= new JAAMSForms_Input('participants');
 $participants->label		= 'Number of Participants:';
 $participants->type			= JAAMSForms_InputTypes::select;
 $participants->args 			= array(
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 	'default_value'		=> '1',
 	'options'			=> array(
 		'1'						=> '1',
@@ -54,11 +76,19 @@ $participants->args 			= array(
 );
 								
 $advisor					= new JAAMSForms_Input('advisor');
+<<<<<<< HEAD
+$advisor->label 			= 'Project Advisor';
+$advisor->type 				= JAAMSForms_InputTypes::text;
+							
+$advisor_email				= new JAAMSForms_Input('advisor_email');
+$advisor_email->label 		= 'Project Advisor Email Address';
+=======
 $advisor->label 			= 'Project Advisor:';
 $advisor->type 				= JAAMSForms_InputTypes::text;
 							
 $advisor_email				= new JAAMSForms_Input('advisor_email');
 $advisor_email->label 		= 'Project Advisor Email Address:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $advisor_email->type 		= JAAMSForms_InputTypes::text;
 							
 $active						= new JAAMSForms_Input('active');
@@ -75,6 +105,16 @@ $active->args 				= array(
 );
 								
 $active_other				= new JAAMSForms_Input('active_other');
+<<<<<<< HEAD
+$active_other->label 		= 'Other';
+$active_other->type 		= JAAMSForms_InputTypes::text;
+							
+$project_type 				= new JAAMSForms_Input('project_type');
+$project_type->label 		= 'Project Type';
+$project_type->type 		= JAAMSForms_InputTypes::text;
+								
+$dept						= new JAAMSForms_Input('dept');
+=======
 $active_other->label 		= 'Other:';
 $active_other->type 		= JAAMSForms_InputTypes::text;
 							
@@ -84,6 +124,7 @@ $project_type->type 		= JAAMSForms_InputTypes::text;
 								
 $dept						= new JAAMSForms_Input('dept');
 $dept->label 				= 'Class:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $dept->type 				= JAAMSForms_InputTypes::select;
 $dept->args 				= array(
 	'default_value'		=> 'ce',
@@ -102,7 +143,11 @@ $class_no 					= new JAAMSForms_Input('class_no');
 $class_no->type 			= JAAMSForms_InputTypes::text;
 								
 $project_name 				= new JAAMSForms_Input('project_name');
+<<<<<<< HEAD
+$project_name->label 		= 'Project Name';
+=======
 $project_name->label 		= 'Project Name:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $project_name->type 		= JAAMSForms_InputTypes::text;
 
 // Groups for Project Information fieldset.
@@ -120,6 +165,21 @@ $class->inputs				= array(
 
 // Inputs for Team Information fieldset
 $first_name 				= new JAAMSForms_Input('first_name');
+<<<<<<< HEAD
+$first_name->label 			= 'First Name';
+$first_name->type 			= JAAMSForms_InputTypes::text;
+							
+$last_name 					= new JAAMSForms_Input('last_name');
+$last_name->label 			= 'Last Name';
+$last_name->type 			= JAAMSForms_InputTypes::text;
+							
+$email 						= new JAAMSForms_Input('email');
+$email->label 				= 'Email';
+$email->type 				= JAAMSForms_InputTypes::text;
+							
+$phone_number 				= new JAAMSForms_Input('phone_number');
+$phone_number->label 		= 'Phone Number';
+=======
 $first_name->label 			= 'First Name:';
 $first_name->type 			= JAAMSForms_InputTypes::text;
 							
@@ -133,6 +193,7 @@ $email->type 				= JAAMSForms_InputTypes::text;
 							
 $phone_number 				= new JAAMSForms_Input('phone_number');
 $phone_number->label 		= 'Phone Number:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $phone_number->type 		= JAAMSForms_InputTypes::text;
 
 // Groups for Team Information fieldset
@@ -148,7 +209,11 @@ $member_info->inputs 		= array(
 
 // Inputs for Accounts to Create fieldset
 $account_type 				= new JAAMSForms_Input('account_type');
+<<<<<<< HEAD
+$account_type->label 		= 'Type of Account to Create';
+=======
 $account_type->label 		= 'Type of Account to Create:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $account_type->type 		= JAAMSForms_InputTypes::select;
 $account_type->args 		= array(
 	'default_value'		=> 'both',
@@ -161,7 +226,11 @@ $account_type->args 		= array(
 
 // Inputs for Database Information fieldset
 $mysql_host 				= new JAAMSForms_Input('mysql_host');
+<<<<<<< HEAD
+$mysql_host->label 			= 'MySQL Host Location';
+=======
 $mysql_host->label 			= 'MySQL Host Location:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $mysql_host->type 			= JAAMSForms_InputTypes::radios;
 $mysql_host->args 			= array(
 	'default_value'		=> 'localhost',
@@ -172,7 +241,11 @@ $mysql_host->args 			= array(
 );
 
 $permissions 				= new JAAMSForms_Input('permissions');
+<<<<<<< HEAD
+$permissions->label 		= 'Your Permissions';
+=======
 $permissions->label 		= 'Your Permissions:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $permissions->type 			= JAAMSForms_InputTypes::radios;
 $permissions->args 			= array(
 	'default_value'		=> 'all',
@@ -184,7 +257,11 @@ $permissions->args 			= array(
 );
 
 $other_permissions			= new JAAMSForms_Input('other_permissions');
+<<<<<<< HEAD
+$other_permissions->label 	= 'Other';
+=======
 $other_permissions->label 	= 'Other:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $other_permissions->type 	= JAAMSForms_InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
@@ -203,7 +280,11 @@ $other_permissions->args 	= array(
 );
 
 $db_comments 				= new JAAMSForms_Input('db_comments');
+<<<<<<< HEAD
+$db_comments->label 		= 'Comments';
+=======
 $db_comments->label 		= 'Comments:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $db_comments->type 			= JAAMSForms_InputTypes::textarea;
 
 // Groups for Database Information fieldset
@@ -216,11 +297,19 @@ $db_permissions->inputs 	= array(
 
 // Inputs for Project Account Information fieldset
 $disk_quota 				= new JAAMSForms_Input('disk_quota');
+<<<<<<< HEAD
+$disk_quota->label 			= 'Disk Quota (in MB)';
+$disk_quota->type 			= JAAMSForms_InputTypes::text;
+
+$unix_shell 				= new JAAMSForms_Input('unix_shell');
+$unix_shell->label 			= 'Unix Shell';
+=======
 $disk_quota->label 			= 'Disk Quota (in MB):';
 $disk_quota->type 			= JAAMSForms_InputTypes::text;
 
 $unix_shell 				= new JAAMSForms_Input('unix_shell');
 $unix_shell->label 			= 'Unix Shell:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $unix_shell->type 			= JAAMSForms_InputTypes::select;
 $unix_shell->args 			= array(
 	'default_value'		=> 'csh',
@@ -234,13 +323,21 @@ $unix_shell->args 			= array(
 );
 
 $project_comments 			= new JAAMSForms_Input('project_comments');
+<<<<<<< HEAD
+$project_comments->label 	= 'Comments';
+=======
 $project_comments->label 	= 'Comments:';
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $project_comments->type 	= JAAMSForms_InputTypes::textarea;
 
 // Be careful when setting fieldsets, groups and inputs, that you don't overwrite
 // previously added elements.  See php array_merge.
 $info_fieldset->inputs		= array(
+<<<<<<< HEAD
+	'particpants' 		=> $particpants, 
+=======
 	'participants' 		=> $participants, 
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 	'advisor' 			=> $advisor,
 	'advisor_email'		=> $advisor_email,
 	'project_type'		=> $project_type,
@@ -256,8 +353,12 @@ $team_fieldset->groups 		= array('member_info' => $member_info);
 
 $account_fieldset->inputs 	= array('account_type' => $account_type);
 
+<<<<<<< HEAD
+$database_fieldset->inputs 	= array('mysql_host' => $mysql_host);
+=======
 $database_fieldset->inputs 	= array('mysql_host' => $mysql_host,
 									'db_comments' => $db_comments);
+>>>>>>> 46c725a158ad699bb64f05eae9e7b7dd6c3ea339
 $database_fieldset->groups 	= array('db_permissions' => $db_permissions);
 
 $project_fieldset->inputs 	= array(

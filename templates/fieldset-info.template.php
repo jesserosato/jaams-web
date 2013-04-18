@@ -7,10 +7,12 @@ extract($this->get_template_data());
 ?>
 <fieldset <?php echo $atts; ?> >
 	<legend><?php echo $label; ?></legend>
-	<?php foreach ( $groups as $group ) {
-		$group->print_html();
-	}
-	foreach ( $inputs as $input ) {
-		$input->print_html();
-	} ?>
+		<?php $inputs['participants']->print_html();
+			  $inputs['advisor']->print_html();
+			  $inputs['advisor_email']->print_html();
+			  $groups['semesters']->print_html();
+			  $inputs['project_type']->print_html();
+			  $groups['class']->print_html();
+			  $inputs['project_name']->print_html();
+		?>
 </fieldset>
