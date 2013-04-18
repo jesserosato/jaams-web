@@ -18,6 +18,8 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 		
 		</ul>
 	</div>
+	
+<?php }
 
 <?php } ?>
 <div class="inputs-container">	
@@ -118,7 +120,7 @@ switch ( $type ) {
 		
 <?php } // end switch ?>
 <<<<<<< HEAD
-</div>
+</div><!-- input-container -->
 =======
 </div><!-- input-container -->
 >>>>>>> Feature_FormsProcessing

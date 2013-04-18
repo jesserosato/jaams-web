@@ -19,8 +19,6 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 		</ul>
 	</div>
 	
-<?php }
-
 <?php } ?>
 <div class="inputs-container">	
 	
@@ -34,7 +32,7 @@ switch ( $type ) {
 	<?php break;	
 	case JAAMSForms_InputTypes::select : ?>	
 		
-		<label for="<?php echo $name; ?>"><?php echo $label;?></label>
+		<label for="<?php echo $name; ?>"><?php echo $label.": ";?></label>
 		<select name="<?php echo $name; ?>" <?php echo $atts; ?> >
 		
 			<?php if ( ! empty( $this->args['options'] ) ) 	{	
