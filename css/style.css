@@ -2,32 +2,124 @@
  *  CSS Styles
  *  TODO: Modularize
  */
-form {
-	width: 		80%;
-	margin:		20px auto;
+body {
+	font-family:		'Helvetica', sans-serif;
+	font-weight:		100;
+	vertical-align:		top;
 }
 
-fieldset {
-	display:	block;
-	margin:		inherit inherit 20px inherit;
+h2, h4, h6, h8 {
+	font-family:		'Times New Roman', serif;
+}
+ 
+form {
+	display:			block;
+	margin:				20px auto;
+}
+
+.col {
+	display: 			inline-block;
+	white-space: 		nowrap;
+	vertical-align:		top;
+}
+
+form > .col {
+	max-width:			48%;
+}
+
+/* Put border on column 2 because it probably has more stuff/is taller. */
+form > .col.num_2 {
+	border-left:		1px solid #CACACA;
+	padding-left:		20px;
+	margin-left:		20px;
+}
+
+.fieldset {
+	display:			block;
+	margin:				0 0 20px 0;
+	padding:			0 20px 12px 20px;
 }
 
 label,
 input,
 select {
-	display:	inline-block;
+	display:			inline-block;
+	vertical-align:		middle;
+	font-size:			105%;
+}
+
+textarea {
+	display:			inline-block;
+	min-height:			75px;
+	vertical-align:		top;
+	width: 				70%;
+	border: 			1px solid #CACACA;
+	font-size:			105%;
+}
+
+label {
+	width: 				50%;
+	white-space:		normal;
 }
 
 .input-container,
-.group-container, {
-	display:	block;
+.group-container {
+	display:			block;
+	padding:			10px 0;
+	border-bottom:		1px dotted #AAAAAA;
+}
+
+.group-container .input-container,
+.radio-container {
+	padding:			5px 0 10px 5px;
+	border-bottom:		none;
+}
+
+.group-container .input-container label {
+	margin-left:		-5px;
 }
 
 .error {
-	color:		maroon;
+	color:				maroon;
+}
+/* Make radios farther away from their labels */
+label + input[type="radio"] {
+	margin-left: 100px;
 }
 
+/* Make textareas less far away from their labels. */
+label + textarea {
+	margin-left: 		-30%;
+}
 
+/* Account fieldset */
+.account_fieldset label{
+	width: auto;
+}
 
+/* Other Permissions checkboxes */
+.other-permissions-container {
+	display: 			block;
+	padding-left: 		20px;
+}
 
+.other-permissions-container .col {
+	margin-right: 		20px;
+}
+
+.other-permissions-container label {
+	width:				120px;
+	font-size:			80%;
+}
+
+/* Select plus 'other' field groups */
+label[for="active_other"],
+label[for="class_no"] {
+	text-align: 		right;
+	font-size: 			80%;
+}
+
+input[name="class_no"] {
+	width: 50px;
+}
 

@@ -1,4 +1,5 @@
-<div class="group-container">
+<?php extract($data = $this->get_template_data()); ?>
+<div class="group-container <?php echo $name; ?>" >
 <?php
 // Print out the error message first.
 if ( !empty( $errors ) ) { ?>
@@ -15,9 +16,7 @@ if ( !empty( $errors ) ) { ?>
 		</ul>
 	</div>
 <?php } ?>
-
 <?php
-extract($data = $this->get_template_data());
 foreach( $inputs as $input ) {
 	$input->print_html();
 } ?>

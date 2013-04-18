@@ -6,11 +6,14 @@ require_once('init.php');
 // Load the Forms class (JAAMS_ROOT is defined in init.php above).
 require_once(JAAMS_ROOT . '/Forms/init.php');
 
+$template_dir_path = array('view'=>array(JAAMS_ROOT.'/templates'));
+
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
-$form						= new JAAMSForms_Form('my_form');
+$form						= new JAAMSForms_Form('my_form', $template_dir_path);
+$form->hierarchies['view']	= array('form');
 
 // Create Project Information fieldset
-$info_fieldset				= new JAAMSForms_Fieldset('info_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
+$info_fieldset				= new JAAMSForms_Fieldset('info_fieldset', $template_dir_path);
 $info_fieldset->label		= 'Project Information';
 $info_fieldset->hierarchies['view'] = array('fieldset', 'info');
 
@@ -24,7 +27,7 @@ $account_fieldset 			= new JAAMSForms_Fieldset('account_fieldset');
 $account_fieldset->label 	= 'Accounts To Create';
 
 // Create Database Information fieldset
-$database_fieldset 			= new JAAMSForms_Fieldset('database_fieldset', array('view'=>array(JAAMS_ROOT.'/templates')));
+$database_fieldset 			= new JAAMSForms_Fieldset('database_fieldset', $template_dir_path);
 $database_fieldset->label 	= 'Database Information';
 $database_fieldset->hierarchies['view'] = array('fieldset', 'database');
 
@@ -77,6 +80,7 @@ $active->args 				= array(
 $active_other				= new JAAMSForms_Input('active_other');
 $active_other->label 		= 'Other:';
 $active_other->type 		= JAAMSForms_InputTypes::text;
+$active_other->atts			= array('class' => "other");
 							
 $project_type 				= new JAAMSForms_Input('project_type');
 $project_type->label 		= 'Project Type:';
@@ -100,6 +104,8 @@ $dept->args 				= array(
 								
 $class_no 					= new JAAMSForms_Input('class_no');
 $class_no->type 			= JAAMSForms_InputTypes::text;
+$class_no->label			= 'Class #: ';
+$class_no->atts			= array('class' => "other");
 								
 $project_name 				= new JAAMSForms_Input('project_name');
 $project_name->label 		= 'Project Name:';
@@ -111,12 +117,14 @@ $semesters->inputs 			= array(
 	'active'			=> $active,
 	'active_other'		=> $active_other
 );
+$semesters->atts			= array('class' => "select-plus-other");
 								
 $class 						= new JAAMSForms_Group('class');
 $class->inputs				= array(
 	'dept'				=> $dept,
 	'class_no'			=> $class_no
 );
+$class->atts				= array('class' => "select-plus-other");
 
 // Inputs for Team Information fieldset
 $first_name 				= new JAAMSForms_Input('first_name');
@@ -183,12 +191,22 @@ $permissions->args 			= array(
 	)
 );
 
-$other_permissions			= new JAAMSForms_Input('other_permissions');
-$other_permissions->label 	= 'Other:';
+$other_permissions			= new JAAMSForms_Input('other_permissions', $template_dir_path);
+$other_permissions->label 	= '';
 $other_permissions->type 	= JAAMSForms_InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
-	'default_value'		=> array(false, 'insert', false, 'delete', 'select'),
+	'default_value'		=> array(
+		false, 
+		'insert', 
+		false, 
+		'delete', 
+		'select', 
+		false, 
+		false, 
+		'update', 
+		false
+	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
 		'insert'				=> 'INSERT',
@@ -200,6 +218,9 @@ $other_permissions->args 	= array(
 		'update'				=> 'UPDATE',
 		'references'			=> 'REFERENCES',
 	),
+);
+$other_permissions->hierarchies = array(
+	'view'	=>	array('input', 'other_permissions')
 );
 
 $db_comments 				= new JAAMSForms_Input('db_comments');
@@ -278,6 +299,8 @@ $form->fieldsets			= array(
 );
 
 $form->print_html();
+?>
+<?php
 /*
 if ( empty ( $_POST['first_form'] ) ) {
 	// Output the form

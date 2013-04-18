@@ -19,19 +19,15 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 		</ul>
 	</div>
 	
-<?php } ?>
-<div class="inputs-container">	
-	
-<?php
+<?php }
 switch ( $type ) {
 	case JAAMSForms_InputTypes::textarea : ?>
 		
-		<label for="<?php echo $name; ?>"><?php echo $this->label.": "?></label>
+		<label for="<?php echo $name; ?>"><?php echo $this->label; ?></label>
 		<textarea name="<?php echo $name; ?>" <?php echo $atts; ?> ><?php echo $value; ?></textarea>
 	
 	<?php break;	
 	case JAAMSForms_InputTypes::select : ?>	
-		
 		<label for="<?php echo $name; ?>"><?php echo $label;?></label>
 		<select name="<?php echo $name; ?>" <?php echo $atts; ?> >
 		
@@ -80,15 +76,16 @@ switch ( $type ) {
 		
 		<?php $i = 0;
 		foreach ( $args['options'] as $opt_value => $opt_label ) { ?>
-		
-			<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
-			<input
-				type="checkbox" 
-				name="<?php echo $name."[$i]"; ?>"
-				value="<?php echo $opt_value; ?>"
-				<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
-				<?php echo $atts; ?>
-			/>
+			<div class="checkbox-container">
+				<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
+				<input
+					type="checkbox" 
+					name="<?php echo $name."[$i]"; ?>"
+					value="<?php echo $opt_value; ?>"
+					<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
+					<?php echo $atts; ?>
+				/>
+			</div>
 			
 			<?php $i++;
 		}
@@ -98,16 +95,16 @@ switch ( $type ) {
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		<?php $i = 0;
 		foreach ($this->args['options'] as $opt_value => $opt_label ) { ?>
-		
-			<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
-			<input
-				type="radio"
-				name="<?php echo $name."[$i]"; ?>"
-				value="<?php echo $opt_value; ?>"
-				<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
-				<?php echo $atts; ?>
-			/>
-			
+			<div class="radio-container">
+				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
+				<input
+					type="radio"
+					name="<?php echo $name."[]"; ?>"
+					value="<?php echo $opt_value; ?>"
+					<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
+					<?php echo $atts; ?>
+				/>
+			</div>
 		<?php $i++;
 		}
 	break;

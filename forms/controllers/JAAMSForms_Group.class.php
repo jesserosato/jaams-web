@@ -6,6 +6,7 @@ class JAAMSForms_Group extends JAAMSForms_Base
 	// PROPERTIES
 	// - PROTECTED
 	protected $inputs					= array();
+	protected $atts						= array();
 	
 	// METHODS
 	// - PUBLIC
