@@ -7,14 +7,16 @@ form {
 	margin:		20px auto;
 }
 
+fieldset {
+	display:	block;
+	margin:		inherit inherit 20px inherit;
+}
 
 label,
 input,
 select {
 	display:	inline-block;
 }
-
-
 
 .input-container,
 .group-container, {

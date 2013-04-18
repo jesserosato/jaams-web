@@ -5,7 +5,7 @@
 // from functions scope.
 extract($this->get_template_data());
 ?>
-<fieldset <?php echo $atts; ?> >
+<div class="fieldset"><?php echo $atts; ?> >
 	<legend><?php echo $label; ?></legend>
 	<?php foreach ( $groups as $group ) {
 		$group->print_html();
@@ -13,4 +13,4 @@ extract($this->get_template_data());
 	foreach ( $inputs as $input ) {
 		$input->print_html();
 	} ?>
-</fieldset>
+</div>

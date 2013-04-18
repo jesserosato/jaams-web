@@ -32,7 +32,7 @@ switch ( $type ) {
 	<?php break;	
 	case JAAMSForms_InputTypes::select : ?>	
 		
-		<label for="<?php echo $name; ?>"><?php echo $label.": ";?></label>
+		<label for="<?php echo $name; ?>"><?php echo $label;?></label>
 		<select name="<?php echo $name; ?>" <?php echo $atts; ?> >
 		
 			<?php if ( ! empty( $this->args['options'] ) ) 	{	
