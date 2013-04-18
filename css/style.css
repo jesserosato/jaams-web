@@ -28,10 +28,10 @@ form > .col {
 }
 
 /* Put border on column 2 because it probably has more stuff/is taller. */
-form > .col.num_2 {
-	border-left:		1px solid #CACACA;
-	padding-left:		20px;
-	margin-left:		20px;
+form > .col.num_1 {
+	border-right:		1px solid #CACACA;
+	padding-right:		20px;
+	margin-right:		20px;
 }
 
 .fieldset {
@@ -84,7 +84,7 @@ label {
 }
 /* Make radios farther away from their labels */
 label + input[type="radio"] {
-	margin-left: 100px;
+	margin-left:		100px;
 }
 
 /* Make textareas less far away from their labels. */
@@ -93,8 +93,11 @@ label + textarea {
 }
 
 /* Account fieldset */
+.account_fieldset .input-container {
+	border-bottom:		none;
+}
 .account_fieldset label{
-	width: auto;
+	width:				auto;
 }
 
 /* Other Permissions checkboxes */
