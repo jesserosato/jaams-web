@@ -3,10 +3,10 @@
 require_once JAAMS_ROOT . '/core/JAAMSBase.class.php';
 
 // Define default template path.
-define('JAAMS_FORMS_VIEWS_DIR_PATH', dirname(__FILE__).'/default_templates');
-define('JAAMS_FORMS_MODELS_DIR_PATH', dirname(__FILE__).'/models');
+define('JAAMS_FORMS_VIEWS_DIR_PATH', JAAMS_FORMS_ROOT.'/default_templates');
+define('JAAMS_FORMS_MODELS_DIR_PATH', JAAMS_FORMS_ROOT.'/models');
 
-class JAAMSForms_Base extends JAAMSController {
+class JAAMSForms_Base extends JAAMSBase {
 	// PROPERTIES
 	// - PUBLIC
 	// - PROTECTED
@@ -77,7 +77,6 @@ class JAAMSForms_Base extends JAAMSController {
 	 *
 	 */
 	public function validate() {
-		
 	}
 	
 	/**
@@ -99,14 +98,15 @@ class JAAMSForms_Base extends JAAMSController {
 			 $data[$key] = $this->$key;
 		 }
 		 // Attributes get converted to HTML strings.
-		 $data['atts'] = array();
-		 // - Name
-		 $data['atts'][] = 'name="' . $data['name'] . '"';
-		 foreach( $this->atts as $att => $val ) {
-			 $data['atts'][] = $att . '="' . $val . '"';
+		 if ( empty ( $this->atts ) ) {
+		 	$data['atts'] = '';
+		 } else {
+		 	$data['atts'] = array();
+			foreach( $this->atts as $att => $val ) {
+				$data['atts'][] = $att . '="' . $val . '"';
+			}
+			$data['atts'] = implode(' ', $data['atts']);
 		 }
-		 $data['atts'] = implode(' ', $data['atts']);
-		 
 		 return $data;
 	 }
 	 
