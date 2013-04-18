@@ -15,6 +15,10 @@ class JAAMSForms_InputTypes {
 	const radios		= 7;
 }
 
+class JAAMSForms_InputValidators {
+	// TODO: build default validation functions that are statically callable.	
+}
+
 class JAAMSForms_Input extends JAAMSForms_Base
 {
 	// PROPERTIES
@@ -42,6 +46,39 @@ class JAAMSForms_Input extends JAAMSForms_Base
 		);
 		
 	}
+	
+	public function sanitize() {
+	}
+	
+	/**
+	 * Validate an input's data, set appropriate error.
+	 *
+	 * @return bool
+	 *
+	 */
+	public function validate( ) {
+		
+		if ( empty( $this->args['validator'] ) )
+			return true;
+			
+		$validator = $this->args['validator'];
+		if ( is_array( $validator ) ) {
+			foreach ( $validator as $function ) {
+				if ( ! $this->_validate( $function ) ) {
+					$this->errors[$function] = true;
+				}
+			}
+		} else {
+			if ( ! $this->_validate( $validator ) ) {
+				$this->errors[$validator] = true;
+			}
+		}
+		
+		return empty( $this->errors );
+	}
 	 
 	// - PROTECTED
+	protected function _validate( $function ) {
+		// TODO: Switch statment.
+	}
 }

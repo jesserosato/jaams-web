@@ -1,0 +1,31 @@
+/**
+ *  CSS Styles
+ *  TODO: Modularize
+ */
+form {
+	width: 		80%;
+	margin:		20px auto;
+}
+
+
+label,
+input,
+select {
+	display:	inline-block;
+}
+
+
+
+.input-container,
+.group-container, {
+	display:	block;
+}
+
+.error {
+	color:		maroon;
+}
+
+
+
+
+
