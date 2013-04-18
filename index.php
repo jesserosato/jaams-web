@@ -151,7 +151,6 @@ $member_info->inputs 		= array(
 	'last_name' 		=> $last_name,
 	'email'				=> $email,
 	'phone_number'		=> $phone_number,
-	'project_name'		=> $project_name
 );
 
 // Inputs for Accounts to Create fieldset
@@ -168,15 +167,17 @@ $account_type->args 		= array(
 );
 
 // Inputs for Database Information fieldset
+$mysql_host_desc			= '<p class="info">* Localhost: Must be logged into assigned MySQL server - i.e. athena<br />** % (Any Host): Must use -h <server name> - i.e. -h athena; commonly used for web applications</p>';
 $mysql_host 				= new JAAMSForms_Input('mysql_host');
 $mysql_host->label 			= 'MySQL Host Location:';
 $mysql_host->type 			= JAAMSForms_InputTypes::radios;
 $mysql_host->args 			= array(
-	'default_value'		=> 'localhost',
+	'default_value'		=> 'any',
 	'options'			=> array(
 		'localhost'				=> 'localhost *',
 		'any'					=>	'% (any host) **',
-	)
+	),
+	'desc'				=> $mysql_host_desc
 );
 
 $permissions 				= new JAAMSForms_Input('permissions');
@@ -197,15 +198,15 @@ $other_permissions->type 	= JAAMSForms_InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
 	'default_value'		=> array(
-		false, 
+		'alter', 
 		'insert', 
-		false, 
+		'create', 
 		'delete', 
 		'select', 
-		false, 
-		false, 
+		'drop', 
+		'index', 
 		'update', 
-		false
+		'references'
 	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
@@ -258,6 +259,11 @@ $project_comments 			= new JAAMSForms_Input('project_comments');
 $project_comments->label 	= 'Comments:';
 $project_comments->type 	= JAAMSForms_InputTypes::textarea;
 
+$submit						= new JAAMSForms_Input('submit');
+$submit->label				= 'Submit';
+$submit->type				= JAAMSForms_InputTypes::submit;
+
+
 // Be careful when setting fieldsets, groups and inputs, that you don't overwrite
 // previously added elements.  See php array_merge.
 $info_fieldset->inputs		= array(
@@ -297,6 +303,8 @@ $form->fieldsets			= array(
 	'database_fieldset'	=> $database_fieldset,
 	'project_fieldset'	=> $project_fieldset
 );
+
+$form->inputs			= array('submit' => $submit);
 
 $form->print_html();
 ?>

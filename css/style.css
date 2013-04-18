@@ -123,6 +123,18 @@ label[for="class_no"] {
 }
 
 input[name="class_no"] {
-	width: 50px;
+	width:				50px;
+}
+
+/* Input descriptions */
+.info {
+	font-size:			90%;
+}
+
+/* Submit button */
+.col + .input-container {
+	margin-left:		20px;
+	border-bottom:		none;
+	
 }
 

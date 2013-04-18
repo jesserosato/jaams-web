@@ -4,7 +4,7 @@ extract($this->get_template_data());
 $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
 // Print out the error message first.
 ?>
-<div class="input-container">
+<div class="input-container <?php echo $name; ?>">
 <?php if ( !empty( $errors ) ) { ?>
 
 	<div class="error">
@@ -114,4 +114,5 @@ switch ( $type ) {
 		<input type="text" name="<?php echo $name; ?>" value="<?php echo $value; ?>" <?php echo $atts; ?> />
 		
 <?php } // end switch ?>
+	<?php echo empty( $args['desc'] ) ? '' : $args['desc']; ?>
 </div><!-- input-container -->
