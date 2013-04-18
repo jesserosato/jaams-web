@@ -5,10 +5,11 @@
 // from functions scope.
 extract($this->get_template_data());
 ?>
-<fieldset <?php echo $atts; ?> >
-	<legend><?php echo $label; ?></legend>
-		<?php $inputs['mysql_host']->print_html();
-			  $groups['db_permissions']->print_html();
-			  $inputs['db_comments']->print_html();
-		?>
-</fieldset>
+<div class="fieldset" <?php echo $atts; ?> >
+	<h4 class="legend"><?php echo $label; ?></h4>
+	<?php 
+		$inputs['mysql_host']->print_html();
+		$groups['db_permissions']->print_html();
+		$inputs['db_comments']->print_html();
+	?>
+</div>

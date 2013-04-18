@@ -5,8 +5,8 @@
 // from functions scope.
 extract($this->get_template_data());
 ?>
-<div class="fieldset"><?php echo $atts; ?> >
-	<legend><?php echo $label; ?></legend>
+<div class="fieldset" <?php echo $atts; ?> >
+	<h4 class="legend"><?php echo $label; ?></h4>
 	<?php foreach ( $groups as $group ) {
 		$group->print_html();
 	}

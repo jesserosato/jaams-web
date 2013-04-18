@@ -5,14 +5,15 @@
 // from functions scope.
 extract($this->get_template_data());
 ?>
-<fieldset <?php echo $atts; ?> >
-	<legend><?php echo $label; ?></legend>
-		<?php $inputs['participants']->print_html();
-			  $inputs['advisor']->print_html();
-			  $inputs['advisor_email']->print_html();
-			  $groups['semesters']->print_html();
-			  $inputs['project_type']->print_html();
-			  $groups['class']->print_html();
-			  $inputs['project_name']->print_html();
+<div class="fieldset" <?php echo $atts; ?> >
+	<h4 class="legend"><?php echo $label; ?></h4>
+		<?php
+			$inputs['participants']->print_html();
+			$inputs['advisor']->print_html();
+			$inputs['advisor_email']->print_html();
+			$groups['semesters']->print_html();
+			$inputs['project_type']->print_html();
+			$groups['class']->print_html();
+			$inputs['project_name']->print_html();
 		?>
-</fieldset>
+</div>
