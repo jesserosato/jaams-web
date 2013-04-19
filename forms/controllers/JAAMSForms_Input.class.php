@@ -24,8 +24,6 @@ class JAAMSForms_InputValidators {
 		return filter_var( $this->data['donor']['email'], FILTER_VALIDATE_EMAIL );
 	}
 	
-	public static function 
-	
 	/**
 	 * Compare two values, return true if they are not EXACTLY (type too) equal.
 	 *
