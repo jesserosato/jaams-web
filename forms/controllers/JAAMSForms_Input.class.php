@@ -16,7 +16,24 @@ class JAAMSForms_InputTypes {
 }
 
 class JAAMSForms_InputValidators {
-	// TODO: build default validation functions that are statically callable.	
+	// TODO: build default, BOOLEAN-RETURNING validation functions that are statically callable.
+	public static function email( $email ) {
+		// filter_var is a cool php function that lets you easily check a variable
+		// against any one of a bunch of a predefined constants.
+		// google filter_var php for more info (duh).
+		return filter_var( $this->data['donor']['email'], FILTER_VALIDATE_EMAIL );
+	}
+	
+	public static function 
+	
+	/**
+	 * Compare two values, return true if they are not EXACTLY (type too) equal.
+	 *
+	 * 
+	 */
+	public static function not( $value, $not ) {
+		return ! $value === $not;
+	}
 }
 
 class JAAMSForms_Input extends JAAMSForms_Base
@@ -79,6 +96,19 @@ class JAAMSForms_Input extends JAAMSForms_Base
 	 
 	// - PROTECTED
 	protected function _validate( $function ) {
-		// TODO: Switch statment.
+		switch ( $function ) {
+			case 'email':
+				// Simple example.
+				return JAAMSForms_InputValidators::email( $this->value );
+			case 'not_default':
+				// More complicated example.
+				// If no default value is provided, the element is ok if the value's not empty.
+				if ( empty( $this->args['default_value'] ) )
+					return ! empty( $this->value );
+				// Otherwise, just make sure the user's value and the default value are different.
+				return JAAMSForms_InputValidators::not( $this->value, $this->args['default_value']);
+			default:
+				
+		}
 	}
 }
