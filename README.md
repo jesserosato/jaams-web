@@ -38,6 +38,11 @@ Documentation
 **TODO:
 ---------------------------------------
 - Database interactions			- Jesse.
-- JAAMSForms_InputValidators	- Anthony
-- Javascript					- Jesse
-- Error messages				- Anthony + Adrian
+TODO:
+- Validators - Adrian and Anthony
+- Set proper default values for all inputs (Check client's notes) - Adrian and Anthony
+- Add inputs that will be hidden/revealed by JS. - Adrian and Anthony
+- Define (and use in templates) error messages. - Adrian and Anthony
+- Javascript. - Jesse
+- Build database connection layer. - Jesse
+
