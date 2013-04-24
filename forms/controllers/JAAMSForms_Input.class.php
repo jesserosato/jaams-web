@@ -62,7 +62,25 @@ class JAAMSForms_Input extends JAAMSForms_Base
 		
 	}
 	
-	public function sanitize() {
+	/**
+	 * Get raw data.
+	 *
+	 */
+	public function set_raw_value ( $data_global = '_POST' ) {
+		if ( ! empty( $$data_global[$this->name] ) ) {
+			$this->value = $$data_global[$this->name];
+		}
+	}
+	
+	/**
+	 * Make raw data safe for HTML display
+	 */
+	public function sanitize( $data_global = '_POST' ) {
+		if ( empty( $this->value ) )
+			$this->set_raw_value( $data_global );
+		// Set the filter flag to sanitize appropriately.
+		$flag = preg_match('/email/i', $this->name) ? FILTER_SANITIZE_EMAIL : FILTER_SANITIZE_STRING;
+		$this->value = filter_var(trim($this->value), $flag);
 	}
 	
 	/**

@@ -12,8 +12,6 @@ class JAAMSForms_Form extends JAAMSForms_Base
 	protected $atts						= array(
 		'method'		=> 'post',
 		'action'		=> '',
-		'enctype'		=> 'text/plain',
-		'autocomplete'	=> 'on',
 	);
 	
 	
@@ -34,5 +32,77 @@ class JAAMSForms_Form extends JAAMSForms_Base
 			'view'		=> array('default', 'form'),
 		);
 	}
+	
+	/**
+	 * Get raw data.
+	 *
+	 */
+	public function set_raw_values() {
+		$data_global = $this->_data_global_name();
+		foreach ( $this->fieldsets as &$fieldset ) {
+			$fieldset->set_raw_values($data_global);
+		}
+		foreach ( $this->groups as &$group ) {
+			$group->set_raw_values($data_global);
+		}
+		foreach ( $this->inputs as &$input ) {
+			$input->set_raw_value($data_global);
+		}
+	}
+	
+	/**
+	 * Make raw data safe for HTML display
+	 */
+	public function sanitize() {
+		$data_global = $this->_data_global_name();
+		foreach ( $this->fieldsets as &$fieldset ) {
+			$fieldset->sanitize($data_global);
+		}
+		foreach ( $this->groups as &$group ) {
+			$group->sanitize($data_global);
+		}
+		foreach ( $this->inputs as &$input ) {
+			$input->sanitize($data_global);
+		}
+	}
+	
+	/**
+	 * Validate a form's data, set appropriate errors.
+	 *
+	 * @return bool
+	 *
+	 */
+	 public function validate() {
+		 foreach ( $this->fieldsets as &$fieldset ) {
+			 $fieldset->validate();
+			 if ( ! empty ( $fieldset->errors ) ) {
+				 $this->errors[$fieldset->name] = $fieldset->errors;
+			 }
+		 }
+		 foreach ( $this->groups as &$group ) {
+			 $group->validate();
+			 if ( ! empty ( $group->errors ) ) {
+				 $this->errors[$group->name] = $group->errors;
+			 }
+		 }
+		 foreach ( $this->inputs as &$input ) {
+			 $input->validate();
+			 if ( ! empty ( $input->errors ) ) {
+				 $this->errors[$input->name] = $input->errors;
+			 }
+		 }
+		 return empty ( $this->errors );
+		 
+	 }
+	 
+	 // - PROTECTED
+	 
+	 /**
+	  * Return the name of the global data array or object containing the form data.
+	  *
+	  */
+	 protected function _data_global_name() {
+		 return empty($this->atts['method']) ? '_POST' : '_'.strtoupper($this->atts['method']);
+	 }
 }
 		

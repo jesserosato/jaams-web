@@ -25,6 +25,48 @@ class JAAMSForms_Group extends JAAMSForms_Base
 			'view'		=> array('default', 'group'),
 		);
 	}
+	
+	/**
+	 * Get raw data.
+	 *
+	 * @param $data_global String String containing the name of a global variable containing data.
+	 *
+	 */
+	public function set_raw_values( $data_global = '_POST' ) {
+		foreach ( $this->inputs as &$input ) {
+			$input->set_raw_value($data_global);
+		}
+	 }
+	 
+	 /**
+	 * Make raw data safe for HTML display
+	 *
+	 * @param $data_global String String containing the name of a global variable containing data.
+	 *
+	 */
+	public function sanitize( $data_global = '_POST' ) {
+		foreach ( $this->inputs as &$input ) {
+			$input->sanitize( $data_global );
+		}
+	}
+	
+	/**
+	 * Validate a fieldset's data, set appropriate errors.
+	 *
+	 * @return bool
+	 *
+	 */
+	 public function validate() {
+		 foreach ( $this->inputs as &$input ) {
+			 $input->validate();
+			 if ( ! empty ( $input->errors ) ) {
+				 $this->errors[$input->name] = $input->errors;
+			 }
+		 }
+		 
+		 return empty ( $this->errors );
+		 
+	 }
 	 
 	// - PROTECTED
 }

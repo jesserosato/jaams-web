@@ -6,11 +6,12 @@ require_once('init.php');
 // Load the Forms class (JAAMS_ROOT is defined in init.php above).
 require_once(JAAMS_ROOT . '/Forms/init.php');
 
-$template_dir_path = array('view'=>array(JAAMS_ROOT.'/templates'));
+$template_dir_path = array('view'=>array(JAAMS_ROOT.'/application/templates'));
 
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form						= new JAAMSForms_Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
+$form->atts['action']		= $_SERVER['PHP_SELF'];
 
 // Create Project Information fieldset
 $info_fieldset				= new JAAMSForms_Fieldset('info_fieldset', $template_dir_path);
@@ -63,6 +64,7 @@ $advisor->type 				= JAAMSForms_InputTypes::text;
 $advisor_email				= new JAAMSForms_Input('advisor_email');
 $advisor_email->label 		= 'Project Advisor Email Address:';
 $advisor_email->type 		= JAAMSForms_InputTypes::text;
+$advisor_email->args['validator'] = 'email';
 							
 $active						= new JAAMSForms_Input('active');
 $active->label 				= 'How long will the Account be active?';
@@ -106,6 +108,11 @@ $class_no 					= new JAAMSForms_Input('class_no');
 $class_no->type 			= JAAMSForms_InputTypes::text;
 $class_no->label			= 'Class #: ';
 $class_no->atts			= array('class' => "other");
+
+$major						= new JAAMSForms_Input('major');
+$major->label				= 'Major:';
+$major->type				= JAAMSForms_InputTypes::text;
+$major->atts['style']		= 'display:none;';
 								
 $project_name 				= new JAAMSForms_Input('project_name');
 $project_name->label 		= 'Project Name:';
@@ -259,7 +266,7 @@ $project_comments 			= new JAAMSForms_Input('project_comments');
 $project_comments->label 	= 'Comments:';
 $project_comments->type 	= JAAMSForms_InputTypes::textarea;
 
-$submit						= new JAAMSForms_Input('submit');
+$submit						= new JAAMSForms_Input('ecs_submit');
 $submit->label				= 'Submit';
 $submit->type				= JAAMSForms_InputTypes::submit;
 
@@ -304,25 +311,25 @@ $form->fieldsets			= array(
 	'project_fieldset'	=> $project_fieldset
 );
 
-$form->inputs			= array('submit' => $submit);
+$form->inputs			= array('ecs_submit' => $submit);
 
-$form->print_html();
 ?>
 <?php
-/*
-if ( empty ( $_POST['first_form'] ) ) {
+if ( empty ( $_POST['ecs_submit'] ) ) {
 	// Output the form
 	$form->print_html();
 } else {
 	$form->sanitize();
 	if ( $form->validate() ) {
+		/*
 		if ( $form->save() ) {
 			//display success
 		} else {
 			$form->errors('database' => 'Unable to save data');
+			// display error
 		}
+		*/
 	} else {
 		$form->print_html();
 	}
 }
-*/

@@ -10,9 +10,9 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 	<div class="error">
 		<ul>
 		
-		<?php foreach ( $errors as $error ) { ?>
+		<?php foreach ( $errors as $err_type => $error ) { ?>
 		
-			<li class="error"><?php echo $error; ?></li>
+			<li class="error">Error of type "<?php echo $err_type; ?>".</li>
 			
 		<?php } ?>
 		
