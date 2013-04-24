@@ -7,7 +7,10 @@ extract($this->get_template_data());
 ?>
 <div class="fieldset <?php echo $name; ?>" <?php echo $atts; ?> >
 	<h3 class="legend"><?php echo $label; ?></h3>
-	<?php foreach ( $groups as $group ) {
+	<?php foreach ( $fieldsets as $fieldset ) {
+		$fieldset->print_html();
+	}
+	foreach ( $groups as $group ) {
 		$group->print_html();
 	}
 	foreach ( $inputs as $input ) {

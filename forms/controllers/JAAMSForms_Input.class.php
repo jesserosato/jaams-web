@@ -20,8 +20,8 @@ class JAAMSForms_InputValidators {
 	public static function email( $email ) {
 		// filter_var is a cool php function that lets you easily check a variable
 		// against any one of a bunch of a predefined constants.
-		// google filter_var php for more info (duh).
-		return filter_var( $this->data['donor']['email'], FILTER_VALIDATE_EMAIL );
+		// google filter_var php for more info (duh). 
+		return filter_var( $email, FILTER_VALIDATE_EMAIL );
 	}
 	
 	/**

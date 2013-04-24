@@ -6,6 +6,7 @@ class JAAMSForms_Fieldset extends JAAMSForms_Base
 	// PROPERTIES
 	// - PROTECTED
 	protected $groups					= array();
+	protected $fieldsets				= array();
 	protected $inputs					= array();
 	protected $atts						= array();
 	
