@@ -32,7 +32,7 @@ class JAAMSForms_Group extends JAAMSForms_Base
 	 * @param $data_global String String containing the name of a global variable containing data.
 	 *
 	 */
-	public function set_raw_values( $data_global = '_POST' ) {
+	public function set_raw_values( $data_global = 'POST' ) {
 		foreach ( $this->inputs as &$input ) {
 			$input->set_raw_value($data_global);
 		}
@@ -44,7 +44,7 @@ class JAAMSForms_Group extends JAAMSForms_Base
 	 * @param $data_global String String containing the name of a global variable containing data.
 	 *
 	 */
-	public function sanitize( $data_global = '_POST' ) {
+	public function sanitize( $data_global = 'POST' ) {
 		foreach ( $this->inputs as &$input ) {
 			$input->sanitize( $data_global );
 		}

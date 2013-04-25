@@ -321,6 +321,7 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 } else {
 	$form->sanitize();
 	if ( $form->validate() ) {
+		echo '<h1>Thank you!</h1>';
 		/*
 		if ( $form->save() ) {
 			//display success

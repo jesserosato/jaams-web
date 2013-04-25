@@ -30,12 +30,6 @@ class JAAMSDebugger
 	}
 	
 	function __destruct() {
-		// Write messages when object leaves scope.
-		foreach( $this->msgs as $key => $msg ) {
-			$msg = "[" . $key . "] " . $msg . "\n";
-			if ( !fwrite( $this->file, $msg ) )
-				throw new Exception("Error writing to file (" . $this->path . ").");
-		}
 		fclose($this->file);
 	}
 	
@@ -45,7 +39,11 @@ class JAAMSDebugger
 		
 		if ( !is_string( $data ) )
 			throw new Exception("Function JAAMSDebugger::debug_log() requires string or array parameter.");
-		 
-		$this->msgs[date('Y-m-d H:i')] = $data;
+		$timestamp = date('Y-m-d H:i');
+		$this->msgs[$timestamp] = $data;
+		$msg = "[" . $timestamp . "] " . $data . "\n";
+		if ( !fwrite( $this->file, $msg ) )
+			throw new Exception("Error writing to file (" . $this->path . ").");
+		
 	}
 }

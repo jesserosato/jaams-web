@@ -6,7 +6,6 @@ class JAAMSForms_Model extends JAAMSBase_Model {
 	// PROPERTIES
 	// - PROTECTED
 	protected $_controller;
-	protected $data = array();
 	
 	// METHODS
 	// - PUBLIC
@@ -18,13 +17,6 @@ class JAAMSForms_Model extends JAAMSBase_Model {
 	 */
 	public function __construct( JAAMSBase $controller ) {
 		$this->_controller	= $controller;
-		$this->data			= $this->get_data();
-	}
-	
-	public function get_data( $reset = false) {
-		if ( ! empty( $this->data ) && ! $reset )
-			return $this->data;
-		
 	}
 	// - PROTECTED
 }

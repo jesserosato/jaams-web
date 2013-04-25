@@ -102,7 +102,7 @@ class JAAMSForms_Form extends JAAMSForms_Base
 	  *
 	  */
 	 protected function _data_global_name() {
-		 return empty($this->atts['method']) ? '_POST' : '_'.strtoupper($this->atts['method']);
+		 return empty($this->atts['method']) ? 'POST' : strtoupper($this->atts['method']);
 	 }
 }
 		

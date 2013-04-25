@@ -34,7 +34,7 @@ class JAAMSForms_Base extends JAAMSBase {
 		if ( empty( $dir_paths['model'] ) || ! is_array($dir_paths['model'] ) ) {
 			$dir_paths['model']	= array(JAAMS_FORMS_MODELS_DIR_PATH);
 		} else {
-			array_push($dir_paths['view'], JAAMS_FORMS_MODELS_DIR_PATH);
+			array_push($dir_paths['model'], JAAMS_FORMS_MODELS_DIR_PATH);
 		}
 		// Instantiate parent.
 		parent::__construct($dir_paths);
@@ -109,7 +109,5 @@ class JAAMSForms_Base extends JAAMSBase {
 		 }
 		 return $data;
 	 }
-	 
-	// - PROTECTED
 }
 		

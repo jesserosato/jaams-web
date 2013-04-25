@@ -4,7 +4,6 @@ extract($this->get_template_data());
 $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
 // Print out the error message first.
 if ( ! empty( $errors ) ) { ?>
-
 	<div class="error">
 		<h3>Uh-oh!  There're some problems with your entry...</h3>
 	</div>

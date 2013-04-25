@@ -21,7 +21,7 @@ class JAAMSForms_InputValidators {
 		// filter_var is a cool php function that lets you easily check a variable
 		// against any one of a bunch of a predefined constants.
 		// google filter_var php for more info (duh). 
-		return filter_var( $email, FILTER_VALIDATE_EMAIL );
+		return ( bool ) filter_var( $email, FILTER_VALIDATE_EMAIL );
 	}
 	
 	/**
@@ -66,21 +66,22 @@ class JAAMSForms_Input extends JAAMSForms_Base
 	 * Get raw data.
 	 *
 	 */
-	public function set_raw_value ( $data_global = '_POST' ) {
-		if ( ! empty( $$data_global[$this->name] ) ) {
-			$this->value = $$data_global[$this->name];
+	public function set_raw_value ( $data_global = 'POST' ) {
+		$data = $this->_get_raw( $data_global, $this->name );
+		if ( $data ) {
+			$this->value = $data;
 		}
 	}
 	
 	/**
 	 * Make raw data safe for HTML display
 	 */
-	public function sanitize( $data_global = '_POST' ) {
+	public function sanitize( $data_global = 'POST' ) {
 		if ( empty( $this->value ) )
 			$this->set_raw_value( $data_global );
 		// Set the filter flag to sanitize appropriately.
 		$flag = preg_match('/email/i', $this->name) ? FILTER_SANITIZE_EMAIL : FILTER_SANITIZE_STRING;
-		$this->value = filter_var(trim($this->value), $flag);
+		$this->value = filter_var($this->value, $flag);
 	}
 	
 	/**
@@ -102,6 +103,7 @@ class JAAMSForms_Input extends JAAMSForms_Base
 				}
 			}
 		} else {
+			// We only want to set anything at all here if there is an error.
 			if ( ! $this->_validate( $validator ) ) {
 				$this->errors[$validator] = true;
 			}
@@ -125,6 +127,17 @@ class JAAMSForms_Input extends JAAMSForms_Base
 				return JAAMSForms_InputValidators::not( $this->value, $this->args['default_value']);
 			default:
 				
+		}
+	}
+	
+	protected function _get_raw( $superglobal, $key ) {
+		$superglobal = trim(strtoupper($superglobal));
+		switch ( $superglobal ) {
+			case 'POST' :
+				return empty($_POST[$key]) ? false : $_POST[$key];
+			break;
+			case 'GET' :
+				return empty($_GET[$key]) ? false : $_GET[$key];
 		}
 	}
 }

@@ -25,6 +25,7 @@ class JAAMSBase {
 		'view'	=> '-',
 		'model'	=> '-'
 	);
+	protected $debugger				= null;
 	// - PRIVATE
 	private $_indices				= array(
 		'view'	=> -1,
@@ -60,6 +61,10 @@ class JAAMSBase {
 		// We don't have a default view directory, make sure the user passes one.
 		if ( $this->_indices['view'] < 0 )
 			throw new Exception('JAAMSBase expects at least one path to a readable view directory.');
+		// If JAAMS_DEBUG is defined and true, set the debugger.
+		if ( defined('JAAMS_DEBUG') && JAAMS_DEBUG ) {
+			$this->debugger = new JAAMSDebugger(JAAMS_DEBUGGER_LOG);
+		}
 	}
 	
 	/**
@@ -72,12 +77,15 @@ class JAAMSBase {
 	 *
 	 */
 	public function __set ( $property , $value ) {
-		// For loose coupling, let the model be set directly, as otherwise
-		// we would need to know something about its type.
-		if ( $property === 'model' ) {
-			$this->model = $value;
+		// For loose coupling, let the model and debugger be set directly, as otherwise
+		// we would need to know something about their types.
+		$direct = array('model', 'debugger');
+		if ( in_array( $property, $direct ) ) {
+			$this->$property = $value;
 			return;
 		}
+		// Otherwise, use the class defaults to make sure the value being passed is the same
+		// type as the default.
 		$defaults = get_class_vars(get_class($this));
 		// Make sure the new value is of the same type as the default value.
 		if ( gettype( $value ) != gettype( $defaults[$property] ) )

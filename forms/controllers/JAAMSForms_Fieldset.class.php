@@ -33,7 +33,7 @@ class JAAMSForms_Fieldset extends JAAMSForms_Base
 	 *
 	 * @param $data_global String String containing the name of a global variable containing foreachable data structure.
 	 */
-	public function set_raw_values ( $data_global = '_POST' ) {
+	public function set_raw_values ( $data_global = 'POST' ) {
 		foreach ( $this->fieldsets as &$fieldset ) {
 			$fieldset->set_raw_values($data_global);
 		}
@@ -50,7 +50,7 @@ class JAAMSForms_Fieldset extends JAAMSForms_Base
 	 *
 	 * @param $data_global String String containing the name of a global variable containing data.
 	 */
-	public function sanitize( $data_global = '_POST' ) {
+	public function sanitize( $data_global = 'POST' ) {
 		foreach ( $this->fieldsets as &$fieldset ) {
 			$fieldset->sanitize($data_global);
 		}
