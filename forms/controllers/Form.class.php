@@ -1,8 +1,8 @@
 <?php
-// No autoloading for PHP4 compatibility
-require_once 'JAAMSForms_Base.class.php';
+namespace Forms;
+require_once 'Base.class.php';
 
-class JAAMSForms_Form extends JAAMSForms_Base
+class Form extends Base
 {
 	// PROPERTIES
 	// - PROTECTED
@@ -25,7 +25,7 @@ class JAAMSForms_Form extends JAAMSForms_Base
 	 *
 	 */
 	public function __construct( $name, array $dir_paths = array() ) {
-		// Instantiate JAAMSForms_Base parent.
+		// Instantiate Base parent.
 		parent::__construct($name, $dir_paths);
 		// Set the template hierarchy.
 		$this->hierarchies = array(

@@ -1,12 +1,11 @@
 <?php
-require_once 'JAAMSForms_Base.class.php';
+namespace Forms;
+require_once 'Base.class.php';
 
-class JAAMSForms_Fieldset extends JAAMSForms_Base
+class Group extends Base
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $fieldsets				= array();
-	protected $groups					= array();
 	protected $inputs					= array();
 	protected $atts						= array();
 	
@@ -24,41 +23,31 @@ class JAAMSForms_Fieldset extends JAAMSForms_Base
 		// Instantiate JAAMSTemplatable parent.
 		parent::__construct($name, $dir_paths);
 		$this->hierarchies = array(
-			'view'		=> array('default', 'fieldset'),
+			'view'		=> array('default', 'group'),
 		);
 	}
 	
 	/**
 	 * Get raw data.
 	 *
-	 * @param $data_global String String containing the name of a global variable containing foreachable data structure.
+	 * @param $data_global String String containing the name of a global variable containing data.
+	 *
 	 */
-	public function set_raw_values ( $data_global = 'POST' ) {
-		foreach ( $this->fieldsets as &$fieldset ) {
-			$fieldset->set_raw_values($data_global);
-		}
-		foreach ( $this->groups as &$group ) {
-			$group->set_raw_values($data_global);
-		}
+	public function set_raw_values( $data_global = 'POST' ) {
 		foreach ( $this->inputs as &$input ) {
 			$input->set_raw_value($data_global);
 		}
-	}
-	
-	/**
+	 }
+	 
+	 /**
 	 * Make raw data safe for HTML display
 	 *
 	 * @param $data_global String String containing the name of a global variable containing data.
+	 *
 	 */
 	public function sanitize( $data_global = 'POST' ) {
-		foreach ( $this->fieldsets as &$fieldset ) {
-			$fieldset->sanitize($data_global);
-		}
-		foreach ( $this->groups as &$group ) {
-			$group->sanitize($data_global);
-		}
 		foreach ( $this->inputs as &$input ) {
-			$input->sanitize($data_global);
+			$input->sanitize( $data_global );
 		}
 	}
 	
@@ -69,27 +58,17 @@ class JAAMSForms_Fieldset extends JAAMSForms_Base
 	 *
 	 */
 	 public function validate() {
-		 foreach ( $this->fieldsets as &$fieldset ) {
-			 $fieldset->validate();
-			 if ( ! empty ( $fieldset->errors ) ) {
-				 $this->errors[$fieldset->name] = $fieldset->errors;
-			 }
-		 }
-		 foreach ( $this->groups as &$group ) {
-			 $group->validate();
-			 if ( ! empty ( $group->errors ) ) {
-				 $this->errors[$group->name] = $group->errors;
-			 }
-		 }
 		 foreach ( $this->inputs as &$input ) {
 			 $input->validate();
 			 if ( ! empty ( $input->errors ) ) {
 				 $this->errors[$input->name] = $input->errors;
 			 }
 		 }
+		 
 		 return empty ( $this->errors );
 		 
 	 }
 	 
 	// - PROTECTED
 }
+		

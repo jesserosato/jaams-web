@@ -1,10 +1,11 @@
 <?php
-require_once 'JAAMSForms_Base.class.php';
+namespace Forms;
+require_once 'Base.class.php';
 
 /**
  * A sort of enum to describe input types.
  */
-class JAAMSForms_InputTypes {
+class InputTypes {
 	const text			= 0;
 	const textarea		= 1;
 	const select		= 2;
@@ -15,7 +16,7 @@ class JAAMSForms_InputTypes {
 	const radios		= 7;
 }
 
-class JAAMSForms_InputValidators {
+class InputValidators {
 	// TODO: build default, BOOLEAN-RETURNING validation functions that are statically callable.
 	public static function email( $email ) {
 		// filter_var is a cool php function that lets you easily check a variable
@@ -34,11 +35,11 @@ class JAAMSForms_InputValidators {
 	}
 }
 
-class JAAMSForms_Input extends JAAMSForms_Base
+class Input extends Base
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $type						= JAAMSForms_InputTypes::text;
+	protected $type						= InputTypes::text;
 	protected $value					= '';
 	protected $atts						= array();
 	protected $args						= array();
@@ -117,14 +118,14 @@ class JAAMSForms_Input extends JAAMSForms_Base
 		switch ( $function ) {
 			case 'email':
 				// Simple example.
-				return JAAMSForms_InputValidators::email( $this->value );
+				return InputValidators::email( $this->value );
 			case 'not_default':
 				// More complicated example.
 				// If no default value is provided, the element is ok if the value's not empty.
 				if ( empty( $this->args['default_value'] ) )
 					return ! empty( $this->value );
 				// Otherwise, just make sure the user's value and the default value are different.
-				return JAAMSForms_InputValidators::not( $this->value, $this->args['default_value']);
+				return InputValidators::not( $this->value, $this->args['default_value']);
 			default:
 				
 		}

@@ -13,7 +13,7 @@ Original Authors (ordered for maximum acronym awesomeness) :
 - (S) + Sairam Srinavasan
 
 Usage:
-Initialize the core functionality by including JAAMS_ROOT/init.php.
+Initialize the core functionality by including ROOT/init.php.
 
 
 Documentation
@@ -21,19 +21,19 @@ Documentation
 
 **Core
 ------
-- <a href="core/Documentation/JAAMS_MVC.png">MVC in JAAMS</a>
+- <a href="core/Documentation/MVC.png">MVC in JAAMS</a>
 - <a href="core/Documentation/JAAMSBase.htm">JAAMSBase "abstract" controller class</a>
 - <a href="core/Documentation/JAAMSModel.htm">JAAMSModel "abstract" model class</a>
-- <a href="core/Documentation/JAAMSDebugger.htm">JAAMSDebugger class</a>
+- <a href="core/Documentation/Debugger.htm">Debugger class</a>
 
 **Forms (Use this as an example for new 'modules')
 --------------------------------------------------
-- <a href="forms/Documentation/JAAMSForms_MVC.png">MVC in JAAMS Forms</a>
-- <a href="forms/Documentation/JAAMSForms_Base.htm">JAAMSForms_Base "abstract" controller class</a>
-- <a href="forms/Documentation/JAAMSForms_Form.htm">JAAMSForms_Form controller class</a>
-- <a href="forms/Documentation/JAAMSForms_Fieldset.htm">JAAMSForms_Fieldset controller class</a>
-- <a href="forms/Documentation/JAAMSForms_Group.htm">JAAMSForms_Group controller class</a>
-- <a href="forms/Documentation/JAAMSForms_Input.htm">JAAMSForms_Input controller class</a>
+- <a href="forms/Documentation/MVC.png">MVC in JAAMS Forms</a>
+- <a href="forms/Documentation/Base.htm">Base "abstract" controller class</a>
+- <a href="forms/Documentation/Form.htm">Form controller class</a>
+- <a href="forms/Documentation/Fieldset.htm">Fieldset controller class</a>
+- <a href="forms/Documentation/Group.htm">Group controller class</a>
+- <a href="forms/Documentation/Input.htm">Input controller class</a>
 
 **TODO:
 ---------------------------------------

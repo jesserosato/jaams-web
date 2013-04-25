@@ -1,8 +1,10 @@
 <?php
+namespace Forms\Models;
 // Make sure the base controller has been defined and load the base model (see 'core/JAAMSBase.class.php').
-require_once(JAAMS_ROOT.'/core/JAAMSBase.class.php');
+require_once(\JAAMS\ROOT.'/core/controllers/Base.class.php');
+require_once(\JAAMS\ROOT.'/core/models/Base.model.php');
 
-class JAAMSForms_Model extends JAAMSBase_Model {
+class Base extends \JAAMS\Core\Models\Base {
 	// PROPERTIES
 	// - PROTECTED
 	protected $_controller;

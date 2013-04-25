@@ -1,10 +1,10 @@
 <?php
-
+namespace JAAMS\Core\Utilities;
 /**
  * Super simple debug logger.
  *
  */
-class JAAMSDebugger
+class Debugger
 {
 	protected $file;
 	protected $path;
@@ -13,14 +13,14 @@ class JAAMSDebugger
 	function __construct ( $path = false ) {	
 		// Use the constant if no path is provided.	
 		if ( empty( $path ) ) {
-			if ( ! defined( 'JAAMS_DEBUGGER_LOG' ) )
-				throw new Exception("JAAMSDebugger requires a .txt or .log filename.");
+			if ( ! defined( 'DEBUG_LOG' ) )
+				throw new Exception("Debugger requires a .txt or .log filename.");
 			else
-				$path = JAAMS_DEBUGGER_LOG;
+				$path = DEBUG_LOG;
 		}
 		// Make sure the path is valid.
 		if ( !preg_match( '/\.(txt|log)$/', $path ) )
-			throw new Exception("JAAMSDebugger requires a .txt or .log filename.");
+			throw new Exception("Debugger requires a .txt or .log filename.");
 		
 		$this->path = $path;
 		
@@ -38,7 +38,7 @@ class JAAMSDebugger
 			$data = print_r($data, true);
 		
 		if ( !is_string( $data ) )
-			throw new Exception("Function JAAMSDebugger::debug_log() requires string or array parameter.");
+			throw new Exception("Function Debugger::debug_log() requires string or array parameter.");
 		$timestamp = date('Y-m-d H:i');
 		$this->msgs[$timestamp] = $data;
 		$msg = "[" . $timestamp . "] " . $data . "\n";

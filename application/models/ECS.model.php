@@ -1,6 +1,8 @@
 <?php
-require_once(JAAMS_ROOT.'/forms/models/JAAMSForms.model.php');
-class ECS_Model extends JAAMSForms_Model {
+namespace CSC131\ECS;
+require_once(\JAAMS\ROOT.'/forms/init.php');
+require_once(\Forms\ROOT.'/models/Base.model.php');
+class ECS_Model extends \Forms\Models\Base {
 	// METHODS
 	// - PUBLIC
 	

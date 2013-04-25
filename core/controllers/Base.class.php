@@ -1,9 +1,10 @@
 <?php
+namespace JAAMS\Core\Controllers;
 /**
- * "Abstract" Base Controller Class
+ * Base Controller Class
  * Note that true abstraction is not supported before PHP5
  */
-class JAAMSBase {
+class Base {
 	// PROPERTIES
 	// - PROTECTED
 	// $model supports any class that takes a JAAMSBase object as first constructor arg.
@@ -25,7 +26,6 @@ class JAAMSBase {
 		'view'	=> '-',
 		'model'	=> '-'
 	);
-	protected $debugger				= null;
 	// - PRIVATE
 	private $_indices				= array(
 		'view'	=> -1,
@@ -43,7 +43,7 @@ class JAAMSBase {
 	 */
 	public function __construct( array $paths ) {
 		// Set default model path
-		$paths['model'] = empty( $paths['model'] ) ? array(JAAMS_ROOT.'/core') : $paths['model'];
+		$paths['model'] = empty( $paths['model'] ) ? array(ROOT.'/core') : $paths['model'];
 		$this->dir_paths = $paths;
 		// Set the view_dir to the first readable directory.
 		foreach ( $paths as $component => $component_paths ) {
@@ -61,10 +61,6 @@ class JAAMSBase {
 		// We don't have a default view directory, make sure the user passes one.
 		if ( $this->_indices['view'] < 0 )
 			throw new Exception('JAAMSBase expects at least one path to a readable view directory.');
-		// If JAAMS_DEBUG is defined and true, set the debugger.
-		if ( defined('JAAMS_DEBUG') && JAAMS_DEBUG ) {
-			$this->debugger = new JAAMSDebugger(JAAMS_DEBUGGER_LOG);
-		}
 	}
 	
 	/**
