@@ -43,6 +43,7 @@ TODO:
 - Add inputs that will be hidden/revealed by JS. - Adrian and Anthony
 - Define (and use in templates) error messages. - Adrian and Anthony
 - Javascript. - Jesse
+- Refactor DB Layer to use PDO - Jesse
 - CSC131\ECS\Models\Base::save() - Jesse
 - Expand logging, move Debugger to Logger - Jesse
 - UPDATE SYSTEM DOCUMENTATION - Jesse

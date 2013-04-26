@@ -11,6 +11,7 @@ class Base {
 	protected $dbh;						// Database handle
 	protected $_controller;
 	protected $data			= array();
+	protected $err	= \PDO::ERRMODE_WARNING;
 	// - PRIVATE
 	protected $db_info		= array(
 		'host'		=> \JAAMS\DB_HOST,
