@@ -18,7 +18,6 @@ $form						= new Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
 $form->atts['action']		= $_SERVER['PHP_SELF'];
 $form->args['db_info']['table'] = 'test_table';
-$form->model				= new FormModel($form);
 
 
 // Create Project Information fieldset
@@ -330,13 +329,15 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 	$form->sanitize();
 	if ( $form->validate() ) {
 		echo '<h2>Thank you for your submission!</h2>';
-		$result = $form->save();
-		$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($result, true));
-		if ( $result ) {
+		try {
+			$form->model = new FormModel($form);
+			$result = $form->save();
 			echo '<h4>Form Saved!</h4>';
-		} else {
+		} catch( \Exception $e ) {
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("YEAH!");
 			$form->errors['database'] = empty($error_msgs['database']) ? 'Error connecting to database' : $error_msgs['database'];
 			$form->print_html();
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 		}
 	} else {
 		$form->print_html();
