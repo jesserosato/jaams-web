@@ -1,0 +1,344 @@
+[2013-04-25 20:16] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:16] Array
+(
+    [0] => Forms\Models\Base
+)
+
+[2013-04-25 20:20] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:20] GOOODODOFSOF
+[2013-04-25 20:20] Array
+(
+    [0] => Forms\Models\Base
+)
+
+[2013-04-25 20:21] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:22] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:22] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:22] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:26] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:26] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:26] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:26] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:26] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:26] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:27] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:27] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:27] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:30] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:30] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:30] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:31] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:31] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:31] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:31] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:32] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:32] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:32] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:32] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:32] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:32] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:32] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:32] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:32] /Users/jesserosato/Sites/csc131.dev/front_end/forms/models/Base.model.php
+[2013-04-25 20:32] Array
+(
+    [0] => 379
+    [1] => \
+    [2] => 2
+)
+
+[2013-04-25 20:32] Array
+(
+    [0] => 306
+    [1] => Models
+    [2] => 2
+)
+
+[2013-04-25 20:32] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:34] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:34] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:35] Array
+(
+    [ecs_submit] => Forms\Controllers\Input Object
+        (
+            [type:protected] => 3
+            [value:protected] => Submit
+            [atts:protected] => Array
+                (
+                )
+
+            [args:protected] => Array
+                (
+                )
+
+            [name:protected] => ecs_submit
+            [label:protected] => Submit
+            [errors:protected] => Array
+                (
+                )
+
+            [model:protected] => 
+            [view:protected] => 
+            [dir_paths:protected] => Array
+                (
+                    [view] => Array
+                        (
+                            [0] => /Users/jesserosato/Sites/csc131.dev/front_end/forms/default_templates
+                        )
+
+                    [model] => Array
+                        (
+                            [0] => /Users/jesserosato/Sites/csc131.dev/front_end/forms/models
+                        )
+
+                )
+
+            [hierarchies:protected] => Array
+                (
+                    [view] => Array
+                        (
+                            [0] => default
+                            [1] => inputs
+                        )
+
+                )
+
+            [exts:protected] => Array
+                (
+                    [view] => template.php
+                    [model] => model.php
+                )
+
+            [seps:protected] => Array
+                (
+                    [view] => -
+                    [model] => -
+                )
+
+            [_indices:JAAMS\Core\Controllers\Base:private] => Array
+                (
+                    [view] => 0
+                    [model] => 0
+                )
+
+        )
+
+)
+
+[2013-04-25 20:35] Array
+(
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:37] Array
+(
+    [active] => 1
+    [active_other] => 
+    [dept] => ce
+    [class_no] => 
+    [participants] => 1
+    [advisor] => Salem
+    [advisor_email] => test@example.com
+    [project_type] => 
+    [project_name] => 
+    [first_name] => 
+    [last_name] => 
+    [email] => 
+    [phone_number] => 
+    [account_type] => both
+    [permissions] => 
+    [other_permissions] => 
+    [mysql_host] => 
+    [db_comments] => 
+    [disk_quota] => 
+    [unix_shell] => csh
+    [project_comments] => 
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 20:43] Array
+(
+    [active] => 1
+    [active_other] => 
+    [dept] => ce
+    [class_no] => 
+    [participants] => 1
+    [advisor] => Salem
+    [advisor_email] => test@example.com
+    [project_type] => 
+    [project_name] => 
+    [first_name] => 
+    [last_name] => 
+    [email] => 
+    [phone_number] => 
+    [account_type] => both
+    [permissions] => 
+    [other_permissions] => 
+    [mysql_host] => 
+    [db_comments] => 
+    [disk_quota] => 
+    [unix_shell] => csh
+    [project_comments] => 
+    [ecs_submit] => Submit
+)
+
+[2013-04-25 21:37] mysqli->prepare failure: INSERT into test_table (active, active_other, dept, class_no, participants, advisor, advisor_email, project_type, project_name, first_name, last_name, email, phone_number, account_type, permissions, other_permissions, mysql_host, db_comments, disk_quota, unix_shell, project_comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2013-04-25 21:37] mysqli->prepare failure: INSERT into test_table (active, active_other, dept, class_no, participants, advisor, advisor_email, project_type, project_name, first_name, last_name, email, phone_number, account_type, permissions, other_permissions, mysql_host, db_comments, disk_quota, unix_shell, project_comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2013-04-25 21:38] mysqli->prepare failure: INSERT into test_table (active, active_other, dept, class_no, participants, advisor, advisor_email, project_type, project_name, first_name, last_name, email, phone_number, account_type, permissions, other_permissions, mysql_host, db_comments, disk_quota, unix_shell, project_comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2013-04-25 21:38] Could not prepare mysqli statement.
+[2013-04-25 21:50] mysqli->prepare failure: INSERT into test_table (active, active_other, dept, class_no, participants, advisor, advisor_email, project_type, project_name, first_name, last_name, email, phone_number, account_type, permissions, other_permissions, mysql_host, db_comments, disk_quota, unix_shell, project_comments) VALUES (`1`, ``, `ce`, ``, `1`, `Salem`, `salem@example.comm`, ``, ``, ``, ``, ``, ``, `both`, ``, ``, ``, ``, ``, `csh`, ``)
+[2013-04-25 21:50] Could not prepare mysqli statement.
+[2013-04-25 21:51] Function Debugger::debug_log() requires string or array parameter.
+[2013-04-25 21:52] Function Debugger::debug_log() requires string or array parameter.
+[2013-04-25 21:53] Function Debugger::debug_log() requires string or array parameter.
+[2013-04-25 21:53] Function Debugger::debug_log() requires string or array parameter.
+[2013-04-25 21:54] NULL
+[2013-04-25 21:55] false
+[2013-04-25 21:55] false
+[2013-04-25 21:55] false
+[2013-04-25 21:59] Error code (1054): Unknown column 'disk_quota' in 'field list'
+[2013-04-25 21:59] false
+[2013-04-25 21:59] Error code (1054): Unknown column 'disk_quota' in 'field list'
+[2013-04-25 21:59] Error code (0): 
+[2013-04-25 21:59] false
+[2013-04-25 21:59] Error code (0): 
+[2013-04-25 22:01] false
+[2013-04-25 22:04] Error preparing statement in Forms\Models\Base (1064): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':active, :active_other, :dept, :class_no, :participants, :advisor, :advisor_emai' at line 1
+[2013-04-25 22:04] Could not prepare mysqli statement.
+[2013-04-25 22:04] Error preparing statement in Forms\Models\Base (1064): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':active, :active_other, :dept, :class_no, :participants, :advisor, :advisor_emai' at line 1
+[2013-04-25 22:04] Could not prepare mysqli statement.
+[2013-04-25 22:04] Error preparing statement in Forms\Models\Base (1064): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':active, :active_other, :dept, :class_no, :participants, :advisor, :advisor_emai' at line 1
+[2013-04-25 22:04] Could not prepare mysqli statement.
+[2013-04-25 22:04] Error preparing statement in Forms\Models\Base (1064): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':active, :active_other, :dept, :class_no, :participants, :advisor, :advisor_emai' at line 1
+[2013-04-25 22:04] Could not prepare mysqli statement.
+[2013-04-25 22:05] false
+[2013-04-25 22:08] true
+[2013-04-25 22:08] true
+[2013-04-25 22:10] true
+[2013-04-25 22:12] true
+[2013-04-25 22:13] Error preparing statement in Forms\Models\Base (1054): Unknown column '1' in 'field list'
+[2013-04-25 22:13] Could not prepare mysqli statement.
+[2013-04-25 22:14] Error preparing statement in Forms\Models\Base (1054): Unknown column '1' in 'field list', Statement: INSERT into test_table (active, active_other, dept, class_no, participants, advisor, advisor_email, project_type, project_name, first_name, last_name, email, phone_number, account_type, permissions, other_permissions, mysql_host, db_comments, disk_quota, unix_shell, project_comments) VALUES (`1`, ``, `ce`, ``, `1`, `Salem`, `test@example.com`, ``, ``, ``, ``, ``, ``, `both`, ``, ``, ``, ``, ``, `csh`, ``)
+[2013-04-25 22:14] Could not prepare mysqli statement.
+[2013-04-25 22:15] true
+[2013-04-25 22:16] true
