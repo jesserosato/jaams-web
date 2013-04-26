@@ -1,8 +1,15 @@
 <?php
 namespace Forms;
 require_once 'Base.class.php';
+require_once 'FormElement.class.php';
 
-class Fieldset extends Base
+/**
+ * Fieldset class.
+ * 
+ * @extends Base
+ * @implements FormElement
+ */
+class Fieldset extends Base implements FormElement
 {
 	// PROPERTIES
 	// - PROTECTED
@@ -34,12 +41,12 @@ class Fieldset extends Base
 	 *
 	 * @param $data_global String String containing the name of a global variable containing foreachable data structure.
 	 */
-	public function set_raw_values ( $data_global = 'POST' ) {
+	public function set_raw ( $data_global = 'POST' ) {
 		foreach ( $this->fieldsets as &$fieldset ) {
-			$fieldset->set_raw_values($data_global);
+			$fieldset->set_raw($data_global);
 		}
 		foreach ( $this->groups as &$group ) {
-			$group->set_raw_values($data_global);
+			$group->set_raw($data_global);
 		}
 		foreach ( $this->inputs as &$input ) {
 			$input->set_raw_value($data_global);
@@ -79,18 +86,16 @@ class Fieldset extends Base
 		 foreach ( $this->groups as &$group ) {
 			 $group->validate();
 			 if ( ! empty ( $group->errors ) ) {
-				 $this->errors[$group->name] = $group->errors;
+				 $this->errors[$group->name] 	= $group->errors;
 			 }
 		 }
 		 foreach ( $this->inputs as &$input ) {
 			 $input->validate();
 			 if ( ! empty ( $input->errors ) ) {
-				 $this->errors[$input->name] = $input->errors;
+				 $this->errors[$input->name] 	= $input->errors;
 			 }
 		 }
 		 return empty ( $this->errors );
 		 
 	 }
-	 
-	// - PROTECTED
 }

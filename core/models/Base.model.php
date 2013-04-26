@@ -46,7 +46,7 @@ class Base {
 		// $this->dbh = $this->get_dbh();
 		// Check for solid connection.
 		// if ( $this->dbh->connect_errno )
-			// throw new Exception('JAAMSModel was unable to instantiate a database connection');
+			// throw new \Exception('JAAMSModel was unable to instantiate a database connection');
 	}
 	
 	/**

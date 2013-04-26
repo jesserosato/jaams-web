@@ -1,8 +1,9 @@
 <?php
 namespace Forms;
 require_once 'Base.class.php';
+require_once 'FormElement.class.php';
 
-class Group extends Base
+class Group extends Base implements FormElement
 {
 	// PROPERTIES
 	// - PROTECTED
@@ -26,18 +27,6 @@ class Group extends Base
 			'view'		=> array('default', 'group'),
 		);
 	}
-	
-	/**
-	 * Get raw data.
-	 *
-	 * @param $data_global String String containing the name of a global variable containing data.
-	 *
-	 */
-	public function set_raw_values( $data_global = 'POST' ) {
-		foreach ( $this->inputs as &$input ) {
-			$input->set_raw_value($data_global);
-		}
-	 }
 	 
 	 /**
 	 * Make raw data safe for HTML display
@@ -51,13 +40,16 @@ class Group extends Base
 		}
 	}
 	
-	/**
-	 * Validate a fieldset's data, set appropriate errors.
-	 *
-	 * @return bool
-	 *
-	 */
-	 public function validate() {
+	 /**
+	  * validate function.
+	  * 
+	  * Validate a fieldset's data, set appropriate errors.
+	  *
+	  * @access public
+	  * @param bool $hide_individual_errors (default: true)
+	  * @return void
+	  */
+	 public function validate($clear_input_errors = true) {
 		 foreach ( $this->inputs as &$input ) {
 			 $input->validate();
 			 if ( ! empty ( $input->errors ) ) {
@@ -68,7 +60,5 @@ class Group extends Base
 		 return empty ( $this->errors );
 		 
 	 }
-	 
-	// - PROTECTED
 }
 		

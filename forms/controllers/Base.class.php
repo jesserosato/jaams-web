@@ -67,29 +67,6 @@ class Base extends \JAAMS\Core\Controllers\Base {
 	}
 	
 	/**
-	 * "Abstract" method to sanitize form input data.
-	 *
-	 */
-	public function sanitize() {
-		
-	}
-	
-	/**
-	 * "Abstract" method to validate form input data.
-	 *
-	 */
-	public function validate() {
-	}
-	
-	/**
-	 * "Abstract" method to save form input data.
-	 *
-	 */
-	public function save() {
-		// Probably something like: return $this->model->save();
-	}
-	
-	/**
 	 * Return an array of data relating to this form ready to be used in an HTML template.
 	 *
 	 * @return Array

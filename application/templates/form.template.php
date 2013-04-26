@@ -5,7 +5,16 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 // Print out the error message first.
 if ( ! empty( $errors ) ) { ?>
 	<div class="error">
-		<h3>Uh-oh!  There're some problems with your entry...</h3>
+		<h3>Oops! There was a problem!</h3>
+		
+		<?php foreach ( $errors as $key => $error ) {
+			if ( is_string( $error ) ) { ?>
+			
+				<p class="error"><?php echo $error; ?></p>
+				
+			<?php }
+		} ?>
+		
 	</div>
 	
 <?php } ?>

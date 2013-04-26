@@ -13,6 +13,7 @@ class Form extends Base
 		'method'		=> 'post',
 		'action'		=> '',
 	);
+	protected $data;
 	
 	
 	// METHODS
@@ -34,26 +35,9 @@ class Form extends Base
 	}
 	
 	/**
-	 * Get raw data.
-	 *
-	 */
-	public function set_raw_values() {
-		$data_global = $this->_data_global_name();
-		foreach ( $this->fieldsets as &$fieldset ) {
-			$fieldset->set_raw_values($data_global);
-		}
-		foreach ( $this->groups as &$group ) {
-			$group->set_raw_values($data_global);
-		}
-		foreach ( $this->inputs as &$input ) {
-			$input->set_raw_value($data_global);
-		}
-	}
-	
-	/**
 	 * Make raw data safe for HTML display
 	 */
-	public function sanitize() {
+	public function sanitize( ) {
 		$data_global = $this->_data_global_name();
 		foreach ( $this->fieldsets as &$fieldset ) {
 			$fieldset->sanitize($data_global);
@@ -72,28 +56,38 @@ class Form extends Base
 	 * @return bool
 	 *
 	 */
-	 public function validate() {
-		 foreach ( $this->fieldsets as &$fieldset ) {
-			 $fieldset->validate();
-			 if ( ! empty ( $fieldset->errors ) ) {
-				 $this->errors[$fieldset->name] = $fieldset->errors;
-			 }
-		 }
-		 foreach ( $this->groups as &$group ) {
-			 $group->validate();
-			 if ( ! empty ( $group->errors ) ) {
-				 $this->errors[$group->name] = $group->errors;
-			 }
-		 }
-		 foreach ( $this->inputs as &$input ) {
-			 $input->validate();
-			 if ( ! empty ( $input->errors ) ) {
-				 $this->errors[$input->name] = $input->errors;
-			 }
-		 }
-		 return empty ( $this->errors );
-		 
-	 }
+	public function validate( ) {
+		foreach ( $this->fieldsets as &$fieldset ) {
+		    $fieldset->validate();
+		    if ( ! empty ( $fieldset->errors ) ) {
+		   	 $this->errors[$fieldset->name] = $fieldset->errors;
+		    }
+		}
+		foreach ( $this->groups as &$group ) {
+		    $group->validate();
+		    if ( ! empty ( $group->errors ) ) {
+		   	 $this->errors[$group->name] = $group->errors;
+		    }
+		}
+		foreach ( $this->inputs as &$input ) {
+		    $input->validate();
+		    if ( ! empty ( $input->errors ) ) {
+		   	 $this->errors[$input->name] = $input->errors;
+		    }
+		}
+		return empty ( $this->errors );
+	}
+	 
+	
+	/**
+	 * save function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function save( ) {
+		return $this->model->save();
+	}
 	 
 	 // - PROTECTED
 	 
@@ -101,7 +95,7 @@ class Form extends Base
 	  * Return the name of the global data array or object containing the form data.
 	  *
 	  */
-	 protected function _data_global_name() {
+	 protected function _data_global_name( ) {
 		 return empty($this->atts['method']) ? 'POST' : strtoupper($this->atts['method']);
 	 }
 }

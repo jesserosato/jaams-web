@@ -323,15 +323,12 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 } else {
 	$form->sanitize();
 	if ( $form->validate() ) {
-		echo '<h1>Thank you!</h1>';
-		/*
+		echo '<h2>Thank you for your submission!</h2>';
 		if ( $form->save() ) {
-			//display success
+			echo '<h4>Form Saved!</h4>';
 		} else {
-			$form->errors('database' => 'Unable to save data');
-			// display error
+			$form->print_html();
 		}
-		*/
 	} else {
 		$form->print_html();
 	}

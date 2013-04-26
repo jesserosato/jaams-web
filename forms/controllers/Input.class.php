@@ -1,6 +1,7 @@
 <?php
 namespace Forms;
 require_once 'Base.class.php';
+require_once 'FormElement.class.php';
 
 /**
  * A sort of enum to describe input types.
@@ -35,7 +36,7 @@ class InputValidators {
 	}
 }
 
-class Input extends Base
+class Input extends Base implements FormElement
 {
 	// PROPERTIES
 	// - PROTECTED
@@ -63,33 +64,47 @@ class Input extends Base
 		
 	}
 	
+	
 	/**
-	 * Get raw data.
-	 *
+	 * set_raw_value function.
+	 * 
+	 * @access public
+	 * @param string $data_global (default: 'POST')
+	 * @return void
 	 */
-	public function set_raw_value ( $data_global = 'POST' ) {
+	public function set_raw( $data_global = 'POST' ) {
 		$data = $this->_get_raw( $data_global, $this->name );
 		if ( $data ) {
 			$this->value = $data;
 		}
 	}
 	
+	
 	/**
+	 * sanitize function.
+	 *
 	 * Make raw data safe for HTML display
+	 *
+	 * @access public
+	 * @param string $data_global (default: 'POST')
+	 * @return void
 	 */
 	public function sanitize( $data_global = 'POST' ) {
 		if ( empty( $this->value ) )
-			$this->set_raw_value( $data_global );
+			$this->set_raw( $data_global );
 		// Set the filter flag to sanitize appropriately.
 		$flag = preg_match('/email/i', $this->name) ? FILTER_SANITIZE_EMAIL : FILTER_SANITIZE_STRING;
 		$this->value = filter_var($this->value, $flag);
 	}
 	
+	
 	/**
+	 * validate function.
+	 * 
 	 * Validate an input's data, set appropriate error.
 	 *
-	 * @return bool
-	 *
+	 * @access public
+	 * @return void
 	 */
 	public function validate( ) {
 		
@@ -100,13 +115,13 @@ class Input extends Base
 		if ( is_array( $validator ) ) {
 			foreach ( $validator as $function ) {
 				if ( ! $this->_validate( $function ) ) {
-					$this->errors[$function] = true;
+					$this->errors[$validator] = $this->_error($validator);
 				}
 			}
 		} else {
 			// We only want to set anything at all here if there is an error.
 			if ( ! $this->_validate( $validator ) ) {
-				$this->errors[$validator] = true;
+				$this->errors[$validator] = $this->_error($validator);
 			}
 		}
 		
@@ -114,6 +129,14 @@ class Input extends Base
 	}
 	 
 	// - PROTECTED
+	
+	/**
+	 * _validate function.
+	 * 
+	 * @access protected
+	 * @param mixed $function
+	 * @return void
+	 */
 	protected function _validate( $function ) {
 		switch ( $function ) {
 			case 'email':
@@ -131,6 +154,15 @@ class Input extends Base
 		}
 	}
 	
+	
+	/**
+	 * _get_raw function.
+	 * 
+	 * @access protected
+	 * @param mixed $superglobal
+	 * @param mixed $key
+	 * @return void
+	 */
 	protected function _get_raw( $superglobal, $key ) {
 		$superglobal = trim(strtoupper($superglobal));
 		switch ( $superglobal ) {
@@ -140,5 +172,16 @@ class Input extends Base
 			case 'GET' :
 				return empty($_GET[$key]) ? false : $_GET[$key];
 		}
+	}
+
+	 /**
+	 * _set_error function.
+	 * 
+	 * @access protected
+	 * @param mixed $validator
+	 * @return void
+	 */
+	protected function _error( $validator ) {
+		return empty($this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
 	}
 }

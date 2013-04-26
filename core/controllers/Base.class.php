@@ -60,7 +60,7 @@ class Base {
 		}
 		// We don't have a default view directory, make sure the user passes one.
 		if ( $this->_indices['view'] < 0 )
-			throw new Exception('JAAMSBase expects at least one path to a readable view directory.');
+			throw new \Exception('JAAMSBase expects at least one path to a readable view directory.');
 	}
 	
 	/**

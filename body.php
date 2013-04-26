@@ -8,7 +8,7 @@
 <body>
 	<?php include \JAAMS\ROOT.'/index.php'; ?>
 </body>
-<?php } catch( Exception $e ) {
+<?php } catch( \Exception $e ) {
 	if ( ! empty( $GLOBALS['JAAMS']['DEBUGGER'] ) ) {
 		$GLOBALS['JAAMS']['DEBUGGER']->debug_log($e->getMessage());
 	}

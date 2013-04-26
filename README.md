@@ -22,14 +22,14 @@ Documentation
 **Core
 ------
 - <a href="core/Documentation/MVC.png">MVC in JAAMS</a>
-- <a href="core/Documentation/JAAMSBase.htm">JAAMSBase "abstract" controller class</a>
-- <a href="core/Documentation/JAAMSModel.htm">JAAMSModel "abstract" model class</a>
+- <a href="core/Documentation/Base_Controller.htm">JAAMSBase controller class</a>
+- <a href="core/Documentation/JAAMSModel.htm">JAAMSModel model class</a>
 - <a href="core/Documentation/Debugger.htm">Debugger class</a>
 
 **Forms (Use this as an example for new 'modules')
 --------------------------------------------------
 - <a href="forms/Documentation/MVC.png">MVC in JAAMS Forms</a>
-- <a href="forms/Documentation/Base.htm">Base "abstract" controller class</a>
+- <a href="forms/Documentation/Base_Controller.htm">Base "abstract" controller class</a>
 - <a href="forms/Documentation/Form.htm">Form controller class</a>
 - <a href="forms/Documentation/Fieldset.htm">Fieldset controller class</a>
 - <a href="forms/Documentation/Group.htm">Group controller class</a>
