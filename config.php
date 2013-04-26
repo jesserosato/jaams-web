@@ -12,6 +12,6 @@ define(__NAMESPACE__.'\DEBUG_LOG', ROOT.'/logs/debug.log');
 define(__NAMESPACE__.'\DB_USER', 'root');
 define(__NAMESPACE__.'\DB_HOST', 'localhost');
 define(__NAMESPACE__.'\DB_PASSWORD', '');
-define(__NAMESPACE__.'\DB_NAME'	, '');
+define(__NAMESPACE__.'\DB_NAME'	, 'dataman');
 define(__NAMESPACE__.'\DB_PORT'	, false);
 define(__NAMESPACE__.'\DB_SOCKET'	, false);

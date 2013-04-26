@@ -1,5 +1,5 @@
 <?php
-namespace Forms;
+namespace Forms\Controllers;
 require_once 'Base.class.php';
 
 class Form extends Base
@@ -29,9 +29,7 @@ class Form extends Base
 		// Instantiate Base parent.
 		parent::__construct($name, $dir_paths);
 		// Set the template hierarchy.
-		$this->hierarchies = array(
-			'view'		=> array('default', 'form'),
-		);
+		$this->hierarchies['view'] = array('default', 'form');
 	}
 	
 	/**
@@ -86,6 +84,10 @@ class Form extends Base
 	 * @return void
 	 */
 	public function save( ) {
+		if ( empty ( $this->model ) ) {
+			$db_info = empty($this->args['db_info']) ? array() : $this->args['db_info'];
+			$this->model = new \Forms\Models\Base($this, $db_info);
+		}
 		return $this->model->save();
 	}
 	 

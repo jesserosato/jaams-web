@@ -16,7 +16,7 @@ class Base {
 	);
 	protected $hierarchies			= array(
 		'view'	=> array('default'),
-		'model'	=> array('JAAMSBase.model')
+		'model'	=> array('Base.model')
 	);
 	protected $exts					= array(
 		'view'	=> 'php',
@@ -43,7 +43,7 @@ class Base {
 	 */
 	public function __construct( array $paths ) {
 		// Set default model path
-		$paths['model'] = empty( $paths['model'] ) ? array(ROOT.'/core') : $paths['model'];
+		$paths['model'] = empty( $paths['model'] ) ? array(ROOT.'/core/models') : $paths['model'];
 		$this->dir_paths = $paths;
 		// Set the view_dir to the first readable directory.
 		foreach ( $paths as $component => $component_paths ) {
@@ -60,7 +60,7 @@ class Base {
 		}
 		// We don't have a default view directory, make sure the user passes one.
 		if ( $this->_indices['view'] < 0 )
-			throw new \Exception('JAAMSBase expects at least one path to a readable view directory.');
+			throw new \Exception(get_class($this) . ' expects at least one path to a readable view directory.');
 	}
 	
 	/**
@@ -87,7 +87,7 @@ class Base {
 		if ( gettype( $value ) != gettype( $defaults[$property] ) )
 			return;
 		
-		$this->{$property} = $value;
+		$this->$property = $value;
 	}
 	
 	/**
@@ -151,20 +151,27 @@ class Base {
 	public function get_model( $reset = false ) {
 		if ( ! empty( $this->model ) && ! $reset )
 			return $this->model;
+		$this->set_model();
+		
+	}
+	
+	public function set_model( $model = null ) {
+		if ( $model != null ) {
+			$this->model = $model;
+			return;
+		}
 		// Get the path to the model.
 		$filename = $this->get_path('model');
 		// Can't load the model if we couldn't read any fiels.
 		if ( ! ( $filename ) )
 			return null;
 		// Get the PHP classes that are in the file
-		$classes = _file_get_php_classes($filename);
+		$classes = $this->_file_get_php_classes($filename);
 		// Use the first one.
 		if ( !empty( $classes ) ) {
 			$class_name = $classes[0];
 			$this->model = new $class_name($this);
 		}
-		// Return the loaded model or null.
-		return $this->model;
 	}
 	
 	/**
@@ -203,6 +210,7 @@ class Base {
 	 */
 	protected function _get_path_in_dir( $dir, $component = 'view' ) {
 		$order = $this->hierarchies[$component];
+		$fileanme = false;
 		while ( ! empty( $order ) && ( empty( $filename ) || ! is_readable( $filename ) ) ) {
 			$filename = $dir . '/' . implode($this->seps[$component], $order) . '.' . $this->exts[$component];
 			array_pop($order);
@@ -224,11 +232,10 @@ class Base {
 	 *
 	 */
 	protected function _file_get_php_classes($filename) {
-	  $php_code = file_get_contents($filename);
-	  $classes = $this->_get_php_classes($php_code);
-	  return $classes;
+		$php_code = file_get_contents($filename);
+		$classes = $this->_get_php_classes($php_code);
+		return $classes;
 	}
-	
 	
 	/**
 	 * Get the PHP classes in a block of PHP code.
@@ -242,20 +249,36 @@ class Base {
 	 * @param	$filename	String
 	 *
 	 */
-	protected function _get_php_classes($php_code) {
-	  $classes = array();
-	  $tokens = token_get_all($php_code);
-	  $count = count($tokens);
-	  for ($i = 2; $i < $count; $i++) {
-	    if (   $tokens[$i - 2][0] == T_CLASS
-	        && $tokens[$i - 1][0] == T_WHITESPACE
-	        && $tokens[$i][0] == T_STRING) {
+	 protected function _get_php_classes($php_code) {
+	 	$classes = array();
+	 	if ( empty ( $count ) ) {
+	 	    $tokens = token_get_all($php_code);
+	 	    $count = count($tokens);
+	 	}
+	 	for ($i = 2; $i < $count; $i++) {
+	 		if (   $tokens[$i - 2][0] == T_NAMESPACE
+	 			&& $tokens[$i - 1][0] == T_WHITESPACE
+	 			&& $tokens[$i][0] == T_STRING) {
+	 			$namespace = $this->_get_php_namespace($tokens, $i);
+	 		}
+	 		if (   $tokens[$i - 2][0] == T_CLASS
+	 			&& $tokens[$i - 1][0] == T_WHITESPACE
+	 			&& $tokens[$i][0] == T_STRING) {
+	 			$class_name = $tokens[$i][1];
+	 			$classes[] = $namespace.'\\'.$class_name;
+	 		}
+	 	}
+	 	return $classes;
+	 }
 	
-	        $class_name = $tokens[$i][1];
-	        $classes[] = $class_name;
-	    }
-	  }
-	  return $classes;
+	protected function _get_php_namespace($tokens, $i = 2) {
+		$namespace_parts[] = $tokens[$i][1];
+		$i += 2;
+		while ( $tokens[$i-1][0] == T_NS_SEPARATOR ) {
+			$namespace_parts[] = $tokens[$i][1];
+			$i += 2;
+		}
+		return implode('\\', $namespace_parts);
 	}
 	
 }

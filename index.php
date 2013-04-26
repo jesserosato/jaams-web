@@ -2,18 +2,23 @@
 // Some examples of how to use the JAAMS Framework (patent pending).
 // Init (Loads all modules).
 require_once('init.php');
-use \Forms\Form as Form;
-use \Forms\Fieldset as Fieldset;
-use \Forms\Group as Group;
-use \Forms\Input as Input;
-use \Forms\InputTypes as InputTypes;
+use \Forms\Controllers\Form as Form;
+use \Forms\Controllers\Fieldset as Fieldset;
+use \Forms\Controllers\Group as Group;
+use \Forms\Controllers\Input as Input;
+use \Forms\Controllers\InputTypes as InputTypes;
+use \CSC131\ECS\Models\Base as FormModel;
 
-$template_dir_path = array('view'=>array(\JAAMS\ROOT.'/application/templates'));
+$template_dir_path			= array('view' => array(\JAAMS\ROOT.'/application/templates'));
+$model_dir_path				= array('model' => array(\Forms\ROOT.'/models'));
 
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form						= new Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
 $form->atts['action']		= $_SERVER['PHP_SELF'];
+$form->args['db_info']['table'] = 'test_table';
+$form->set_model			= new FormModel($form);
+
 
 // Create Project Information fieldset
 $info_fieldset				= new Fieldset('info_fieldset', $template_dir_path);
@@ -324,9 +329,12 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 	$form->sanitize();
 	if ( $form->validate() ) {
 		echo '<h2>Thank you for your submission!</h2>';
-		if ( $form->save() ) {
+		$result = $form->save();
+		$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($result, true));
+		if ( $result ) {
 			echo '<h4>Form Saved!</h4>';
 		} else {
+			$form->errors['database'] = $error_msgs['database'];
 			$form->print_html();
 		}
 	} else {

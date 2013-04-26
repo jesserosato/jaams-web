@@ -1,5 +1,5 @@
 <?php
-use \Forms\InputTypes as InputTypes;
+use \Forms\Controllers\InputTypes as InputTypes;
 extract($this->get_template_data());
 // Set the value
 $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';

@@ -2,24 +2,23 @@
 namespace JAAMS\Core\Models;
 
 /**
- * Base Model class.
+ * Base Model class. Uses mysqli.
  * Handles data store interactions.
  */
 class Base {
 	// PROPERTIES
 	// - PROTECTED
 	protected $dbh;						// Database handle
-	protected $controller;
-	protected $errmode		= PDO::ERRMODE_EXCEPTION;
+	protected $_controller;
+	protected $data			= array();
 	// - PRIVATE
-	private $db_info		= array(
-		'driver'	=> 'mysql',
-		'host'		=> DB_HOST,
-		'user'		=> DB_USER,
-		'password'	=> DB_PASSWORD,
-		'name'		=> DB_NAME,
-		'port'		=> DB_PORT,
-		'socket'	=> DB_SOCKET
+	protected $db_info		= array(
+		'host'		=> \JAAMS\DB_HOST,
+		'user'		=> \JAAMS\DB_USER,
+		'password'	=> \JAAMS\DB_PASSWORD,
+		'name'		=> \JAAMS\DB_NAME,
+		'port'		=> \JAAMS\DB_PORT,
+		'socket'	=> \JAAMS\DB_SOCKET
 	);
 	
 	// METHODS
@@ -28,44 +27,50 @@ class Base {
 	 * CONSTRUCTOR
 	 *
 	 * @param	$controller		Mixed
-	 * @param	$db_host		String
-	 * @param	$db_user		String
-	 * @param	$db_password	String
-	 * @param	$db_name		String
-	 * @param	$db_port		String
-	 * @param	$db_socket		String
+	 * @param	$db_info		Array
 	 *
 	 */
-	public function __construct( $controller, $db_info ) {
+	public function __construct( $controller, array $db_info = array() ) {
 		// Controller
-		$this->controller	= $controller;
-		foreach ( $db_info as $key => $val ) {
-			$this->db_info[$key] = $val ? $val : $this->db_info[$key];
+		$this->_controller	= $controller;
+		$this->db_info = array_merge($this->db_info, $db_info);
+		// Initialize mysqli connection
+		$dbh = new \mysqli(
+			$this->db_info['host'],
+			$this->db_info['user'], 
+			$this->db_info['password'], 
+			$this->db_info['name'],
+			$this->db_info['port'],
+			$this->db_info['socket']
+		);
+		if ($dbh->connect_errno) {
+		    throw new \Exception("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 		}
-		// Initialize database
-		// $this->dbh = $this->get_dbh();
-		// Check for solid connection.
-		// if ( $this->dbh->connect_errno )
-			// throw new \Exception('JAAMSModel was unable to instantiate a database connection');
+		$this->dbh = $dbh;
 	}
 	
+	
 	/**
-	 * Set the error mode for the pdo;
-	 *
-	 * @param	$errmode	Mixed	PHP PDO errmode constant
-	 *
+	 * __set function.
+	 * 
+	 * @access	public
+	 * @param	string	$property
+	 * @param	mixed	$value
+	 * @return	void
 	 */
-	public function set_errmode( $errmode ) {
-		$this->errmode = $errmode;
-		$this->dbh->setAttribute(PDO::ATTR_ERRMODE,$this->errmode);  
-	}
-	
-	/**
-	 * Establish and return a MYSQLI database connection.
-	 *
-	 * @param	$db_info	array
-	 * @return	mysqli
-	 */	
-	public function get_dbh( ) {
+	public function __set( $property, $value ) {
+		// Try and call the set_$property method.
+		$method = 'set_'.$property;
+		if ( is_callable( $this, $method ) ) {
+			$this->$method($value);
+		}
+		// Otherwise, use the class defaults to make sure the value being passed is the same
+		// type as the default.
+		$defaults = get_class_vars(get_class($this));
+		// Make sure the new value is of the same type as the default value.
+		if ( gettype( $value ) != gettype( $defaults[$property] ) )
+			return;
+		
+		$this->$property = $value;
 	}
 }

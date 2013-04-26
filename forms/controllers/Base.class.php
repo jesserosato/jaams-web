@@ -1,12 +1,12 @@
 <?php
-namespace Forms;
+namespace Forms\Controllers;
 
 // Include the JAAMS base class from core.
 require_once \JAAMS\ROOT . '/core/controllers/Base.class.php';
 
 // Define default template path.
-define(__NAMESPACE__.'\VIEWS_DIR_PATH', ROOT.'/default_templates');
-define('MODELS_DIR_PATH', ROOT.'/models');
+define('VIEWS_DIR_PATH', \Forms\ROOT.'/default_templates');
+define('MODELS_DIR_PATH', \Forms\ROOT.'/models');
 
 class Base extends \JAAMS\Core\Controllers\Base {
 	// PROPERTIES
@@ -41,7 +41,7 @@ class Base extends \JAAMS\Core\Controllers\Base {
 		// Instantiate parent.
 		parent::__construct($dir_paths);
 		// Set the default model file hierarchy.
-		$this->hierarchies['model']	= array('JAAMSForms');
+		$this->hierarchies['model']	= array('Base');
 		// Set the default model file extension.
 		$this->exts['model']		= 'model.php';
 		// Set the default view file extension

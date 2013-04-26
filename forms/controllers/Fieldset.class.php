@@ -1,5 +1,5 @@
 <?php
-namespace Forms;
+namespace Forms\Controllers;
 require_once 'Base.class.php';
 require_once 'FormElement.class.php';
 
