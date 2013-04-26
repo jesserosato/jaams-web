@@ -34,18 +34,24 @@ class Base {
 		// Controller
 		$this->_controller	= $controller;
 		$this->db_info = array_merge($this->db_info, $db_info);
-		// Initialize mysqli connection
-		$dbh = new \mysqli(
-			$this->db_info['host'],
-			$this->db_info['user'], 
-			$this->db_info['password'], 
-			$this->db_info['name'],
-			$this->db_info['port'],
-			$this->db_info['socket']
-		);
-		if ($dbh->connect_errno) {
-		    throw new \Exception("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
-		}
+			try {
+				// Initialize mysqli connection
+				$dbh = @new \mysqli(
+					$this->db_info['host'],
+					$this->db_info['user'], 
+					$this->db_info['password'], 
+					$this->db_info['name'],
+					$this->db_info['port'],
+					$this->db_info['socket']
+				);
+				if ($dbh->connect_errno) {
+				    throw new \Exception("Failed to connect to MySQL: (" . $dbh->connect_errno . ") " . $dbh->connect_error);
+				  }
+			} catch( \Exception $e ) {
+				if ( ! empty ( $GLOBALS['JAAMS']['DEBUGGER'] ) ) {
+					$GLOBALS['JAAMS']['DEBUGGER']->debug_log($e->getMessage());
+			}
+		} 
 		$this->dbh = $dbh;
 	}
 	

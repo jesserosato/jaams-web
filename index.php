@@ -2,6 +2,7 @@
 // Some examples of how to use the JAAMS Framework (patent pending).
 // Init (Loads all modules).
 require_once('init.php');
+require_once('application/localization/error_msgs.php');
 use \Forms\Controllers\Form as Form;
 use \Forms\Controllers\Fieldset as Fieldset;
 use \Forms\Controllers\Group as Group;
@@ -17,7 +18,7 @@ $form						= new Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
 $form->atts['action']		= $_SERVER['PHP_SELF'];
 $form->args['db_info']['table'] = 'test_table';
-$form->set_model			= new FormModel($form);
+$form->model				= new FormModel($form);
 
 
 // Create Project Information fieldset
@@ -334,7 +335,7 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 		if ( $result ) {
 			echo '<h4>Form Saved!</h4>';
 		} else {
-			$form->errors['database'] = $error_msgs['database'];
+			$form->errors['database'] = empty($error_msgs['database']) ? 'Error connecting to database' : $error_msgs['database'];
 			$form->print_html();
 		}
 	} else {
