@@ -5,7 +5,7 @@ JAAMS CSC131 Project - Web portion
 
 A (hopefully) easy to use web framework focused on extensiblity.
 
-Original Authors (ordered for maximum acronym awesomeness) :
+Original Authors (ordered for maximum acronym awesomeness, and then alphabetically) :
 - (J) + Jesse Rosato
 - (A) + Adrian Chambers
 - (A) + Anthony Cristiano
@@ -37,12 +37,12 @@ Documentation
 
 **TODO:
 ---------------------------------------
-- Database interactions			- Jesse.
 TODO:
 - Validators - Adrian and Anthony
 - Set proper default values for all inputs (Check client's notes) - Adrian and Anthony
 - Add inputs that will be hidden/revealed by JS. - Adrian and Anthony
 - Define (and use in templates) error messages. - Adrian and Anthony
 - Javascript. - Jesse
-- Build database connection layer. - Jesse
-
+- CSC131\ECS\Models\Base::save() - Jesse
+- Expand logging, move Debugger to Logger - Jesse
+- UPDATE SYSTEM DOCUMENTATION - Jesse
