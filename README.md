@@ -37,6 +37,7 @@ Documentation
 
 **TODO:
 ---------------------------------------
-- JAAMSForms_Processor class - Jesse.
-- Javascript - ?
-- Error messages - ?
+- Database interactions			- Jesse.
+- JAAMSForms_InputValidators	- Anthony
+- Javascript					- Jesse
+- Error messages				- Anthony + Adrian
