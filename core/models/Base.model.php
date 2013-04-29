@@ -13,6 +13,7 @@ class Base {
 	protected $data			= array();
 	// - PRIVATE
 	protected $db_info		= array(
+		'driver'	=> \JAAMS\DB_DRIVER,
 		'host'		=> \JAAMS\DB_HOST,
 		'user'		=> \JAAMS\DB_USER,
 		'password'	=> \JAAMS\DB_PASSWORD,

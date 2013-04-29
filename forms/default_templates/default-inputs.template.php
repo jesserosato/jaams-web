@@ -75,21 +75,19 @@ switch ( $type ) {
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		
-		<?php $i = 0;
+		<?php
 		foreach ( $args['options'] as $opt_value => $opt_label ) { ?>
 			<div class="checkbox-container">
-				<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
+				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
 				<input
 					type="checkbox" 
-					name="<?php echo $name."[$i]"; ?>"
+					name="<?php echo $name."[]"; ?>"
 					value="<?php echo $opt_value; ?>"
-					<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
+					<?php echo empty( $value[$opt_value] ) ? '' : 'checked="checked"'; ?>
 					<?php echo $atts; ?>
 				/>
 			</div>
-			
-			<?php $i++;
-		}
+		<?php }
 	break;
 	case InputTypes::radios : ?>
 	
@@ -97,10 +95,10 @@ switch ( $type ) {
 		<?php $i = 0;
 		foreach ($this->args['options'] as $opt_value => $opt_label ) { ?>
 			<div class="radio-container">
-				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
+				<label for="<?php echo $name; ?>"><?php echo $opt_label; ?></label>
 				<input
 					type="radio"
-					name="<?php echo $name."[]"; ?>"
+					name="<?php echo $name; ?>"
 					value="<?php echo $opt_value; ?>"
 					<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
 					<?php echo $atts; ?>

@@ -94,9 +94,9 @@ class Base extends \JAAMS\Core\Models\Base {
 				if ( preg_match( $regex, $name ) ) {
 					$include = false;
 				}
-				if ( $include ) {
-					$this->data[$name] = $input->value;
-				}
+			}
+			if ( $include ) {
+				$this->data[$name] = $input->value;
 			}
 		}
 	}

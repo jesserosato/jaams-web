@@ -48,7 +48,7 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 						type="checkbox" 
 						name="<?php echo $name."[]"; ?>"
 						value="<?php echo $opt_value; ?>"
-						<?php echo empty( $value[$index] ) ? '' : 'checked="checked"'; ?>
+						<?php echo empty( $value[$opt_value] ) ? '' : 'checked="checked"'; ?>
 						<?php echo $atts; ?>
 					/>
 				</div>

@@ -140,32 +140,33 @@ $class->inputs				= array(
 );
 $class->atts				= array('class' => "select-plus-other");
 
-// Inputs for Team Information fieldset
-$first_name 				= new Input('first_name');
-$first_name->label 			= 'First Name:';
-$first_name->type 			= InputTypes::text;
-							
-$last_name 					= new Input('last_name');
-$last_name->label 			= 'Last Name:';
-$last_name->type 			= InputTypes::text;
-							
-$email 						= new Input('email');
-$email->label 				= 'Email:';
-$email->type 				= InputTypes::text;
-							
-$phone_number 				= new Input('phone_number');
-$phone_number->label 		= 'Phone Number:';
-$phone_number->type 		= InputTypes::text;
-
-// Groups for Team Information fieldset
-$member_info 				= new Group('member_info');
-$member_info->label 		= 'Team Member';
-$member_info->inputs 		= array(
-	'first_name'		=> $first_name,
-	'last_name' 		=> $last_name,
-	'email'				=> $email,
-	'phone_number'		=> $phone_number,
-);
+// Groups for Team Information fieldsets
+for ( $i = 0; $i < 10; $i++ ) {
+	// Inputs for Team Members fieldsets
+	$first_name 				= new Input('first_name_'.$i);
+	$first_name->label 			= 'First Name:';
+	$first_name->type 			= InputTypes::text;
+								
+	$last_name 					= new Input('last_name_'.$i);
+	$last_name->label 			= 'Last Name:';
+	$last_name->type 			= InputTypes::text;
+								
+	$email 						= new Input('email_'.$i);
+	$email->label 				= 'Email:';
+	$email->type 				= InputTypes::text;
+								
+	$phone_number 				= new Input('phone_number_'.$i);
+	$phone_number->label 		= 'Phone Number:';
+	$phone_number->type 		= InputTypes::text;
+	$member_info[$i] 				= new Group('member_info');
+	$member_info[$i]->label 		= 'Team Member ' . $i;
+	$member_info[$i]->inputs 		= array(
+		'first_name_'.$i		=> $first_name,
+		'last_name_'.$i 		=> $first_name,
+		'email_'.$i				=> $email,
+		'phone_number_'.$i		=> $phone_number,
+	);
+}
 
 // Inputs for Accounts to Create fieldset
 $account_type 				= new Input('account_type');
@@ -212,15 +213,15 @@ $other_permissions->type 	= InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
 	'default_value'		=> array(
-		'alter', 
-		'insert', 
-		'create', 
-		'delete', 
-		'select', 
-		'drop', 
-		'index', 
-		'update', 
-		'references'
+		'alter'					=> true,
+		'insert'				=> true,
+		'create'				=> true,
+		'delete'				=> true,
+		'select'				=> true,
+		'drop'					=> true,
+		'index'					=> true,
+		'update'				=> true,
+		'references'			=> true,
 	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
@@ -253,6 +254,7 @@ $db_permissions->inputs 	= array(
 // Inputs for Project Account Information fieldset
 $disk_quota 				= new Input('disk_quota');
 $disk_quota->label 			= 'Disk Quota (in MB):';
+$disk_quota->args['default_value'] = '1500 MB';
 $disk_quota->type 			= InputTypes::text;
 
 $unix_shell 				= new Input('unix_shell');
@@ -293,7 +295,9 @@ $info_fieldset->groups		= array(
 	'class'				=> $class
 );
 
-$team_fieldset->groups 		= array('member_info' => $member_info);
+foreach ( $member_info as $key => $group ) {
+	$team_fieldset->groups['member_info_' . $key] = $group;
+}
 
 $account_fieldset->inputs 	= array('account_type' => $account_type);
 
