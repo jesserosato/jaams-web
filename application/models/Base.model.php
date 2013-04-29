@@ -3,6 +3,11 @@ namespace CSC131\ECS\Models;
 require_once(\JAAMS\ROOT.'/forms/init.php');
 require_once(\Forms\ROOT.'/models/Base.model.php');
 
+use \CSC131\ECS\SPRING_START as SPRING_START;
+use \CSC131\ECS\SPRING_END as SPRING_END;
+use \CSC131\ECS\FALL_START as FALL_START;
+use \CSC131\ECS\FALL_END as FALL_END;
+
 
 class Base extends \Forms\Models\Base {
 	// METHODS
@@ -13,14 +18,10 @@ class Base extends \Forms\Models\Base {
 	
 	public function save() {
 		$this->set_data($this->data);
-		$GLOBALS['JAAMS']['DEBUGGER']->debug_log(print_r($this->data,true));
-		$GLOBALS['JAAMS']['DEBUGGER']->debug_log("POST");
-		$GLOBALS['JAAMS']['DEBUGGER']->debug_log($_POST);
 		// Consolidate data
 		$mysql_date			= date('Y-m-d');
 		$semester_created	= $this->_get_semester_created();
 		$date_expires		= $this->_get_date_expires();
-
 		// calculate deleted date from active/active_other
 		// Save once for dataman and once for project
 		$dataman_database = array(
@@ -39,16 +40,14 @@ class Base extends \Forms\Models\Base {
 	 	
 	 	// DB: dataman :: TABLE: dataman_dbaccounts
 	 	$dataman_dbaccounts = array(
-		 	'DBAccountUName'	=> $this->_get_db_account_name(),	// varchar(30)
+		 	'DBAccountUName'	=> $this->data['project_name'],	// varchar(30)
 		 	'projName'			=> $this->data['project_name'],		//	varchar(20)
 		 	'db_host'			=> $this->data['mysql_host'],		// enum('local', 'remote')
 		);
 		$permissions = $this->_get_permissions();
-		/*
 	 	foreach ( $permissions as $permission => $val ) {
 		 	$dataman_dbaccounts[$permission] = $val;
 	 	}
-	 	*/
 	 	// DB Request - dataman
 	 	
 	 	$project_info = array(
@@ -106,25 +105,47 @@ class Base extends \Forms\Models\Base {
 		return true;
 	}
 	
+	
+	/**
+	 * _get_semester_created function.
+	 * 
+	 * @access protected
+	 * @return string
+	 */
 	protected function _get_semester_created() {
-		$start = $this->get_semester_start(true, date('Y'), true);
-		if (  time()
+		$now = time();
+		if ( ( strtotime( date( SPRING_START ) ) <= $now ) && ( $now <= strtotime( date( SPRING_END ) ) ) )
+			return 'Spring';
+		else
+			return 'Fall';
 	}
 	
+	
+	/**
+	 * _get_date_expires function.
+	 * 
+	 * @access protected
+	 * @return string
+	 */
 	protected function _get_date_expires() {
-		
+		$exp_time = strtotime("+" . 6 * $this->data['semesters'] . " months");
+		if ( ( strtotime( date( SPRING_START ) ) <= $exp_time ) && ( $exp_time <= strtotime( date( SPRING_END ) ) ) )
+			return date( SPRING_END );
+		else
+			return date('FALL_END');
 	}
 	
+	
+	/**
+	 * _get_permissions function.
+	 * 
+	 * @access protected
+	 * @return Array
+	 */
 	protected function _get_permissions() {
 		foreach ( $this->data['other_permissions'] as $perm ) {
 			$ret['db_' . $perm] = 'y';
 		}
 		return $ret;
 	}
-	
-	protected function _get_db_account_name() {
-		
-	}
-	
-	protected function _get_semester($semester, $year, $start)
 }
