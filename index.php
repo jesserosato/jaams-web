@@ -1,4 +1,6 @@
 <?php
+
+
 // Some examples of how to use the JAAMS Framework (patent pending).
 // Init
 require_once('init.php');
@@ -8,6 +10,15 @@ require_once(JAAMS_ROOT . '/Forms/init.php');
 
 $template_dir_path = array('view'=>array(JAAMS_ROOT.'/templates'));
 
+
+$whatev = 'dsalkjdklasjd@yahoo.com';
+
+$result = JAAMSForms_InputValidators::email($whatev);
+
+if ($result)
+	echo 'yes.';
+else
+	echo 'no.';
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form						= new JAAMSForms_Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
@@ -63,6 +74,7 @@ $advisor->type 				= JAAMSForms_InputTypes::text;
 $advisor_email				= new JAAMSForms_Input('advisor_email');
 $advisor_email->label 		= 'Project Advisor Email Address:';
 $advisor_email->type 		= JAAMSForms_InputTypes::text;
+$advisor_email->args['validator'] 	= 'email';
 							
 $active						= new JAAMSForms_Input('active');
 $active->label 				= 'How long will the Account be active?';
@@ -306,23 +318,23 @@ $form->fieldsets			= array(
 
 $form->inputs			= array('submit' => $submit);
 
-$form->print_html();
+//$form->print_html();
 ?>
 <?php
-/*
+
 if ( empty ( $_POST['first_form'] ) ) {
 	// Output the form
 	$form->print_html();
 } else {
 	$form->sanitize();
-	if ( $form->validate() ) {
-		if ( $form->save() ) {
+	 $advisor_email->validate()  {
+		/*if ( $form->save() ) {
 			//display success
 		} else {
-			$form->errors('database' => 'Unable to save data');
+			//$form->errors('database' => 'Unable to save data');
 		}
 	} else {
 		$form->print_html();
-	}
+	}*/
 }
-*/
+
