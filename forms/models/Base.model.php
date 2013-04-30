@@ -1,5 +1,9 @@
 <?php
 namespace Forms\Models;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 // Make sure Forms\Form has been included, and load the base model (see 'core/JAAMSBase.class.php').
 require_once(\Forms\ROOT.'/controllers/Form.class.php');
 require_once(\JAAMS\ROOT.'/core/models/Base.model.php');
@@ -94,9 +98,15 @@ class Base extends \JAAMS\Core\Models\Base {
 				if ( preg_match( $regex, $name ) ) {
 					$include = false;
 				}
+<<<<<<< HEAD
 				if ( $include ) {
 					$this->data[$name] = $input->value;
 				}
+=======
+			}
+			if ( $include ) {
+				$this->data[$name] = $input->value;
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 			}
 		}
 	}

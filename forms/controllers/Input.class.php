@@ -25,6 +25,7 @@ class InputValidators {
 		// google filter_var php for more info (duh). 
 		return ( bool ) filter_var( $email, FILTER_VALIDATE_EMAIL );
 	}
+<<<<<<< HEAD
 
     public static function only_letters( $value ){
 
@@ -42,6 +43,9 @@ class InputValidators {
         return preg_match( "/^[1]?[0-9]{10}([xX][0-9]{1-4})?$/", $new_phone);
     }
 
+=======
+	
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	/**
 	 * Compare two values, return true if they are not EXACTLY (type too) equal.
 	 *
@@ -110,7 +114,18 @@ class Input extends Base implements FormElement
 			$this->set_raw( $data_global );
 		// Set the filter flag to sanitize appropriately.
 		$flag = preg_match('/email/i', $this->name) ? FILTER_SANITIZE_EMAIL : FILTER_SANITIZE_STRING;
+<<<<<<< HEAD
 		$this->value = filter_var($this->value, $flag);
+=======
+		// If the value is an array, sanitize each value.
+		if ( is_array( $this->value ) ) {
+			foreach ( $this->value as $key => $value ) {
+				$this->value[$key] = filter_var($this->value[$key], $flag);
+			}
+		} else {
+			$this->value = filter_var($this->value, $flag);
+		}
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	}
 	
 	
@@ -198,8 +213,12 @@ class Input extends Base implements FormElement
 	 * @return void
 	 */
 	protected function _error( $validator ) {
+<<<<<<< HEAD
 		
 		$GLOBALS ['JAAMS']['DEBUGGER']->debug_log(var_export($this, true));
 		return empty( $this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
+=======
+		return empty($this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	}
 }

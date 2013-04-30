@@ -1,5 +1,10 @@
 <?php
 namespace JAAMS\Core\Models;
+<<<<<<< HEAD
+=======
+use \PDO as PDO;
+use \PDOException as PDOException;
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 
 /**
  * Base Model class. Uses mysqli.
@@ -13,6 +18,10 @@ class Base {
 	protected $data			= array();
 	// - PRIVATE
 	protected $db_info		= array(
+<<<<<<< HEAD
+=======
+		'driver'	=> \JAAMS\DB_DRIVER,
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 		'host'		=> \JAAMS\DB_HOST,
 		'user'		=> \JAAMS\DB_USER,
 		'password'	=> \JAAMS\DB_PASSWORD,
@@ -20,6 +29,10 @@ class Base {
 		'port'		=> \JAAMS\DB_PORT,
 		'socket'	=> \JAAMS\DB_SOCKET
 	);
+<<<<<<< HEAD
+=======
+	protected $errmode		= PDO::ERRMODE_EXCEPTION;
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	
 	// METHODS
 	// - PUBLIC
@@ -34,6 +47,7 @@ class Base {
 		// Controller
 		$this->_controller	= $controller;
 		$this->db_info = array_merge($this->db_info, $db_info);
+<<<<<<< HEAD
 		// Initialize mysqli connection
 		try {
 			$dbh = @new \mysqli(
@@ -53,6 +67,14 @@ class Base {
 		}
 
 		$this->dbh = $dbh;
+=======
+		// Initialize db handle
+		try {
+			$this->init_dbh();
+		} catch( PDOException $e ) {
+			throw $e;
+		}
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	}
 	
 	
@@ -79,4 +101,45 @@ class Base {
 		
 		$this->$property = $value;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	/**
+	 * init_dbh function.
+	 * 
+	 * @access public
+	 * @param bool $reset (default: false)
+	 * @return void
+	 */
+	public function init_dbh( $reset = false ) {
+		if ( ! empty( $this->dbh ) && ! $reset )
+			return;
+		
+		$dsn = $this->get_dsn();
+		try {
+			$this->dbh = new PDO($dsn, $this->db_info['user'], $this->db_info['password']);
+			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, $this->errmode);
+		} catch ( PDOException $e ) {
+			throw $e;
+		}
+	}
+	
+	// TODO: Add more drivers.
+	/**
+	 * get_dsn function.
+	 * 
+	 * @access public
+	 * @return string
+	 */
+	public function get_dsn() {
+		switch ( $this->db_info['driver'] ) {
+			default :
+				$dsn = "mysql:host=" . $this->db_info['host'] . ";";
+				$dsn.= empty($this->db_info['port']) ? "" : $this->db_info['port'] . ";";
+				$dsn.= "dbname=" . $this->db_info['name'] . ";";
+		}
+		return $dsn;
+	}
+>>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 }

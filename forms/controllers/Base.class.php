@@ -1,6 +1,5 @@
 <?php
 namespace Forms\Controllers;
-
 // Include the JAAMS base class from core.
 require_once \JAAMS\ROOT . '/core/controllers/Base.class.php';
 
