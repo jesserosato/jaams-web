@@ -1,5 +1,6 @@
 <?php
 namespace Forms\Models;
+
 // Make sure Forms\Form has been included, and load the base model (see 'core/JAAMSBase.class.php').
 require_once(\Forms\ROOT.'/controllers/Form.class.php');
 require_once(\JAAMS\ROOT.'/core/models/Base.model.php');

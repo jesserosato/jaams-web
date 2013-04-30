@@ -1,5 +1,7 @@
 <?php
 namespace JAAMS\Core\Models;
+use \PDO as PDO;
+use \PDOException as PDOException;
 
 /**
  * Base Model class. Uses mysqli.
@@ -21,6 +23,7 @@ class Base {
 		'port'		=> \JAAMS\DB_PORT,
 		'socket'	=> \JAAMS\DB_SOCKET
 	);
+	protected $errmode		= PDO::ERRMODE_EXCEPTION;
 	
 	// METHODS
 	// - PUBLIC
@@ -35,25 +38,12 @@ class Base {
 		// Controller
 		$this->_controller	= $controller;
 		$this->db_info = array_merge($this->db_info, $db_info);
-		// Initialize mysqli connection
+		// Initialize db handle
 		try {
-			$dbh = @new \mysqli(
-				$this->db_info['host'],
-				$this->db_info['user'], 
-				$this->db_info['password'], 
-				$this->db_info['name'],
-				$this->db_info['port'],
-				$this->db_info['socket']
-			);
-			if ($dbh->connect_errno) {
-				$msg = "Failed to connect to MySQL: (" . $dbh->connect_errno . ") " . $dbh->connect_error;
-			    throw new \Exception($msg);
-			}
-		} catch ( \Exception $e ) {
-			throw new \Exception($e->getMessage());
+			$this->init_dbh();
+		} catch( PDOException $e ) {
+			throw $e;
 		}
-
-		$this->dbh = $dbh;
 	}
 	
 	
@@ -79,5 +69,43 @@ class Base {
 			return;
 		
 		$this->$property = $value;
+	}
+	
+	
+	/**
+	 * init_dbh function.
+	 * 
+	 * @access public
+	 * @param bool $reset (default: false)
+	 * @return void
+	 */
+	public function init_dbh( $reset = false ) {
+		if ( ! empty( $this->dbh ) && ! $reset )
+			return;
+		
+		$dsn = $this->get_dsn();
+		try {
+			$this->dbh = new PDO($dsn, $this->db_info['user'], $this->db_info['password']);
+			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, $this->errmode);
+		} catch ( PDOException $e ) {
+			throw $e;
+		}
+	}
+	
+	// TODO: Add more drivers.
+	/**
+	 * get_dsn function.
+	 * 
+	 * @access public
+	 * @return string
+	 */
+	public function get_dsn() {
+		switch ( $this->db_info['driver'] ) {
+			default :
+				$dsn = "mysql:host=" . $this->db_info['host'] . ";";
+				$dsn.= empty($this->db_info['port']) ? "" : $this->db_info['port'] . ";";
+				$dsn.= "dbname=" . $this->db_info['name'] . ";";
+		}
+		return $dsn;
 	}
 }
