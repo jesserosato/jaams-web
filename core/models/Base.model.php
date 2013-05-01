@@ -1,10 +1,8 @@
 <?php
 namespace JAAMS\Core\Models;
-<<<<<<< HEAD
-=======
+
 use \PDO as PDO;
 use \PDOException as PDOException;
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 
 /**
  * Base Model class. Uses mysqli.
@@ -18,10 +16,7 @@ class Base {
 	protected $data			= array();
 	// - PRIVATE
 	protected $db_info		= array(
-<<<<<<< HEAD
-=======
 		'driver'	=> \JAAMS\DB_DRIVER,
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 		'host'		=> \JAAMS\DB_HOST,
 		'user'		=> \JAAMS\DB_USER,
 		'password'	=> \JAAMS\DB_PASSWORD,
@@ -29,11 +24,8 @@ class Base {
 		'port'		=> \JAAMS\DB_PORT,
 		'socket'	=> \JAAMS\DB_SOCKET
 	);
-<<<<<<< HEAD
-=======
 	protected $errmode		= PDO::ERRMODE_EXCEPTION;
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
-	
+
 	// METHODS
 	// - PUBLIC
 	/**
@@ -47,34 +39,12 @@ class Base {
 		// Controller
 		$this->_controller	= $controller;
 		$this->db_info = array_merge($this->db_info, $db_info);
-<<<<<<< HEAD
-		// Initialize mysqli connection
-		try {
-			$dbh = @new \mysqli(
-				$this->db_info['host'],
-				$this->db_info['user'], 
-				$this->db_info['password'], 
-				$this->db_info['name'],
-				$this->db_info['port'],
-				$this->db_info['socket']
-			);
-			if ($dbh->connect_errno) {
-				$msg = "Failed to connect to MySQL: (" . $dbh->connect_errno . ") " . $dbh->connect_error;
-			    throw new \Exception($msg);
-			}
-		} catch ( \Exception $e ) {
-			throw new \Exception($e->getMessage());
-		}
-
-		$this->dbh = $dbh;
-=======
 		// Initialize db handle
 		try {
 			$this->init_dbh();
 		} catch( PDOException $e ) {
 			throw $e;
 		}
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	}
 	
 	
@@ -101,9 +71,6 @@ class Base {
 		
 		$this->$property = $value;
 	}
-<<<<<<< HEAD
-=======
-	
 	
 	/**
 	 * init_dbh function.
@@ -141,5 +108,4 @@ class Base {
 		}
 		return $dsn;
 	}
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 }

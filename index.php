@@ -10,20 +10,12 @@ use \Forms\Controllers\Fieldset as Fieldset;
 use \Forms\Controllers\Group as Group;
 use \Forms\Controllers\Input as Input;
 use \Forms\Controllers\InputTypes as InputTypes;
+use \Forms\Controllers\InputValidators as InputValidators;
 use \CSC131\ECS\Models\Base as FormModel;
 
 $template_dir_path			= array('view' => array(\JAAMS\ROOT.'/application/templates'));
 $model_dir_path				= array('model' => array(\Forms\ROOT.'/models'));
-
-
-$whatev = 'dsalkjdklasjd@yahoo.com';
-
-$result = JAAMSForms_InputValidators::email($whatev);
-
-if ($result)
-	echo 'yes.';
-else
-	echo 'no.';
+	
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form						= new Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
@@ -81,13 +73,8 @@ $advisor->type 				= InputTypes::text;
 							
 $advisor_email				= new Input('advisor_email');
 $advisor_email->label 		= 'Project Advisor Email Address:';
-<<<<<<< HEAD
-$advisor_email->type 		= JAAMSForms_InputTypes::text;
-$advisor_email->args['validator'] 	= 'email';
-=======
 $advisor_email->type 		= InputTypes::text;
 $advisor_email->args['validator'] = 'email';
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 							
 $active						= new Input('active');
 $active->label 				= 'How long will the Account be active?';
@@ -340,28 +327,11 @@ $form->fieldsets			= array(
 
 $form->inputs			= array('ecs_submit' => $submit);
 
-<<<<<<< HEAD
-//$form->print_html();
-?>
-<?php
-
-if ( empty ( $_POST['first_form'] ) ) {
-=======
-?>
-<?php
 if ( empty ( $_POST['ecs_submit'] ) ) {
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	// Output the form
 	$form->print_html();
 } else {
 	$form->sanitize();
-<<<<<<< HEAD
-	 $advisor_email->validate()  {
-		/*if ( $form->save() ) {
-			//display success
-		} else {
-			//$form->errors('database' => 'Unable to save data');
-=======
 	if ( $form->validate() ) {
 		echo '<h2>Thank you for your submission!</h2>';
 		try {
@@ -373,13 +343,8 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 			$form->errors['database'] = empty($error_msgs['database']) ? 'Error connecting to database' : $error_msgs['database'];
 			$form->print_html();
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 		}
 	} else {
 		$form->print_html();
-	}*/
+	}
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04

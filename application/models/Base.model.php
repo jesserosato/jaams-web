@@ -1,22 +1,12 @@
 <?php
 namespace CSC131\ECS\Models;
-<<<<<<< HEAD
-require_once(\JAAMS\ROOT.'/forms/init.php');
-require_once(\Forms\ROOT.'/models/Base.model.php');
-=======
 
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 class Base extends \Forms\Models\Base {
 	// METHODS
 	// - PUBLIC
 	public function __construct($controller) {
 		parent::__construct($controller);
 	}
-	
-<<<<<<< HEAD
-	public function save() {
-		// Define custom save logic and mysqli interactions.
-=======
 	
 	/**
 	 * save function.
@@ -226,6 +216,5 @@ class Base extends \Forms\Models\Base {
 			$ret['db_' . $perm] = 'y';
 		}
 		return $ret;
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
 	}
 }
