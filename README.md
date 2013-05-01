@@ -37,20 +37,12 @@ Documentation
 
 **TODO:
 ---------------------------------------
-<<<<<<< HEAD
-- Database interactions			- Jesse.
-- JAAMSForms_InputValidators	- Anthony
-- Javascript					- Jesse
-- Error messages				- Anthony + Adrian
-=======
 TODO:
 - Validators - Adrian and Anthony
 - Set proper default values for all inputs (Check client's notes) - Adrian and Anthony
 - Add inputs that will be hidden/revealed by JS. - Adrian and Anthony
 - Define (and use in templates) error messages. - Adrian and Anthony
-- Javascript. - Jesse
-- Refactor DB Layer to use PDO - Jesse
-- CSC131\ECS\Models\Base::save() - Jesse
+- Javascript/AJAX. - Jesse
+- FIX CSC131\ECS\Models\Base::save() - Jesse
 - Expand logging, move Debugger to Logger - Jesse
 - UPDATE SYSTEM DOCUMENTATION - Jesse
->>>>>>> 57359df9d6a55169e4262f7e80bae64210b2ba04
