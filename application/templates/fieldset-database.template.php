@@ -7,13 +7,9 @@ extract($this->get_template_data());
 ?>
 <div class="fieldset <?php echo $name; ?>" <?php echo $atts; ?> >
 	<h3 class="legend"><?php echo $label; ?></h3>
-	<?php foreach ( $fieldsets as $fieldset ) {
-		$fieldset->print_html();
-	}
-	foreach ( $groups as $group ) {
-		$group->print_html();
-	}
-	foreach ( $inputs as $input ) {
-		$input->print_html();
-	} ?>
+	<?php 
+		$inputs['mysql_host']->print_html();
+		$groups['db_permissions']->print_html();
+		$inputs['db_comments']->print_html();
+	?>
 </div>

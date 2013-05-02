@@ -1,4 +1,5 @@
 <?php
+use \Forms\Controllers\InputTypes as InputTypes;
 extract($this->get_template_data());
 // Set the value
 $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
@@ -10,9 +11,9 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 	<div class="error">
 		<ul>
 		
-		<?php foreach ( $errors as $error ) { ?>
+		<?php foreach ( $errors as $err_type => $error ) { ?>
 		
-			<li class="error"><?php echo $error; ?></li>
+			<li class="error">Error of type "<?php echo $err_type; ?>".</li>
 			
 		<?php } ?>
 		
@@ -21,13 +22,13 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 	
 <?php }
 switch ( $type ) {
-	case JAAMSForms_InputTypes::textarea : ?>
+	case InputTypes::textarea : ?>
 		
 		<label for="<?php echo $name; ?>"><?php echo $this->label; ?></label>
 		<textarea name="<?php echo $name; ?>" <?php echo $atts; ?> ><?php echo $value; ?></textarea>
 	
 	<?php break;	
-	case JAAMSForms_InputTypes::select : ?>	
+	case InputTypes::select : ?>	
 		<label for="<?php echo $name; ?>"><?php echo $label;?></label>
 		<select name="<?php echo $name; ?>" <?php echo $atts; ?> >
 		
@@ -47,18 +48,18 @@ switch ( $type ) {
 		</select>
 		
 	<?php break;
-	case JAAMSForms_InputTypes::submit : ?>
+	case InputTypes::submit : ?>
 	
 		<input type="submit" name="<?php echo $name; ?>" value="<?php echo $label; ?>" <?php echo $atts; ?> />
 	
 	<?php break;	
-	case JAAMSForms_InputTypes::button :
+	case InputTypes::button :
 	?>
 	
 		<input type="button" name="<?php echo $name; ?>" value="<?php echo $label; ?>" <?php echo $atts; ?> />
 	
 	<?php break;
-	case JAAMSForms_InputTypes::checkbox : ?>
+	case InputTypes::checkbox : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		<input
@@ -70,36 +71,34 @@ switch ( $type ) {
 		/>
 		
 	<?php break;
-	case JAAMSForms_InputTypes::checkboxes : ?>
+	case InputTypes::checkboxes : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		
-		<?php $i = 0;
+		<?php
 		foreach ( $args['options'] as $opt_value => $opt_label ) { ?>
 			<div class="checkbox-container">
-				<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
+				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
 				<input
 					type="checkbox" 
-					name="<?php echo $name."[$i]"; ?>"
+					name="<?php echo $name."[]"; ?>"
 					value="<?php echo $opt_value; ?>"
-					<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
+					<?php echo empty( $value[$opt_value] ) ? '' : 'checked="checked"'; ?>
 					<?php echo $atts; ?>
 				/>
 			</div>
-			
-			<?php $i++;
-		}
+		<?php }
 	break;
-	case JAAMSForms_InputTypes::radios : ?>
+	case InputTypes::radios : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		<?php $i = 0;
 		foreach ($this->args['options'] as $opt_value => $opt_label ) { ?>
 			<div class="radio-container">
-				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
+				<label for="<?php echo $name; ?>"><?php echo $opt_label; ?></label>
 				<input
 					type="radio"
-					name="<?php echo $name."[]"; ?>"
+					name="<?php echo $name; ?>"
 					value="<?php echo $opt_value; ?>"
 					<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
 					<?php echo $atts; ?>

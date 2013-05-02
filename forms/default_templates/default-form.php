@@ -5,11 +5,7 @@
 // from functions scope.
 extract($this->get_template_data());
 ?>
-<div class="fieldset <?php echo $name; ?>" <?php echo $atts; ?> >
-	<h3 class="legend"><?php echo $label; ?></h3>
-	<?php 
-		$inputs['mysql_host']->print_html();
-		$groups['db_permissions']->print_html();
-		$inputs['db_comments']->print_html();
-	?>
-</div>
+<form <?php echo $atts; ?> >
+	<h1>The FORM template is working!</h1>
+	<?php foreach ( $fieldsets as $fieldset ) : $fieldset->print_html(); endforeach; ?>
+</form>

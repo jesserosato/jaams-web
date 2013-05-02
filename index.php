@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 
 // Some examples of how to use the JAAMS Framework (patent pending).
@@ -7,9 +8,11 @@ require_once('init.php');
 
 // Load the Forms class (JAAMS_ROOT is defined in init.php above).
 require_once(JAAMS_ROOT . '/Forms/init.php');
+=======
+>>>>>>> dbbea60bf99606122099803f9d54b2c7ddb618ef
 
-$template_dir_path = array('view'=>array(JAAMS_ROOT.'/templates'));
 
+<<<<<<< HEAD
 
 $whatev = 'dsalkjdklasjd@yahoo.com';
 
@@ -19,38 +22,58 @@ if ($result)
 	echo 'yes.';
 else
 	echo 'no.';
+=======
+// Some examples of how to use the JAAMS Framework (patent pending).
+// Init (Loads all modules).
+require_once('init.php');
+require_once('application/localization/error_msgs.php');
+use \Forms\Controllers\Form as Form;
+use \Forms\Controllers\Fieldset as Fieldset;
+use \Forms\Controllers\Group as Group;
+use \Forms\Controllers\Input as Input;
+use \Forms\Controllers\InputTypes as InputTypes;
+use \Forms\Controllers\InputValidators as InputValidators;
+use \CSC131\ECS\Models\Base as FormModel;
+
+$template_dir_path			= array('view' => array(\JAAMS\ROOT.'/application/templates'));
+$model_dir_path				= array('model' => array(\Forms\ROOT.'/models'));
+	
+>>>>>>> dbbea60bf99606122099803f9d54b2c7ddb618ef
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
-$form						= new JAAMSForms_Form('my_form', $template_dir_path);
+$form						= new Form('my_form', $template_dir_path);
 $form->hierarchies['view']	= array('form');
+$form->atts['action']		= $_SERVER['PHP_SELF'];
+$form->args['db_info']['table'] = 'test_table';
+
 
 // Create Project Information fieldset
-$info_fieldset				= new JAAMSForms_Fieldset('info_fieldset', $template_dir_path);
+$info_fieldset				= new Fieldset('info_fieldset', $template_dir_path);
 $info_fieldset->label		= 'Project Information';
 $info_fieldset->hierarchies['view'] = array('fieldset', 'info');
 
 // Create Team Information fieldset
-$team_fieldset 				= new JAAMSForms_Fieldset('team_fieldset');
+$team_fieldset 				= new Fieldset('team_fieldset');
 $team_fieldset->label   	= 'Team Information';
 //$team_fieldset->hierarchies['view'] = array('fieldset', 'team_fieldset');
 
 // Create Accounts to Create fieldset
-$account_fieldset 			= new JAAMSForms_Fieldset('account_fieldset');
+$account_fieldset 			= new Fieldset('account_fieldset');
 $account_fieldset->label 	= 'Accounts To Create';
 
 // Create Database Information fieldset
-$database_fieldset 			= new JAAMSForms_Fieldset('database_fieldset', $template_dir_path);
+$database_fieldset 			= new Fieldset('database_fieldset', $template_dir_path);
 $database_fieldset->label 	= 'Database Information';
 $database_fieldset->hierarchies['view'] = array('fieldset', 'database');
 
 // Create Project Account Information fieldset
-$project_fieldset 			= new JAAMSForms_Fieldset("project_fieldset");
+$project_fieldset 			= new Fieldset("project_fieldset");
 $project_fieldset->label 	= 'Project Account Information';
 
 
 // Inputs for Project Information fieldset.
-$participants				= new JAAMSForms_Input('participants');
+$participants				= new Input('participants');
 $participants->label		= 'Number of Participants:';
-$participants->type			= JAAMSForms_InputTypes::select;
+$participants->type			= InputTypes::select;
 $participants->args 			= array(
 	'default_value'		=> '1',
 	'options'			=> array(
@@ -67,18 +90,23 @@ $participants->args 			= array(
 	),
 );
 								
-$advisor					= new JAAMSForms_Input('advisor');
+$advisor					= new Input('advisor');
 $advisor->label 			= 'Project Advisor:';
-$advisor->type 				= JAAMSForms_InputTypes::text;
+$advisor->type 				= InputTypes::text;
 							
-$advisor_email				= new JAAMSForms_Input('advisor_email');
+$advisor_email				= new Input('advisor_email');
 $advisor_email->label 		= 'Project Advisor Email Address:';
+<<<<<<< HEAD
 $advisor_email->type 		= JAAMSForms_InputTypes::text;
 $advisor_email->args['validator'] 	= 'email';
+=======
+$advisor_email->type 		= InputTypes::text;
+$advisor_email->args['validator'] = 'email';
+>>>>>>> dbbea60bf99606122099803f9d54b2c7ddb618ef
 							
-$active						= new JAAMSForms_Input('active');
+$active						= new Input('active');
 $active->label 				= 'How long will the Account be active?';
-$active->type 				= JAAMSForms_InputTypes::select;
+$active->type 				= InputTypes::select;
 $active->args 				= array(
 	'default_value'		=> '',
 	'options'			=> array(
@@ -89,18 +117,18 @@ $active->args 				= array(
 	)
 );
 								
-$active_other				= new JAAMSForms_Input('active_other');
+$active_other				= new Input('active_other');
 $active_other->label 		= 'Other:';
-$active_other->type 		= JAAMSForms_InputTypes::text;
+$active_other->type 		= InputTypes::text;
 $active_other->atts			= array('class' => "other");
 							
-$project_type 				= new JAAMSForms_Input('project_type');
+$project_type 				= new Input('project_type');
 $project_type->label 		= 'Project Type:';
-$project_type->type 		= JAAMSForms_InputTypes::text;
+$project_type->type 		= InputTypes::text;
 								
-$dept						= new JAAMSForms_Input('dept');
+$dept						= new Input('dept');
 $dept->label 				= 'Class:';
-$dept->type 				= JAAMSForms_InputTypes::select;
+$dept->type 				= InputTypes::select;
 $dept->args 				= array(
 	'default_value'		=> 'ce',
 	'options'			=> array(
@@ -114,61 +142,67 @@ $dept->args 				= array(
 	),
 );
 								
-$class_no 					= new JAAMSForms_Input('class_no');
-$class_no->type 			= JAAMSForms_InputTypes::text;
+$class_no 					= new Input('class_no');
+$class_no->type 			= InputTypes::text;
 $class_no->label			= 'Class #: ';
 $class_no->atts			= array('class' => "other");
+
+$major						= new Input('major');
+$major->label				= 'Major:';
+$major->type				= InputTypes::text;
+$major->atts['style']		= 'display:none;';
 								
-$project_name 				= new JAAMSForms_Input('project_name');
+$project_name 				= new Input('project_name');
 $project_name->label 		= 'Project Name:';
-$project_name->type 		= JAAMSForms_InputTypes::text;
+$project_name->type 		= InputTypes::text;
 
 // Groups for Project Information fieldset.
-$semesters 					= new JAAMSForms_Group('semesters');
+$semesters 					= new Group('semesters');
 $semesters->inputs 			= array(
 	'active'			=> $active,
 	'active_other'		=> $active_other
 );
 $semesters->atts			= array('class' => "select-plus-other");
 								
-$class 						= new JAAMSForms_Group('class');
+$class 						= new Group('class');
 $class->inputs				= array(
 	'dept'				=> $dept,
 	'class_no'			=> $class_no
 );
 $class->atts				= array('class' => "select-plus-other");
 
-// Inputs for Team Information fieldset
-$first_name 				= new JAAMSForms_Input('first_name');
-$first_name->label 			= 'First Name:';
-$first_name->type 			= JAAMSForms_InputTypes::text;
-							
-$last_name 					= new JAAMSForms_Input('last_name');
-$last_name->label 			= 'Last Name:';
-$last_name->type 			= JAAMSForms_InputTypes::text;
-							
-$email 						= new JAAMSForms_Input('email');
-$email->label 				= 'Email:';
-$email->type 				= JAAMSForms_InputTypes::text;
-							
-$phone_number 				= new JAAMSForms_Input('phone_number');
-$phone_number->label 		= 'Phone Number:';
-$phone_number->type 		= JAAMSForms_InputTypes::text;
-
-// Groups for Team Information fieldset
-$member_info 				= new JAAMSForms_Group('member_info');
-$member_info->label 		= 'Team Member';
-$member_info->inputs 		= array(
-	'first_name'		=> $first_name,
-	'last_name' 		=> $last_name,
-	'email'				=> $email,
-	'phone_number'		=> $phone_number,
-);
+// Groups for Team Information fieldsets
+for ( $i = 0; $i < 10; $i++ ) {
+	// Inputs for Team Members fieldsets
+	$first_name 				= new Input('first_name_'.$i);
+	$first_name->label 			= 'First Name:';
+	$first_name->type 			= InputTypes::text;
+								
+	$last_name 					= new Input('last_name_'.$i);
+	$last_name->label 			= 'Last Name:';
+	$last_name->type 			= InputTypes::text;
+								
+	$email 						= new Input('email_'.$i);
+	$email->label 				= 'Email:';
+	$email->type 				= InputTypes::text;
+								
+	$phone_number 				= new Input('phone_number_'.$i);
+	$phone_number->label 		= 'Phone Number:';
+	$phone_number->type 		= InputTypes::text;
+	$member_info[$i] 				= new Group('member_info');
+	$member_info[$i]->label 		= 'Team Member ' . $i;
+	$member_info[$i]->inputs 		= array(
+		'first_name_'.$i		=> $first_name,
+		'last_name_'.$i 		=> $first_name,
+		'email_'.$i				=> $email,
+		'phone_number_'.$i		=> $phone_number,
+	);
+}
 
 // Inputs for Accounts to Create fieldset
-$account_type 				= new JAAMSForms_Input('account_type');
+$account_type 				= new Input('account_type');
 $account_type->label 		= 'Type of Account to Create:';
-$account_type->type 		= JAAMSForms_InputTypes::select;
+$account_type->type 		= InputTypes::select;
 $account_type->args 		= array(
 	'default_value'		=> 'both',
 	'options'			=> array(
@@ -180,9 +214,9 @@ $account_type->args 		= array(
 
 // Inputs for Database Information fieldset
 $mysql_host_desc			= '<p class="info">* Localhost: Must be logged into assigned MySQL server - i.e. athena<br />** % (Any Host): Must use -h <server name> - i.e. -h athena; commonly used for web applications</p>';
-$mysql_host 				= new JAAMSForms_Input('mysql_host');
+$mysql_host 				= new Input('mysql_host');
 $mysql_host->label 			= 'MySQL Host Location:';
-$mysql_host->type 			= JAAMSForms_InputTypes::radios;
+$mysql_host->type 			= InputTypes::radios;
 $mysql_host->args 			= array(
 	'default_value'		=> 'any',
 	'options'			=> array(
@@ -192,9 +226,9 @@ $mysql_host->args 			= array(
 	'desc'				=> $mysql_host_desc
 );
 
-$permissions 				= new JAAMSForms_Input('permissions');
+$permissions 				= new Input('permissions');
 $permissions->label 		= 'Your Permissions:';
-$permissions->type 			= JAAMSForms_InputTypes::radios;
+$permissions->type 			= InputTypes::radios;
 $permissions->args 			= array(
 	'default_value'		=> 'all',
 	'options'			=> array(
@@ -204,21 +238,21 @@ $permissions->args 			= array(
 	)
 );
 
-$other_permissions			= new JAAMSForms_Input('other_permissions', $template_dir_path);
+$other_permissions			= new Input('other_permissions', $template_dir_path);
 $other_permissions->label 	= '';
-$other_permissions->type 	= JAAMSForms_InputTypes::checkboxes;
+$other_permissions->type 	= InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
 	'default_value'		=> array(
-		'alter', 
-		'insert', 
-		'create', 
-		'delete', 
-		'select', 
-		'drop', 
-		'index', 
-		'update', 
-		'references'
+		'alter'					=> true,
+		'insert'				=> true,
+		'create'				=> true,
+		'delete'				=> true,
+		'select'				=> true,
+		'drop'					=> true,
+		'index'					=> true,
+		'update'				=> true,
+		'references'			=> true,
 	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
@@ -236,12 +270,12 @@ $other_permissions->hierarchies = array(
 	'view'	=>	array('input', 'other_permissions')
 );
 
-$db_comments 				= new JAAMSForms_Input('db_comments');
+$db_comments 				= new Input('db_comments');
 $db_comments->label 		= 'Comments:';
-$db_comments->type 			= JAAMSForms_InputTypes::textarea;
+$db_comments->type 			= InputTypes::textarea;
 
 // Groups for Database Information fieldset
-$db_permissions 			= new JAAMSForms_Group('db_permissions');
+$db_permissions 			= new Group('db_permissions');
 $db_permissions->inputs 	= array(
 	'permissions'		=> $permissions,
 	'other_permissions' => $other_permissions
@@ -249,13 +283,14 @@ $db_permissions->inputs 	= array(
 
 
 // Inputs for Project Account Information fieldset
-$disk_quota 				= new JAAMSForms_Input('disk_quota');
+$disk_quota 				= new Input('disk_quota');
 $disk_quota->label 			= 'Disk Quota (in MB):';
-$disk_quota->type 			= JAAMSForms_InputTypes::text;
+$disk_quota->args['default_value'] = '1500 MB';
+$disk_quota->type 			= InputTypes::text;
 
-$unix_shell 				= new JAAMSForms_Input('unix_shell');
+$unix_shell 				= new Input('unix_shell');
 $unix_shell->label 			= 'Unix Shell:';
-$unix_shell->type 			= JAAMSForms_InputTypes::select;
+$unix_shell->type 			= InputTypes::select;
 $unix_shell->args 			= array(
 	'default_value'		=> 'csh',
 	'options'			=> array(
@@ -267,13 +302,13 @@ $unix_shell->args 			= array(
 	)
 );
 
-$project_comments 			= new JAAMSForms_Input('project_comments');
+$project_comments 			= new Input('project_comments');
 $project_comments->label 	= 'Comments:';
-$project_comments->type 	= JAAMSForms_InputTypes::textarea;
+$project_comments->type 	= InputTypes::textarea;
 
-$submit						= new JAAMSForms_Input('submit');
+$submit						= new Input('ecs_submit');
 $submit->label				= 'Submit';
-$submit->type				= JAAMSForms_InputTypes::submit;
+$submit->type				= InputTypes::submit;
 
 
 // Be careful when setting fieldsets, groups and inputs, that you don't overwrite
@@ -291,7 +326,9 @@ $info_fieldset->groups		= array(
 	'class'				=> $class
 );
 
-$team_fieldset->groups 		= array('member_info' => $member_info);
+foreach ( $member_info as $key => $group ) {
+	$team_fieldset->groups['member_info_' . $key] = $group;
+}
 
 $account_fieldset->inputs 	= array('account_type' => $account_type);
 
@@ -316,25 +353,46 @@ $form->fieldsets			= array(
 	'project_fieldset'	=> $project_fieldset
 );
 
-$form->inputs			= array('submit' => $submit);
+$form->inputs			= array('ecs_submit' => $submit);
 
+<<<<<<< HEAD
 //$form->print_html();
 ?>
 <?php
 
 if ( empty ( $_POST['first_form'] ) ) {
+=======
+if ( empty ( $_POST['ecs_submit'] ) ) {
+>>>>>>> dbbea60bf99606122099803f9d54b2c7ddb618ef
 	// Output the form
 	$form->print_html();
 } else {
 	$form->sanitize();
 	if ( $form->validate() ) {
+<<<<<<< HEAD
 		if ( $form->save() ) {
 			//display success
 		} else {
 			//$form->errors('database' => 'Unable to save data');
+=======
+		echo '<h2>Thank you for your submission!</h2>';
+		try {
+			$form->model = new FormModel($form);
+			$result = $form->save();
+			echo '<h4>Form Saved!</h4>';
+		} catch( \Exception $e ) {
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("YEAH!");
+			$form->errors['database'] = empty($error_msgs['database']) ? 'Error connecting to database' : $error_msgs['database'];
+			$form->print_html();
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
+>>>>>>> dbbea60bf99606122099803f9d54b2c7ddb618ef
 		}
 	} else {
 		$form->print_html();
 	}
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> dbbea60bf99606122099803f9d54b2c7ddb618ef

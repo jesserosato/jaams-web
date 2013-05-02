@@ -1,12 +1,13 @@
 <?php
-// Include the JAAMS templatable class from core.
-require_once JAAMS_ROOT . '/core/JAAMSBase.class.php';
+namespace Forms\Controllers;
+// Include the JAAMS base class from core.
+require_once \JAAMS\ROOT . '/core/controllers/Base.class.php';
 
 // Define default template path.
-define('JAAMS_FORMS_VIEWS_DIR_PATH', JAAMS_FORMS_ROOT.'/default_templates');
-define('JAAMS_FORMS_MODELS_DIR_PATH', JAAMS_FORMS_ROOT.'/models');
+define('VIEWS_DIR_PATH', \Forms\ROOT.'/default_templates');
+define('MODELS_DIR_PATH', \Forms\ROOT.'/models');
 
-class JAAMSForms_Base extends JAAMSBase {
+class Base extends \JAAMS\Core\Controllers\Base {
 	// PROPERTIES
 	// - PUBLIC
 	// - PROTECTED
@@ -27,19 +28,19 @@ class JAAMSForms_Base extends JAAMSBase {
 	public function __construct( $name, array $dir_paths = array() ) {
 		// Set up the directory paths
 		if ( empty( $dir_paths['view'] ) || ! is_array( $dir_paths['view'] ) ) {
-			$dir_paths['view']	= array(JAAMS_FORMS_VIEWS_DIR_PATH);
+			$dir_paths['view']	= array(VIEWS_DIR_PATH);
 		} else {
-			array_push($dir_paths['view'], JAAMS_FORMS_VIEWS_DIR_PATH);
+			array_push($dir_paths['view'], VIEWS_DIR_PATH);
 		}
 		if ( empty( $dir_paths['model'] ) || ! is_array($dir_paths['model'] ) ) {
-			$dir_paths['model']	= array(JAAMS_FORMS_MODELS_DIR_PATH);
+			$dir_paths['model']	= array(MODELS_DIR_PATH);
 		} else {
-			array_push($dir_paths['view'], JAAMS_FORMS_MODELS_DIR_PATH);
+			array_push($dir_paths['model'], MODELS_DIR_PATH);
 		}
 		// Instantiate parent.
 		parent::__construct($dir_paths);
 		// Set the default model file hierarchy.
-		$this->hierarchies['model']	= array('JAAMSForms');
+		$this->hierarchies['model']	= array('Base');
 		// Set the default model file extension.
 		$this->exts['model']		= 'model.php';
 		// Set the default view file extension
@@ -65,29 +66,6 @@ class JAAMSForms_Base extends JAAMSBase {
 	}
 	
 	/**
-	 * "Abstract" method to sanitize form input data.
-	 *
-	 */
-	public function sanitize() {
-		
-	}
-	
-	/**
-	 * "Abstract" method to validate form input data.
-	 *
-	 */
-	public function validate() {
-	}
-	
-	/**
-	 * "Abstract" method to save form input data.
-	 *
-	 */
-	public function save() {
-		// Probably something like: return $this->model->save();
-	}
-	
-	/**
 	 * Return an array of data relating to this form ready to be used in an HTML template.
 	 *
 	 * @return Array
@@ -109,7 +87,5 @@ class JAAMSForms_Base extends JAAMSBase {
 		 }
 		 return $data;
 	 }
-	 
-	// - PROTECTED
 }
 		
