@@ -1,8 +1,12 @@
 <?php
 use \Forms\Controllers\InputTypes as InputTypes;
+
+require_once('application/localization/error_msgs.php');
+
+
 extract($this->get_template_data());
 // Set the value
-$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
+$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : $value;
 // Print out the error message first.
 ?>
 <div class="input-container <?php echo $name; ?>">
@@ -10,10 +14,11 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 
 	<div class="error">
 		<ul>
-		
-		<?php foreach ( $errors as $err_type => $error ) { ?>
-		
-			<li class="error">Error of type "<?php echo $err_type; ?>".</li>
+
+
+		<?php foreach ( $errors as $err_type => $error ) {        ?>
+
+			<li class="error"><?php echo empty( $args['error_msgs'][$err_type]) ? 'There was an error.': $args['error_msgs'][$err_type]; ?></li>
 			
 		<?php } ?>
 		
@@ -46,7 +51,7 @@ switch ( $type ) {
 			} ?>
 			
 		</select>
-		
+
 	<?php break;
 	case InputTypes::submit : ?>
 	
@@ -75,19 +80,21 @@ switch ( $type ) {
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		
-		<?php
+		<?php $i = 0;
 		foreach ( $args['options'] as $opt_value => $opt_label ) { ?>
 			<div class="checkbox-container">
-				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
+				<label for="<?php echo $name."[$i]"; ?>"><?php echo $opt_label; ?></label>
 				<input
 					type="checkbox" 
-					name="<?php echo $name."[]"; ?>"
+					name="<?php echo $name."[$i]"; ?>"
 					value="<?php echo $opt_value; ?>"
-					<?php echo empty( $value[$opt_value] ) ? '' : 'checked="checked"'; ?>
+					<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
 					<?php echo $atts; ?>
 				/>
 			</div>
-		<?php }
+			
+			<?php $i++;
+		}
 	break;
 	case InputTypes::radios : ?>
 	
@@ -95,10 +102,10 @@ switch ( $type ) {
 		<?php $i = 0;
 		foreach ($this->args['options'] as $opt_value => $opt_label ) { ?>
 			<div class="radio-container">
-				<label for="<?php echo $name; ?>"><?php echo $opt_label; ?></label>
+				<label for="<?php echo $name."[]"; ?>"><?php echo $opt_label; ?></label>
 				<input
 					type="radio"
-					name="<?php echo $name; ?>"
+					name="<?php echo $name."[]"; ?>"
 					value="<?php echo $opt_value; ?>"
 					<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
 					<?php echo $atts; ?>
@@ -110,7 +117,7 @@ switch ( $type ) {
 	default: ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
-		<input type="text" name="<?php echo $name; ?>" value="<?php echo $value; ?>" <?php echo $atts; ?> />
+		<input type="text" name="<?php echo $name; ?>" value="<?php echo empty($value) ? '' : $value; ?>" <?php echo $atts; ?> />
 		
 <?php } // end switch ?>
 	<?php echo empty( $args['desc'] ) ? '' : $args['desc']; ?>
