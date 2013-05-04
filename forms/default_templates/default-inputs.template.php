@@ -64,7 +64,7 @@ switch ( $type ) {
 		<input type="button" name="<?php echo $name; ?>" value="<?php echo $label; ?>" <?php echo $atts; ?> />
 	
 	<?php break;
-	case InputTypes::checkbox : ?>
+	/*case InputTypes::checkbox : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		<input
@@ -75,7 +75,7 @@ switch ( $type ) {
 			<?php echo $atts; ?>
 		/>
 		
-	<?php break;
+	<?php break;*/
 	case InputTypes::checkboxes : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
@@ -88,7 +88,7 @@ switch ( $type ) {
 					type="checkbox" 
 					name="<?php echo $name."[$i]"; ?>"
 					value="<?php echo $opt_value; ?>"
-					<?php echo empty( $value[$i] ) ? '' : 'checked="checked"'; ?>
+					<?php echo empty( $args['default_value'][$opt_value] ) ? '' : 'checked'; ?>
 					<?php echo $atts; ?>
 				/>
 			</div>
@@ -117,7 +117,7 @@ switch ( $type ) {
 	default: ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
-		<input type="text" name="<?php echo $name; ?>" value="<?php echo empty($value) ? '' : $value; ?>" <?php echo $atts; ?> />
+		<input type="text" name="<?php echo $name; ?>" value='<?php echo empty($args['default_value']) ? '' : $args['default_value']; ?>' <?php echo $atts; ?> />
 		
 <?php } // end switch ?>
 	<?php echo empty( $args['desc'] ) ? '' : $args['desc']; ?>

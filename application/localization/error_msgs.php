@@ -26,6 +26,14 @@ $error_msgs = array(
         'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
     
 	),
+    'group_name'   		=> array(
+        'only_letters'  =>  'Numbers are not permitted in this field.',
+        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+    ),
+    'indiv_major'		=> array(
+        'only_letters'  =>  'Numbers are not permitted in this field.',
+        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+    ),
 	'first_name'		=> array(
         'only_letters'  =>  'Numbers are not permitted in this field.',
         'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'

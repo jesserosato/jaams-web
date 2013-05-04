@@ -82,6 +82,15 @@ $advisor_email->args  		= array(
 
 ); 
 
+$group_name					= new Input('group_name');
+$group_name->label 			= 'Group Name: ';
+$group_name->type 			= InputTypes::text;
+$group_name->args 			= array(
+	'validator' 		=> 'only_letters',
+	'error_msgs'		=> $error_msgs['group_name'],
+
+);
+
 							
 $active						= new Input('active');
 $active->label 				= 'How long will the Account be active?';
@@ -171,42 +180,85 @@ $class->inputs				= array(
 );
 $class->atts				= array('class' => "select-plus-other");
 
+$indiv_major 				= new Input('indiv_major');
+$indiv_major->label 		= 'Major: ';
+$indiv_major->type 			= InputTypes::text;
+$indiv_major->args 			= array(
+	'validator'				=> 'only_letters',
+	'error_msgs'			=> $error_msgs['indiv_major'],
+
+);
+/*
+for ($i = 0; $i < 10; $i++ ){
+	// Inputs for Team Information fieldset
+	$first_name[$i] 				= new Input('first_name_'.$i);
+	$first_name[$i]->label 			= 'First Name: ';
+	$first_name[$i]->type 			= InputTypes::text;
+	$first_name[$i]->args           = array(
+		'validator' 		=> 'only_letters',
+		'error_msgs'		=> $error_msgs['first_name']
+	);
+
+	$last_name[$i] 					= new Input('last_name_'.$i);
+	$last_name[$i]->label 			= 'Last Name:';
+	$last_name[$i]->type 			= InputTypes::text;
+	$last_name[$i]->args           = array(
+		'validator' 		=> 'only_letters',
+		'error_msgs'		=> $error_msgs['last_name']
+	);
+
+	$email[$i] 						= new Input('email_'.$i);
+	$email[$i]->label 				= 'Email:';
+	$email[$i]->type 				= InputTypes::text;
+	$email[$i]->args           = array(
+		'validator'			=> 'email',
+		'error_msgs'		=> $error_msgs['email']
+	);
+
+	$phone_number[$i] 				= new Input('phone_number_'.$i);
+	$phone_number[$i]->label 		= 'Phone Number:';
+	$phone_number[$i]->type 		= InputTypes::text;
+	$phone_number[$i]->args           = array(
+		'validator' 		=> 'phone',
+		'error_msgs'		=> $error_msgs['phone_number']
+	);
+}		*/	
+
 // Inputs for Team Information fieldset
-$first_name 				= new Input('first_name');
-$first_name->label 			= 'First Name:';
-$first_name->type 			= InputTypes::text;
-$first_name->args           = array(
-	'validator' 		=> 'only_letters',
-	'error_msgs'		=> $error_msgs['first_name']
-);
+	$first_name 				= new Input('first_name');
+	$first_name->label 			= 'First Name: ';
+	$first_name->type 			= InputTypes::text;
+	$first_name->args           = array(
+		'validator' 		=> 'only_letters',
+		'error_msgs'		=> $error_msgs['first_name']
+	);
 
-$last_name 					= new Input('last_name');
-$last_name->label 			= 'Last Name:';
-$last_name->type 			= InputTypes::text;
-$last_name->args           = array(
-	'validator' 		=> 'only_letters',
-	'error_msgs'		=> $error_msgs['last_name']
-);
+	$last_name 					= new Input('last_name');
+	$last_name->label 			= 'Last Name:';
+	$last_name->type 			= InputTypes::text;
+	$last_name->args           = array(
+		'validator' 		=> 'only_letters',
+		'error_msgs'		=> $error_msgs['last_name']
+	);
 
-$email 						= new Input('email');
-$email->label 				= 'Email:';
-$email->type 				= InputTypes::text;
-$email->args           = array(
-	'validator'			=> 'email',
-	'error_msgs'		=> $error_msgs['email']
-);
+	$email 						= new Input('email');
+	$email->label 				= 'Email:';
+	$email->type 				= InputTypes::text;
+	$email->args           = array(
+		'validator'			=> 'email',
+		'error_msgs'		=> $error_msgs['email']
+	);
 
-$phone_number 				= new Input('phone_number');
-$phone_number->label 		= 'Phone Number:';
-$phone_number->type 		= InputTypes::text;
-$phone_number->args           = array(
-	'validator' 		=> 'phone',
-	'error_msgs'		=> $error_msgs['phone_number']
-);
-							
+	$phone_number 				= new Input('phone_number');
+	$phone_number->label 		= 'Phone Number:';
+	$phone_number->type 		= InputTypes::text;
+	$phone_number->args           = array(
+		'validator' 		=> 'phone',
+		'error_msgs'		=> $error_msgs['phone_number']
+	);				
 
 // Groups for Team Information fieldset
-$member_info 				= new Group('member_info');
+$member_info 				= new Fieldset('member_info');
 $member_info->label 		= 'Team Member';
 $member_info->inputs 		= array(
 	'first_name'		=> $first_name,
@@ -260,15 +312,15 @@ $other_permissions->type 	= InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
 	'default_value'		=> array(
-		'alter',
-		'insert',
-		'create',
-		'delete',
-		'select',
-		'drop',
-		'index',
-		'update',
-		'references'
+		'alter' 		=> 'checked',
+		'insert' 		=> 'checked',
+		'create' 		=> 'checked',
+		'delete' 		=> 'checked',
+		'select' 		=> 'checked',
+		'drop' 			=> 'checked',
+		'index' 		=> 'checked',
+		'update' 		=> 'checked',
+		'references' 	=> 'checked'
 	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
@@ -305,6 +357,7 @@ $disk_quota->type 			= InputTypes::text;
 $disk_quota->args 			= array(
 	'validator' 			=> 'greater_zero',
 	'error_msgs' 			=> $error_msgs['disk_quota'],
+	'default_value'			=> 1500
 );
 
 $unix_shell 				= new Input('unix_shell');
@@ -336,6 +389,7 @@ $info_fieldset->inputs		= array(
 	'participants' 		=> $participants,
 	'advisor' 			=> $advisor,
 	'advisor_email'		=> $advisor_email,
+	'group_name' 		=> $group_name,
 	'project_type'		=> $project_type,
 	'project_name'		=> $project_name
 );
@@ -345,7 +399,7 @@ $info_fieldset->groups		= array(
 	'class'				=> $class
 );
 
-$team_fieldset->groups 		= array('member_info' => $member_info);
+$team_fieldset->fieldsets	= array('member_info' => $member_info);
 
 $account_fieldset->inputs 	= array('account_type' => $account_type);
 
