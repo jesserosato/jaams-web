@@ -9,6 +9,31 @@ define('ECS_SITE_ADMIN_EMAIL', 'putarealemailaddresshere@example.com');
 
 $error_msgs = array(
 	// The first thing is to create keyes-array pair for each element:
+	'advisor'		=> array(
+		'only_letters'=> 'Numbers are not permitted in this field.',
+		'required' => 'The advisor field is required, please provide a valid advisor.'
+	),
+	'advisor_email'	=> array(
+		// Now we add a key-message pair for every validator we're going to attach to the input in index.php.
+		'email'		=> 'Please enter a valid email address.',
+		'required'	=> 'The Email field is required, please provide a valid email address.'
+	),
+	'class_no'			=> array(
+		'only_numbers' 	=>'Letters are not permitted in this field.',
+	),
+	'project_name' 	=> array(
+		'only_letters'  =>  'Numbers are not permitted in this field.',
+        'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+    
+	),
+	'first_name'		=> array(
+        'only_letters'  =>  'Numbers are not permitted in this field.',
+        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+    ),
+    'last_name'   		=> array(
+        'only_letters'  =>  'Numbers are not permitted in this field.',
+        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+    ),
 	'email'	=> array(
 		// Now we add a key-message pair for every validator we're going to attach to the input in index.php.
 		'email'		=> 'Please enter a valid email address.',
@@ -18,16 +43,8 @@ $error_msgs = array(
 		'phone'		=> 'Please enter a U.S. phone number.',
 		'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
 	),
-	'first_name'	=> array(
-        'numbers'   =>  'Numbers are not permitted in this field.',
-        'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
-    ),
-    'only_letters'   => array(
-        'numbers'   =>  'Numbers are not permitted in this field.',
-        'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
-    ),
-    'greater_zero'   => array(
-        'less_zero' =>  'Your input must be greater than zero.',
+    'disk_quota'   => array(
+        'greater_zero' =>  'Your input must be greater than zero.',
         'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
     ),
     'only_numbers'	=>	array(
@@ -38,19 +55,4 @@ $error_msgs = array(
 	'database'	=> 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.'
 );
 
-$error_msgs['advisor'] = $error_msgs['only_letters'];
-$error_msgs['major'] = $error_msgs['only_letters'];
-$error_msgs['project_name'] = $error_msgs['only_letters'];
-//$error_msgs['first_name'] = $error_msgs['only_letters'];
-$error_msgs['last_name'] = $error_msgs['only_letters'];
-
-$error_msgs['class_no'] = $error_msgs['only_numbers'];
-
-$error_msgs['email'] = $error_msgs['email'];
-$error_msgs['advisor_email'] = $error_msgs['email'];
-
-$error_msgs['phone'] = $error_msgs['phone_number'];
-
-$error_msgs['disk_quota'] = $error_msgs['greater_zero']; 
-// Now we'll add the form level errors as key-message pairs. ('database' is actually the only one of these so far).
 $error_msgs['database']	= 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.';

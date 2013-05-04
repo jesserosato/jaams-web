@@ -201,7 +201,7 @@ $phone_number->label 		= 'Phone Number:';
 $phone_number->type 		= InputTypes::text;
 $phone_number->args           = array(
 	'validator' 		=> 'phone',
-	'error_msgs'		=> $error_msgs['phone']
+	'error_msgs'		=> $error_msgs['phone_number']
 );
 							
 
@@ -302,7 +302,10 @@ $db_permissions->inputs 	= array(
 $disk_quota 				= new Input('disk_quota');
 $disk_quota->label 			= 'Disk Quota (in MB):';
 $disk_quota->type 			= InputTypes::text;
-$disk_quota->args['validator'] = 'greater_zero';
+$disk_quota->args 			= array(
+	'validator' 			=> 'greater_zero',
+	'error_msgs' 			=> $error_msgs['disk_quota'],
+);
 
 $unix_shell 				= new Input('unix_shell');
 $unix_shell->label 			= 'Unix Shell:';
