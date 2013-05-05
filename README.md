@@ -37,6 +37,12 @@ Documentation
 
 **TODO:
 ---------------------------------------
+
+- Database interactions			- Jesse.
+- JAAMSForms_InputValidators	- Anthony
+- Javascript					- Jesse
+- Error messages				- Anthony + Adrian
+=======
 TODO:
 - Validators - Adrian and Anthony
 - Set proper default values for all inputs (Check client's notes) - Adrian and Anthony
