@@ -200,15 +200,15 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$last_name->type 			= InputTypes::text;
 	$last_name->args           = array(
 		'validator' 		=> 'only_letters',
-		'error_msgs'		=> $error_msgs['last_name_' . $i]
+		'error_msgs'		=> $error_msgs['last_name']
 	);
 
-	$email 						= new Input('email');
+	$email 						= new Input('email_' . $i);
 	$email->label 				= 'Email:';
 	$email->type 				= InputTypes::text;
 	$email->args           = array(
 		'validator'			=> 'email',
-		'error_msgs'		=> $error_msgs['email' . $i]
+		'error_msgs'		=> $error_msgs['email']
 	);
 
 	$phone_number 				= new Input('phone_number_' . $i);
@@ -216,7 +216,7 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$phone_number->type 		= InputTypes::text;
 	
 	$member_info[$i] 				= new Fieldset('member_info');
-	$member_info[$i]->label 		= 'Team Member ' . $i;
+	$member_info[$i]->label 		= 'Team Member ' . ($i  + 1);
 	$member_info[$i]->inputs 		= array(
 		'first_name_'.$i		=> $first_name,
 		'last_name_'.$i 		=> $last_name,
