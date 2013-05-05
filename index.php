@@ -188,41 +188,6 @@ $indiv_major->args 			= array(
 	'error_msgs'			=> $error_msgs['indiv_major'],
 
 );
-/*
-for ($i = 0; $i < 10; $i++ ){
-	// Inputs for Team Information fieldset
-	$first_name[$i] 				= new Input('first_name_'.$i);
-	$first_name[$i]->label 			= 'First Name: ';
-	$first_name[$i]->type 			= InputTypes::text;
-	$first_name[$i]->args           = array(
-		'validator' 		=> 'only_letters',
-		'error_msgs'		=> $error_msgs['first_name']
-	);
-
-	$last_name[$i] 					= new Input('last_name_'.$i);
-	$last_name[$i]->label 			= 'Last Name:';
-	$last_name[$i]->type 			= InputTypes::text;
-	$last_name[$i]->args           = array(
-		'validator' 		=> 'only_letters',
-		'error_msgs'		=> $error_msgs['last_name']
-	);
-
-	$email[$i] 						= new Input('email_'.$i);
-	$email[$i]->label 				= 'Email:';
-	$email[$i]->type 				= InputTypes::text;
-	$email[$i]->args           = array(
-		'validator'			=> 'email',
-		'error_msgs'		=> $error_msgs['email']
-	);
-
-	$phone_number[$i] 				= new Input('phone_number_'.$i);
-	$phone_number[$i]->label 		= 'Phone Number:';
-	$phone_number[$i]->type 		= InputTypes::text;
-	$phone_number[$i]->args           = array(
-		'validator' 		=> 'phone',
-		'error_msgs'		=> $error_msgs['phone_number']
-	);
-}		*/	
 
 // Inputs for Team Information fieldset
 	$first_name 				= new Input('first_name');
@@ -357,7 +322,7 @@ $disk_quota->type 			= InputTypes::text;
 $disk_quota->args 			= array(
 	'validator' 			=> 'greater_zero',
 	'error_msgs' 			=> $error_msgs['disk_quota'],
-	'default_value'			=> 1500
+	'default_value'			=> '1500'
 );
 
 $unix_shell 				= new Input('unix_shell');

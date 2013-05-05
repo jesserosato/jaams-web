@@ -117,7 +117,7 @@ switch ( $type ) {
 	default: ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
-		<input type="text" name="<?php echo $name; ?>" value='<?php echo empty($args['default_value']) ? '' : $args['default_value']; ?>' <?php echo $atts; ?> />
+		<input type="text" name="<?php echo $name; ?>" value='<?php echo $value;?>' <?php echo $atts; ?> />
 		
 <?php } // end switch ?>
 	<?php echo empty( $args['desc'] ) ? '' : $args['desc']; ?>

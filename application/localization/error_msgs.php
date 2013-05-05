@@ -53,7 +53,7 @@ $error_msgs = array(
 	),
     'disk_quota'   => array(
         'greater_zero' =>  'Your input must be greater than zero.',
-        'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+        'required'	=> 'The Phone Number field is required, please provside a valid U.S. telephone number.'
     ),
     'only_numbers'	=>	array(
     	'letters' 	=> 'Letters are not permitted in this field.',
@@ -62,5 +62,4 @@ $error_msgs = array(
 	// Now we'll add the form level errors as key-message pairs. ('database' is actually the only one of these so far).
 	'database'	=> 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.'
 );
-
 $error_msgs['database']	= 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.';
