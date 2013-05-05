@@ -166,6 +166,12 @@ class Input extends Base implements FormElement
 			case 'email':
 				// Simple example.
 				return InputValidators::email( $this->value );
+			case 'only_letters':
+				return InputValidators::only_letters($this->value);
+			case 'greater_zero':
+				return InputValidators::greater_zero($this->value);
+			case 'phone':
+				return InputValidators::phone($this->value);
 			case 'not_default':
 				// More complicated example.
 				// If no default value is provided, the element is ok if the value's not empty.
