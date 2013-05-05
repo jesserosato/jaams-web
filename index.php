@@ -18,6 +18,7 @@ $model_dir_path				= array('model' => array(\Forms\ROOT.'/models'));
 	
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
 $form						= new Form('my_form', $template_dir_path);
+$form->model				= new FormModel($form);
 $form->hierarchies['view']	= array('form');
 $form->atts['action']		= $_SERVER['PHP_SELF'];
 $form->args['db_info']['table'] = 'test_table';
@@ -165,7 +166,7 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$member_info[$i]->label 		= 'Team Member ' . $i;
 	$member_info[$i]->inputs 		= array(
 		'first_name_'.$i		=> $first_name,
-		'last_name_'.$i 		=> $first_name,
+		'last_name_'.$i 		=> $last_name,
 		'email_'.$i				=> $email,
 		'phone_number_'.$i		=> $phone_number,
 	);
@@ -224,7 +225,7 @@ $other_permissions->args 	= array(
 		'drop'					=> true,
 		'index'					=> true,
 		'update'				=> true,
-		'references'			=> true,
+		'reference'				=> true,
 	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
@@ -235,7 +236,7 @@ $other_permissions->args 	= array(
 		'drop'					=> 'DROP',
 		'index'					=> 'INDEX',
 		'update'				=> 'UPDATE',
-		'references'			=> 'REFERENCES',
+		'reference'				=> 'REFERENCES',
 	),
 );
 $other_permissions->hierarchies = array(
@@ -335,11 +336,10 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 	if ( $form->validate() ) {
 		echo '<h2>Thank you for your submission!</h2>';
 		try {
-			$form->model = new FormModel($form);
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log($_POST);
 			$result = $form->save();
 			echo '<h4>Form Saved!</h4>';
 		} catch( \Exception $e ) {
-			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("YEAH!");
 			$form->errors['database'] = empty($error_msgs['database']) ? 'Error connecting to database' : $error_msgs['database'];
 			$form->print_html();
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));

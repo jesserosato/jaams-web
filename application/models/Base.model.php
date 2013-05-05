@@ -33,6 +33,15 @@ class Base extends \Forms\Models\Base {
 		 	'advisor_name'		=> $this->data['advisor'],
 		 	'advisor_email'		=> $this->data['advisor_email'],
 	 	);
+	 	$dataman_people = array(
+			// -- peopleID
+			'deptMajor'			=> true,
+			'pNameFirst'		=> true,
+			'pNameLast'			=> true,
+			'phoneNum'			=> true,
+			'email'				=> true,
+			'projName'			=> true,
+		);
 	 	if ( $db ) {
 		 	// DB: dataman :: TABLE: dataman_dbaccounts
 		 	$dataman_dbaccounts = array(
@@ -44,10 +53,6 @@ class Base extends \Forms\Models\Base {
 		 	foreach ( $permissions as $permission => $val ) {
 			 	$dataman_dbaccounts[$permission] = $val;
 		 	}
-		 	// DB: dataman :: TABLE: dataman_group
-		 	$dataman_group = array(
-			 	'groupName'		=> $this->data['project_type'], 		// 'student', 'faculty'.  TODO: Rest of the values?
-			);
 			// DB: dataman :: TABLE: dataman_history
 			$dataman_history = array(
 				'hisDetail'		=> $this->data['db_comments'],
@@ -91,20 +96,13 @@ class Base extends \Forms\Models\Base {
 				$query = $this->get_insert_query('dataman.dataman_dbaccounts', $dataman_dbaccounts);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_dbaccounts);
-				// DB_Call - dataman::dataman_group
-				$query = $this->get_insert_query('project.project_info', $project_info);
-				$stmnt = $this->dbh->prepare($query);
-				$stmnt->execute($dataman_group);
+
 				// DB Call - dataman::dataman_history
 				$query = $this->get_insert_query('dataman.dataman_history', $dataman_history);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_history);
 			}
 			if ( $proj ) {
-				// DB Call - project::dataman_database
-				$query = $this->get_insert_query('project.dataman_database', $dataman_database);
-				$stmnt = $this->dbh->prepare($query);
-				$stmnt->execute($dataman_database);
 				// DB Call - project::project_info
 				$query = $this->get_insert_query('project.project_info', $project_info);
 				$stmnt = $this->dbh->prepare($query);
@@ -116,26 +114,26 @@ class Base extends \Forms\Models\Base {
 			}
 			// Prep DB Calls to dataman::dataman_people and project::project_people.
 			$db_query	= $this->get_insert_query('dataman.dataman_people', $dataman_people);
-			$db_stmnt	= $this->dbh->prepare($query);
+			$db_stmnt	= $this->dbh->prepare($db_query);
 			$proj_query = $this->get_insert_query('project.project_people', $dataman_people);
-			$proj_stmnt = $this->dbh->prepare($query);
+			$proj_stmnt = $this->dbh->prepare($proj_query);
 			$num_people = intval($this->data['participants']);
 			// Loop through people and add them to DB
 			for ( $i = 0; $i < $num_people; $i++ ) {
 				$dataman_people = array(
 					// -- peopleID
 					'deptMajor'			=> $this->data['dept'],
-					'pNameLast'			=> $this->data['first_name_'. $i],
-					'pNameFirst'		=> $this->data['last_name_' . $i],
+					'pNamefirst'		=> $this->data['first_name_'. $i],
+					'pNameLast'			=> $this->data['last_name_' . $i],
 					'phoneNum'			=> $this->data['phone_number_' . $i],
 					'email'				=> $this->data['email_' . $i],
 					'projName'			=> $this->data['project_name'],
 				);
 				if ( $db ) {
-					$db_stmnt->execute($dataman_history);
+					$db_stmnt->execute($dataman_people);
 				}
 				if ( $proj ) {
-					$proj_stmnt->execute($dataman_history);
+					$proj_stmnt->execute($dataman_people);
 				}
 			}
 			// Commit transaction.
@@ -143,7 +141,7 @@ class Base extends \Forms\Models\Base {
 		} catch( \PDOException $e ) {
 			// Something went wrong, roll back commits.
 			$this->dbh->rollBack();
-			return false;
+			throw $e;
 		}
 	}
 	
@@ -198,11 +196,13 @@ class Base extends \Forms\Models\Base {
 		}
 		$sem_len = \CSC131\ECS\SEMESTER_LENGTH;
 		$exp_time = strtotime("+" . $sem_len * $semesters . " months");
+		
+		
 		if ( ( strtotime( date( \CSC131\ECS\SPRING_START ) ) <= $exp_time ) 
 			&& ( $exp_time <= strtotime( date( \CSC131\ECS\SPRING_END ) ) ) )
 			return date( \CSC131\ECS\SPRING_END );
 		else
-			return date('FALL_END');
+			return date( \CSC131\ECS\FALL_END );
 	}
 	
 	/**
@@ -212,8 +212,11 @@ class Base extends \Forms\Models\Base {
 	 * @return Array
 	 */
 	protected function _get_permissions() {
-		foreach ( $this->data['other_permissions'] as $perm ) {
-			$ret['db_' . $perm] = 'y';
+		$ret = array();
+		if ( !empty ( $this->data['other_permissions'] ) ) {
+			foreach ( $this->data['other_permissions'] as $perm ) {
+				$ret['db_' . $perm] = 'y';
+			}
 		}
 		return $ret;
 	}

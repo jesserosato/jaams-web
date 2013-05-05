@@ -2,7 +2,7 @@
 use \Forms\Controllers\InputTypes as InputTypes;
 extract($this->get_template_data());
 // Set the value
-$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
+$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : $value;
 // Print out the error message first.
 ?>
 <div class="input-container <?php echo $name; ?>">

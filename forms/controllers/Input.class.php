@@ -110,7 +110,6 @@ class Input extends Base implements FormElement
 			$this->set_raw( $data_global );
 		// Set the filter flag to sanitize appropriately.
 		$flag = preg_match('/email/i', $this->name) ? FILTER_SANITIZE_EMAIL : FILTER_SANITIZE_STRING;
-
 		// If the value is an array, sanitize each value.
 		if ( is_array( $this->value ) ) {
 			foreach ( $this->value as $key => $value ) {

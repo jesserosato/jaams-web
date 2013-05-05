@@ -12,6 +12,7 @@ class Form extends Base
 	protected $atts						= array(
 		'method'		=> 'post',
 		'action'		=> '',
+		'enctype'		=> 'multipart/form-data'
 	);
 	protected $data;
 	
