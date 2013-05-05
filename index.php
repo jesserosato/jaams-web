@@ -214,6 +214,10 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$phone_number 				= new Input('phone_number_' . $i);
 	$phone_number->label 		= 'Phone Number:';
 	$phone_number->type 		= InputTypes::text;
+	$phone_number->args 		= array(
+		'validator'			=> 'phone',
+		'error_msgs'		=> $error_msgs['phone_number']
+	);
 	
 	$member_info[$i] 				= new Fieldset('member_info');
 	$member_info[$i]->label 		= 'Team Member ' . ($i  + 1);
