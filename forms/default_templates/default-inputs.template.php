@@ -64,7 +64,7 @@ switch ( $type ) {
 		<input type="button" name="<?php echo $name; ?>" value="<?php echo $label; ?>" <?php echo $atts; ?> />
 	
 	<?php break;
-	/*case InputTypes::checkbox : ?>
+	case InputTypes::checkbox : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
 		<input
@@ -75,7 +75,7 @@ switch ( $type ) {
 			<?php echo $atts; ?>
 		/>
 		
-	<?php break;*/
+	<?php break;
 	case InputTypes::checkboxes : ?>
 	
 		<label for="<?php echo $name; ?>"><?php echo $label; ?></label>
@@ -107,7 +107,7 @@ switch ( $type ) {
 					type="radio"
 					name="<?php echo $name."[]"; ?>"
 					value="<?php echo $opt_value; ?>"
-					<?php echo ( $value == $opt_value ) ? 'checked="checked"' : ''; ?>
+					<?php echo in_array($opt_value, $value) ? 'checked="checked"' : ''; ?>
 					<?php echo $atts; ?>
 				/>
 			</div>

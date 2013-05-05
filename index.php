@@ -269,15 +269,15 @@ $other_permissions->type 	= InputTypes::checkboxes;
 $other_permissions->args 	= array(
 	// Values are weird when dealing with multiple checkboxes.
 	'default_value'		=> array(
-		'alter'					=> true,
-		'insert'				=> true,
-		'create'				=> true,
-		'delete'				=> true,
-		'select'				=> true,
-		'drop'					=> true,
-		'index'					=> true,
-		'update'				=> true,
-		'reference'				=> true,
+		'alter',
+		'insert',
+		'create',
+		'delete',
+		'select',
+		'drop',
+		'index',
+		'update',
+		'reference',
 	),
 	'options'			=> array(
 		'alter'					=> 'ALTER',
@@ -402,6 +402,7 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 		}
 	} else {
+		$GLOBALS['JAAMS']['DEBUGGER']->debug_log($_POST);
 		$form->print_html();
 	}
 }

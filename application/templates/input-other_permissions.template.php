@@ -1,7 +1,7 @@
 <?php
 extract($this->get_template_data());
 // Set the value
-$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : '';
+$value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['default_value'] ) : $value;
 // Print out the error message first.
 ?>
 <div class="inputs-container">
@@ -48,7 +48,7 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 						type="checkbox" 
 						name="<?php echo $name."[]"; ?>"
 						value="<?php echo $opt_value; ?>"
-						<?php echo empty( $value[$opt_value] ) ? '' : 'checked="checked"'; ?>
+						<?php echo in_array($opt_value, $value) ? 'checked="checked"' : ''; ?>
 						<?php echo $atts; ?>
 					/>
 				</div>
