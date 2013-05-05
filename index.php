@@ -195,12 +195,12 @@ for ( $i = 0; $i < 10; $i++ ) {
 		'error_msgs'		=> $error_msgs['first_name']
 	);
 
-	$last_name 					= new Input('last_name');
+	$last_name 					= new Input('last_name_' . $i);
 	$last_name->label 			= 'Last Name:';
 	$last_name->type 			= InputTypes::text;
 	$last_name->args           = array(
 		'validator' 		=> 'only_letters',
-		'error_msgs'		=> $error_msgs['last_name']
+		'error_msgs'		=> $error_msgs['last_name_' . $i]
 	);
 
 	$email 						= new Input('email');
@@ -208,14 +208,14 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$email->type 				= InputTypes::text;
 	$email->args           = array(
 		'validator'			=> 'email',
-		'error_msgs'		=> $error_msgs['email']
+		'error_msgs'		=> $error_msgs['email' . $i]
 	);
 
-	$phone_number 				= new Input('phone_number');
+	$phone_number 				= new Input('phone_number_' . $i);
 	$phone_number->label 		= 'Phone Number:';
 	$phone_number->type 		= InputTypes::text;
 	
-	$member_info[$i] 				= new Group('member_info');
+	$member_info[$i] 				= new Fieldset('member_info');
 	$member_info[$i]->label 		= 'Team Member ' . $i;
 	$member_info[$i]->inputs 		= array(
 		'first_name_'.$i		=> $first_name,
@@ -357,8 +357,8 @@ $info_fieldset->groups		= array(
 	'class'				=> $class
 );
 
-foreach ( $member_info as $key => $group ) {
-	$team_fieldset->groups['member_info_' . $key] = $group;
+foreach ( $member_info as $key => $fieldset ) {
+	$team_fieldset->fieldsets['member_info_' . $key] = $fieldset;
 }
 
 $account_fieldset->inputs 	= array('account_type' => $account_type);
