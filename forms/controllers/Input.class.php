@@ -202,15 +202,4 @@ class Input extends Base implements FormElement
 				return empty($_GET[$key]) ? false : $_GET[$key];
 		}
 	}
-
-	 /**
-	 * _set_error function.
-	 * 
-	 * @access protected
-	 * @param mixed $validator
-	 * @return void
-	 */
-	protected function _error( $validator ) {
-		return empty($this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
-	}
 }

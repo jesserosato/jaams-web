@@ -5,12 +5,12 @@
 // Init (Loads all modules).
 require_once('init.php');
 require_once('application/localization/error_msgs.php');
-use \Forms\Controllers\Form as Form;
 use \Forms\Controllers\Fieldset as Fieldset;
 use \Forms\Controllers\Group as Group;
 use \Forms\Controllers\Input as Input;
 use \Forms\Controllers\InputTypes as InputTypes;
 use \Forms\Controllers\InputValidators as InputValidators;
+use \CSC131\ECS\Controllers\Form as Form;
 use \CSC131\ECS\Models\Base as FormModel;
 
 $template_dir_path			= array('view' => array(\JAAMS\ROOT.'/application/templates'));
@@ -22,13 +22,14 @@ try {
 	// Instantiate the model
 	$form->model				= new FormModel($form);
 } catch ( \PDOException $e ) {
-	echo '<h2 class="error">' . $error_msgs['database'] . '</h2>';
+	echo '<h2 class="error">' . $error_msgs['database_connection'] . '</h2>';
 	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 	die();
 }
-$form->hierarchies['view']	= array('form');
-$form->atts['action']		= $_SERVER['PHP_SELF'];
-$form->args['db_info']['table'] = 'test_table';
+$form->hierarchies['view']		= array('form');
+$form->atts['action']			= $_SERVER['PHP_SELF'];
+$form->args['validator']		= array('has_ecs_email');
+$form->args['error_msgs']		= $error_msgs;
 
 
 // Create Project Information fieldset
@@ -157,15 +158,12 @@ $class_no->atts				= array('class' => "other");
 $class_no->args             = array(
 	'validator'			=>	'only_numbers',
 	'error_msgs'		=> 	$error_msgs['class_no']	
-
-
 );
 
 
 $major						= new Input('major');
 $major->label				= 'Major:';
 $major->type				= InputTypes::text;
-$major->atts['style']		= 'display:none;';
 
 $project_name 				= new Input('project_name');
 $project_name->label 		= 'Project Name:';
@@ -187,7 +185,8 @@ $semesters->atts			= array('class' => "select-plus-other");
 $class 						= new Group('class');
 $class->inputs				= array(
 	'dept'				=> $dept,
-	'class_no'			=> $class_no
+	'class_no'			=> $class_no,
+	'major'				=> $major
 );
 $class->atts				= array('class' => "select-plus-other");
 
@@ -223,6 +222,7 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$phone_number->type 		= InputTypes::text;
 	
 	$member_info[$i] 				= new Fieldset('member_info');
+	$member_info[$i]->atts			= array('id' => 'member_info_' . $i);
 	$member_info[$i]->label 		= 'Team Member ' . ($i  + 1);
 	$member_info[$i]->inputs 		= array(
 		'first_name_'.$i		=> $first_name,
@@ -398,19 +398,17 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 	$form->print_html();
 } else {
 	$form->sanitize();
-	if ( 1 ) { //$form->validate() ) {
+	if ( $form->validate() ) {
 		echo '<h2>Thank you for your submission!</h2>';
 		try {
-			$GLOBALS['JAAMS']['DEBUGGER']->debug_log($_POST);
-			$result = $form->save();
+			$form->save();
 			echo '<h4>Form Saved!</h4>';
 		} catch( \Exception $e ) {
-			$form->errors['database'] = empty($error_msgs['database']) ? 'Error connecting to database' : $error_msgs['database'];
+			$form->errors['database_save'] = empty($error_msgs['database_save']) ? 'Error saving data to database' : $error_msgs['database_save'];
 			$form->print_html();
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 		}
 	} else {
-		$GLOBALS['JAAMS']['DEBUGGER']->debug_log($_POST);
 		$form->print_html();
 	}
 }

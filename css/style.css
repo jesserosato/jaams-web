@@ -40,25 +40,45 @@ form > .col.num_1 {
 	padding:			0 20px 12px 20px;
 }
 
-label,
-input,
-select {
+.fieldset > h3 {
+	display: block;
+	background-image:	url(../img/fieldset_more_btn.png);
+	background-position: left center;
+	background-repeat:	no-repeat;
+	background-size:	15px 15px;
+	padding-left:		24px;	
+	cursor:				pointer;
+}
+
+.fieldset.member_info div {
+	display:			none;
+}
+
+.fieldset.closed > h3 {
+	background-image:	url(../img/fieldset_less_btn.png);
+	
+}
+
+.col label,
+.col input[type="text"],
+.col select {
 	display:			inline-block;
 	vertical-align:		middle;
 	font-size:			105%;
+	width:				45%;
 }
 
 textarea {
 	display:			inline-block;
 	min-height:			75px;
 	vertical-align:		top;
-	width: 				70%;
+	width:				70%;
 	border: 			1px solid #CACACA;
 	font-size:			105%;
 }
 
 label {
-	width: 				50%;
+	width: 				45%;
 	white-space:		normal;
 }
 
@@ -89,7 +109,7 @@ label + input[type="radio"] {
 
 /* Make textareas less far away from their labels. */
 label + textarea {
-	margin-left: 		-30%;
+	margin-left: 		-20%;
 }
 
 /* Account fieldset */
@@ -116,13 +136,14 @@ label + textarea {
 }
 
 /* Select plus 'other' field groups */
-label[for="active_other"],
-label[for="class_no"] {
+.col label[for="active_other"],
+.col label[for="class_no"] {
 	text-align: 		right;
 	font-size: 			80%;
 }
 
-input[name="class_no"] {
+.col input[name="class_no"],
+.col input[name="active_other"] {
 	width:				50px;
 }
 

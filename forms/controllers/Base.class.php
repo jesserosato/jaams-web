@@ -70,22 +70,33 @@ class Base extends \JAAMS\Core\Controllers\Base {
 	 *
 	 * @return Array
 	 */
-	 public function get_template_data() {
-		 $data = array();
-		 foreach( get_class_vars(get_class($this)) as $key => $default ) {
-			 $data[$key] = $this->$key;
-		 }
-		 // Attributes get converted to HTML strings.
-		 if ( empty ( $this->atts ) ) {
-		 	$data['atts'] = '';
-		 } else {
-		 	$data['atts'] = array();
-			foreach( $this->atts as $att => $val ) {
-				$data['atts'][] = $att . '="' . $val . '"';
-			}
-			$data['atts'] = implode(' ', $data['atts']);
-		 }
-		 return $data;
+	public function get_template_data() {
+		$data = array();
+		foreach( get_class_vars(get_class($this)) as $key => $default ) {
+		    $data[$key] = $this->$key;
+		}
+		// Attributes get converted to HTML strings.
+		if ( empty ( $this->atts ) ) {
+		   $data['atts'] = '';
+		} else {
+		   $data['atts'] = array();
+		   foreach( $this->atts as $att => $val ) {
+		   	$data['atts'][] = $att . '="' . $val . '"';
+		   }
+		   $data['atts'] = implode(' ', $data['atts']);
+		}
+		return $data;
 	 }
+	 
+	/**
+	 * _error function.
+	 * 
+	 * @access protected
+	 * @param mixed $validator
+	 * @return void
+	 */
+	protected function _error( $validator ) {
+		return empty($this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
+	}
 }
 		

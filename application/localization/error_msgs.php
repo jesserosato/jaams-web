@@ -60,6 +60,7 @@ $error_msgs = array(
     ),
 	// You can also 
 	// Now we'll add the form level errors as key-message pairs. ('database' is actually the only one of these so far).
-	'database'	=> 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.'
+	'database_connection'	=> 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.',
+	'has_ecs_email'	=> "At least one member of your team must provide a valid ECS email address (i.e. one ending in @ecs.csus.edu).",
 );
-$error_msgs['database']	= 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.';
+$error_msgs['database_save']	= 'We were unable to save your request to the database.  Please try again, and contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>. if the problem continues.';

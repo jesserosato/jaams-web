@@ -20,6 +20,7 @@ class Base extends \Forms\Models\Base {
 		$mysql_date			= date('Y-m-d');
 		$semester_created	= $this->_get_semester_created();
 		$date_expires		= $this->_get_date_expires();
+		$class_or_major		= $this->_get_class_or_major();
 		$db					= ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 		$proj				= ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 		// DBs: dataman + project :: TABLE: dataman_database
@@ -117,9 +118,10 @@ class Base extends \Forms\Models\Base {
 			// Loop through people and add them to DB
 			$num_people = intval($this->data['participants']);
 			for ( $i = 0; $i < $num_people; $i++ ) {
+				// TODO: appropriately set deptMajor
 				$dataman_people = array(
 					// -- peopleID
-					'deptMajor'			=> $this->data['dept'],
+					'deptMajor'			=> $class_or_major,
 					'pNamefirst'		=> $this->data['first_name_'. $i],
 					'pNameLast'			=> $this->data['last_name_' . $i],
 					'phoneNum'			=> $this->data['phone_number_' . $i],
@@ -164,6 +166,11 @@ class Base extends \Forms\Models\Base {
 	 	}
 	 	$placeholders = implode(', ', $placeholders);
 	 	return "INSERT INTO $table ($cols) value ($placeholders)";
+	}
+	
+	public function is_valid_ecs_account( $user ) {
+		// TODO: SSH and all that jazz
+		return true;
 	}
 	
 	protected function _flatten_array( array $arr ) {
@@ -234,5 +241,9 @@ class Base extends \Forms\Models\Base {
 			}
 		}
 		return $ret;
+	}
+	
+	protected function _get_class_or_major() {
+		return intval($this->data['participants']) > 1 ? $this->data['dept'] . $this->data['class_no'] : $this->data['major'];
 	}
 }

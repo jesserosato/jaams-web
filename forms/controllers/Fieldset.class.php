@@ -76,26 +76,52 @@ class Fieldset extends Base implements FormElement
 	 * @return bool
 	 *
 	 */
-	 public function validate() {
-		 foreach ( $this->fieldsets as &$fieldset ) {
-			 $fieldset->validate();
-			 if ( ! empty ( $fieldset->errors ) ) {
-				 $this->errors[$fieldset->name] = $fieldset->errors;
-			 }
-		 }
-		 foreach ( $this->groups as &$group ) {
-			 $group->validate();
-			 if ( ! empty ( $group->errors ) ) {
-				 $this->errors[$group->name] 	= $group->errors;
-			 }
-		 }
-		 foreach ( $this->inputs as &$input ) {
-			 $input->validate();
-			 if ( ! empty ( $input->errors ) ) {
-				 $this->errors[$input->name] 	= $input->errors;
-			 }
-		 }
-		 return empty ( $this->errors );
+	public function validate() {
+		$this->_validate();
+		foreach ( $this->fieldsets as &$fieldset ) {
+		    $fieldset->validate();
+		    if ( ! empty ( $fieldset->errors ) ) {
+		   	 $this->errors[$fieldset->name] = $fieldset->errors;
+		    }
+		}
+		foreach ( $this->groups as &$group ) {
+		    $group->validate();
+		    if ( ! empty ( $group->errors ) ) {
+		   	 $this->errors[$group->name] 	= $group->errors;
+		    }
+		}
+		foreach ( $this->inputs as &$input ) {
+		    $input->validate();
+		    if ( ! empty ( $input->errors ) ) {
+		   	 $this->errors[$input->name] 	= $input->errors;
+		    }
+		}
+		return empty ( $this->errors );
 		 
 	 }
+	 
+	 protected function _validate() {
+		if ( empty( $this->args['validator'] ) )
+			return;
+			
+		$validator = $this->args['validator'];
+		if ( is_array( $validator ) ) {
+			foreach ( $validator as $function ) {
+				if ( ! $this->_call_validator( $function ) ) {
+					$this->errors[$function] = $this->_error($function);
+				}
+			}
+		} else {
+			// We only want to set anything at all here if there is an error.
+			if ( ! $this->_call_validator( $validator ) ) {
+				$this->errors[$validator] = $this->_error($validator);
+			}
+		}
+		
+		return empty( $this->errors );
+	 }
+	 
+	 protected function _call_validator( $function ) {
+		return true;
+	}
 }
