@@ -85,7 +85,7 @@ class Base {
 		
 		$dsn = $this->get_dsn();
 		try {
-			$this->dbh = new PDO($dsn, $this->db_info['user'], $this->db_info['password']);
+			$this->dbh = @new PDO($dsn, $this->db_info['user'], $this->db_info['password']);
 			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, $this->errmode);
 		} catch ( PDOException $e ) {
 			throw $e;
