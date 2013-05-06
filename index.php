@@ -398,7 +398,7 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 	$form->print_html();
 } else {
 	$form->sanitize();
-	if ( $form->validate() ) {
+	if ( 1 ) { //$form->validate() ) {
 		echo '<h2>Thank you for your submission!</h2>';
 		try {
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log($_POST);

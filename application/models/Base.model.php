@@ -89,10 +89,12 @@ class Base extends \Forms\Models\Base {
 			
 		 	if ( $db ) {
 		 		// DB Call - dataman::dataman_database
+		 		$dataman_database = $this->_flatten_array($dataman_database);
 				$query = $this->get_insert_query('dataman.dataman_database', $dataman_database);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_database);
 				// DB Call - dataman::dataman_dbaccounts
+				$dataman_dbaccounts = $this->_flatten_array($dataman_dbaccounts);
 				$query = $this->get_insert_query('dataman.dataman_dbaccounts', $dataman_dbaccounts);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_dbaccounts);
@@ -112,13 +114,8 @@ class Base extends \Forms\Models\Base {
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($project_history);
 			}
-			// Prep DB Calls to dataman::dataman_people and project::project_people.
-			$db_query	= $this->get_insert_query('dataman.dataman_people', $dataman_people);
-			$db_stmnt	= $this->dbh->prepare($db_query);
-			$proj_query = $this->get_insert_query('project.project_people', $dataman_people);
-			$proj_stmnt = $this->dbh->prepare($proj_query);
-			$num_people = intval($this->data['participants']);
 			// Loop through people and add them to DB
+			$num_people = intval($this->data['participants']);
 			for ( $i = 0; $i < $num_people; $i++ ) {
 				$dataman_people = array(
 					// -- peopleID
@@ -130,9 +127,14 @@ class Base extends \Forms\Models\Base {
 					'projName'			=> $this->data['project_name'],
 				);
 				if ( $db ) {
+					// Prep DB Calls to dataman::dataman_people and project::project_people.
+					$db_query	= $this->get_insert_query('dataman.dataman_people', $dataman_people);
+					$db_stmnt	= $this->dbh->prepare($db_query);
 					$db_stmnt->execute($dataman_people);
 				}
 				if ( $proj ) {
+					$proj_query = $this->get_insert_query('project.project_people', $dataman_people);
+					$proj_stmnt = $this->dbh->prepare($proj_query);
 					$proj_stmnt->execute($dataman_people);
 				}
 			}
@@ -156,11 +158,24 @@ class Base extends \Forms\Models\Base {
 	public function get_insert_query( $table, array $arr ) {
 		$keys = array_keys($arr);
 	 	$cols = implode(', ', $keys);
+	 	$placeholders = array();
 	 	foreach ( $keys as $key ) {
 		 	$placeholders[] = ":".$key;
 	 	}
 	 	$placeholders = implode(', ', $placeholders);
 	 	return "INSERT INTO $table ($cols) value ($placeholders)";
+	}
+	
+	protected function _flatten_array( array $arr ) {
+		$ret = array();
+		foreach ( $arr as $key => $val ) {
+			if ( is_array( $val ) ) {
+				$ret[$key] = $val[0];
+			} else {
+				$ret[$key] = $val;
+			}
+		}
+		return $ret;
 	}
 	
 	/**
