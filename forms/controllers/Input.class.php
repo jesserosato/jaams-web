@@ -41,6 +41,10 @@ class InputValidators {
 
         return preg_match( "/^[1]?[0-9]{10}([xX][0-9]{1-4})?$/", $new_phone);
     }
+    public static function required ( $value ){
+
+    	return (!empty( $value ));
+    }
 
 	/**
 	 * Compare two values, return true if they are not EXACTLY (type too) equal.
@@ -133,12 +137,12 @@ class Input extends Base implements FormElement
 		
 		if ( empty( $this->args['validator'] ) )
 			return true;
-			
+
 		$validator = $this->args['validator'];
 		if ( is_array( $validator ) ) {
 			foreach ( $validator as $function ) {
 				if ( ! $this->_validate( $function ) ) {
-					$this->errors[$validator] = $this->_error($validator);
+					$this->errors[$function] = $this->_error($function);
 				}
 			}
 		} else {
@@ -162,6 +166,8 @@ class Input extends Base implements FormElement
 	 */
 	protected function _validate( $function ) {
 		switch ( $function ) {
+			case 'required':
+				return InputValidators::required($this->value);
 			case 'email':
 				// Simple example.
 				return InputValidators::email( $this->value );
