@@ -6,7 +6,7 @@ set_include_path(\JAAMS\VENDOR_ROOT . '/phpseclib');
 include('Net/SSH2.php');
 
 class Base extends \Forms\Models\Base {
-	// PROPERTIES
+	// PROPERTIESit
 	protected $ssh;
 
 	// METHODS
