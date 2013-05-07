@@ -29,15 +29,17 @@ class Base extends \Forms\Models\Base {
 		$semester_created	= $this->_get_semester_created();
 		$date_expires		= $this->_get_date_expires();
 		$class_or_major		= $this->_get_class_or_major();
-		$db					= ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
-		$proj				= ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
+		$server				= '';
+		$db					= $this->is_db_request();
+		$proj				= $this->is_proj_request();
 		// DBs: dataman + project :: TABLE: dataman_database
 		$dataman_database = array(
 			'projName'			=> $this->data['project_name'],
-			'server'			=> 'test',								// varchar(20) TODO: What is this?
-		 	'semesterCreated'	=> $semester_created,
+			'server'			=> $server,									// varchar(20) TODO: What is this?
+		 	'semesterCreated'	=> $semester_created,		
 		 	'dateExpires'		=> $date_expires,
 		 	'dateCreated'		=> $mysql_date,
+		 	'groupName'			=> $this->data['project_type'],
 		 	'status'			=> 'Pending',
 		 	'advisor_name'		=> $this->data['advisor'],
 		 	'advisor_email'		=> $this->data['advisor_email'],
@@ -76,7 +78,7 @@ class Base extends \Forms\Models\Base {
 				'projName'			=> $this->data['project_name'],
 				'quota'				=> $this->data['disk_quota'],
 				'semesterCreated'	=> $semester_created,
-				// 'groupName'			=> $this->data['group_name'],
+				'groupName'			=> $this->data['project_type'],
 				'dateExpires'		=> $date_expires,
 				'dateCreated'		=> $mysql_date,
 				'status'			=> 'Pending',
@@ -98,12 +100,12 @@ class Base extends \Forms\Models\Base {
 			
 		 	if ( $db ) {
 		 		// DB Call - dataman::dataman_database
-		 		$dataman_database = $this->_flatten_array($dataman_database);
+		 		$dataman_database = $this->_flatten_value($dataman_database);
 				$query = $this->get_insert_query('dataman.dataman_database', $dataman_database);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_database);
 				// DB Call - dataman::dataman_dbaccounts
-				$dataman_dbaccounts = $this->_flatten_array($dataman_dbaccounts);
+				$dataman_dbaccounts = $this->_flatten_value($dataman_dbaccounts);
 				$query = $this->get_insert_query('dataman.dataman_dbaccounts', $dataman_dbaccounts);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_dbaccounts);
@@ -160,8 +162,8 @@ class Base extends \Forms\Models\Base {
 	public function get_ssh( array $ssh_info ) {
 		$user		= empty($ssh_info['user']) ? \CSC131\ECS\SSH_USER : $ssh_info['user'];
 		$password	= empty($ssh_info['password']) ? \CSC131\ECS\SSH_PASSWORD : $ssh_info['password'];
-		$ssh = new \Net_SSH2('athena.ecs.csus.edu');
-		if ( !$ssh->login( 'rosatoj', 'No7~Password' ) )
+		$ssh 		= new \Net_SSH2('athena.ecs.csus.edu');
+		if ( !$ssh->login( $user, $password ) )
 			throw new Exception("Unable to connect to server in " . __FILE__ . " on line " . __LINE__ . ".");
 		return $ssh;
 	}
@@ -193,7 +195,17 @@ class Base extends \Forms\Models\Base {
 		}
 	}
 	
-	protected function _flatten_array( array $arr ) {
+	public function is_db_request() {
+		$this->set_data($this->data);
+		return ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
+	}
+	
+	public function is_proj_request() {
+		$this->set_data($this->data);
+		return ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
+	}
+	
+	protected function _flatten_value( array $arr ) {
 		$ret = array();
 		foreach ( $arr as $key => $val ) {
 			if ( is_array( $val ) ) {

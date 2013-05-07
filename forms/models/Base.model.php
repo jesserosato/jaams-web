@@ -34,6 +34,16 @@ class Base extends \JAAMS\Core\Models\Base {
 		$this->_flatten_inputs_data($this->_controller->inputs);
 	}
 	
+	public function get_data( $key = false ) {
+		if ( empty( $this->data ) ) {
+			$this->set_data();
+		}
+		if ( $key )
+			return empty( $this->data[$key] ) ? false : $this->data[$key];
+		else
+			return $this->data;
+	}
+	
 	public function save() {
 		// Try to use $this->data to avoid re-iterating over controller's stuff.
 		$this->set_data($this->data);

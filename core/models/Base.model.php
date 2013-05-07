@@ -108,4 +108,24 @@ class Base {
 		}
 		return $dsn;
 	}
+	
+	/**
+	 * is_unique function.
+	 * 
+	 * @access public
+	 * @param mixed $table
+	 * @param mixed $key
+	 * @param mixed $val
+	 * @return void
+	 */
+	public function is_unique($table, $key, $val) {
+		try {
+			$stmnt = $this->dbh->prepare("SELECT $key FROM $table WHERE $key = '$val'");
+			$stmnt->execute();
+			return !(bool)$stmnt->rowCount();
+		} catch ( \Exception $e ) {
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
+			return false;
+		}
+	}
 }

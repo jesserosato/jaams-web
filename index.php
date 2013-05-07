@@ -32,7 +32,7 @@ try {
 }
 $form->hierarchies['view']		= array('form');
 $form->atts['action']			= $_SERVER['PHP_SELF'];
-$form->args['validator']		= array('has_ecs_email');
+$form->args['validator']		= array('has_ecs_email', 'unique_project_name');
 $form->args['error_msgs']		= $error_msgs;
 
 
@@ -98,15 +98,6 @@ $advisor_email->args  		= array(
 
 ); 
 
-$group_name					= new Input('group_name');
-$group_name->label 			= 'Group Name: ';
-$group_name->type 			= InputTypes::text;
-$group_name->args 			= array(
-	'validator' 		=> 'only_letters',
-	'error_msgs'		=> $error_msgs['group_name'],
-
-);
-
 							
 $active						= new Input('active');
 $active->label 				= 'How long will the Account be active?';
@@ -164,7 +155,6 @@ $class_no->args             = array(
 	'error_msgs'		=> 	$error_msgs['class_no']	
 );
 
-
 $major						= new Input('major');
 $major->label				= 'Major:';
 $major->type				= InputTypes::text;
@@ -195,7 +185,7 @@ $class->inputs				= array(
 $class->atts				= array('class' => "select-plus-other");
 
 // Groups for Team Information fieldsets
-for ( $i = 0; $i < 10; $i++ ) {
+for ( $i = 0; $i < \CSC131\ECS\MAX_PARTICIPANTS; $i++ ) {
 	// Inputs for Team Members fieldsets
 	$first_name 				= new Input('first_name_'.$i);
 	$first_name->label 			= 'First Name:';
@@ -225,7 +215,7 @@ for ( $i = 0; $i < 10; $i++ ) {
 	$phone_number->label 		= 'Phone Number:';
 	$phone_number->type 		= InputTypes::text;
 	
-	$member_info[$i] 				= new Fieldset('member_info');
+	$member_info[$i] 				= new Fieldset('member_info_'.$i);
 	$member_info[$i]->atts			= array('id' => 'member_info_' . $i);
 	$member_info[$i]->label 		= 'Team Member ' . ($i  + 1);
 	$member_info[$i]->inputs 		= array(
@@ -358,7 +348,6 @@ $info_fieldset->inputs		= array(
 	'participants' 		=> $participants,
 	'advisor' 			=> $advisor,
 	'advisor_email'		=> $advisor_email,
-	'group_name' 		=> $group_name,
 	'project_type'		=> $project_type,
 	'project_name'		=> $project_name
 );
@@ -413,6 +402,9 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 		}
 	} else {
+		echo '<pre>';
+		print_r($form->errors);
+		echo '</pre>';
 		$form->print_html();
 	}
 }

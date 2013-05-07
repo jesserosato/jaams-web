@@ -57,20 +57,21 @@ class Form extends Base
 	 */
 	public function validate( ) {
 		$this->_validate();
+		$data_global = $this->_data_global_name();
 		foreach ( $this->fieldsets as &$fieldset ) {
-		    $fieldset->validate();
+		    $fieldset->validate($data_global);
 		    if ( ! empty ( $fieldset->errors ) ) {
 		   	 $this->errors[$fieldset->name] = $fieldset->errors;
 		    }
 		}
 		foreach ( $this->groups as &$group ) {
-		    $group->validate();
+		    $group->validate($data_global);
 		    if ( ! empty ( $group->errors ) ) {
 		   	 $this->errors[$group->name] = $group->errors;
 		    }
 		}
 		foreach ( $this->inputs as &$input ) {
-		    $input->validate();
+		    $input->validate($data_global);
 		    if ( ! empty ( $input->errors ) ) {
 		   	 $this->errors[$input->name] = $input->errors;
 		    }

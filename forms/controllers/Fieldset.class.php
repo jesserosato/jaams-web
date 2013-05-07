@@ -37,23 +37,6 @@ class Fieldset extends Base implements FormElement
 	}
 	
 	/**
-	 * Get raw data.
-	 *
-	 * @param $data_global String String containing the name of a global variable containing foreachable data structure.
-	 */
-	public function set_raw ( $data_global = 'POST' ) {
-		foreach ( $this->fieldsets as &$fieldset ) {
-			$fieldset->set_raw($data_global);
-		}
-		foreach ( $this->groups as &$group ) {
-			$group->set_raw($data_global);
-		}
-		foreach ( $this->inputs as &$input ) {
-			$input->set_raw_value($data_global);
-		}
-	}
-	
-	/**
 	 * Make raw data safe for HTML display
 	 *
 	 * @param $data_global String String containing the name of a global variable containing data.
@@ -76,22 +59,22 @@ class Fieldset extends Base implements FormElement
 	 * @return bool
 	 *
 	 */
-	public function validate() {
+	public function validate($data_global = 'POST') {
 		$this->_validate();
 		foreach ( $this->fieldsets as &$fieldset ) {
-		    $fieldset->validate();
+		    $fieldset->validate($data_global);
 		    if ( ! empty ( $fieldset->errors ) ) {
 		   	 $this->errors[$fieldset->name] = $fieldset->errors;
 		    }
 		}
 		foreach ( $this->groups as &$group ) {
-		    $group->validate();
+		    $group->validate($data_global);
 		    if ( ! empty ( $group->errors ) ) {
 		   	 $this->errors[$group->name] 	= $group->errors;
 		    }
 		}
 		foreach ( $this->inputs as &$input ) {
-		    $input->validate();
+		    $input->validate($data_global);
 		    if ( ! empty ( $input->errors ) ) {
 		   	 $this->errors[$input->name] 	= $input->errors;
 		    }
@@ -121,6 +104,7 @@ class Fieldset extends Base implements FormElement
 		return empty( $this->errors );
 	 }
 	 
+	 // "Abstract" function
 	 protected function _call_validator( $function ) {
 		return true;
 	}

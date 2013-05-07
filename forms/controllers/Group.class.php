@@ -49,9 +49,9 @@ class Group extends Base implements FormElement
 	  * @param bool $hide_individual_errors (default: true)
 	  * @return void
 	  */
-	 public function validate($clear_input_errors = true) {
+	 public function validate( $data_global = 'POST' ) {
 		 foreach ( $this->inputs as &$input ) {
-			 $input->validate();
+			 $input->validate($data_global);
 			 if ( ! empty ( $input->errors ) ) {
 				 $this->errors[$input->name] = $input->errors;
 			 }

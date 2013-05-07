@@ -5,8 +5,6 @@
 //     In index.php, include this file.  Then attach these error messages to the Form\Input objects like:
 //			$email_input->args['error_msgs'] = $error_msgs['email_input_name'].
 
-define('ECS_SITE_ADMIN_EMAIL', 'putarealemailaddresshere@example.com');
-
 $error_msgs = array(
 	// The first thing is to create keyes-array pair for each element:
 	'advisor'		=> array(
@@ -26,10 +24,6 @@ $error_msgs = array(
         'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
     
 	),
-    'group_name'   		=> array(
-        'only_letters'  =>  'Numbers are not permitted in this field.',
-        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
-    ),
     'indiv_major'		=> array(
         'only_letters'  =>  'Numbers are not permitted in this field.',
         'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
@@ -60,7 +54,8 @@ $error_msgs = array(
     ),
 	// You can also 
 	// Now we'll add the form level errors as key-message pairs. ('database' is actually the only one of these so far).
-	'database_connection'	=> 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>.',
+	'database_connection'	=> 'We were unable to connect to the database.  Please contact the  <a href="mailto:' . \CSC131\ECS\SITE_ADMIN_EMAIL . '">site administrator</a>.',
 	'has_ecs_email'	=> "At least one member of your team must provide a valid ECS email address (i.e. one ending in @ecs.csus.edu).",
+	'unique_project_name' => "Sorry, it looks like your chosen project name is already taken.",
 );
-$error_msgs['database_save']	= 'We were unable to save your request to the database.  Please try again, and contact the  <a href="mailto:' . ECS_SITE_ADMIN_EMAIL . '">site administrator</a>. if the problem continues.';
+$error_msgs['database_save']	= 'We were unable to save your request to the database.  Please try again, and contact the  <a href="mailto:' . \CSC131\ECS\SITE_ADMIN_EMAIL . '">site administrator</a>. if the problem continues.';

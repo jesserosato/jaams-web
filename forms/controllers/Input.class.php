@@ -129,10 +129,12 @@ class Input extends Base implements FormElement
 	 * @access public
 	 * @return void
 	 */
-	public function validate( ) {
+	public function validate( $data_global = 'POST' ) {
 		
 		if ( empty( $this->args['validator'] ) )
 			return true;
+		if ( empty( $this->value ) )
+			$this->set_raw( $data_global );
 			
 		$validator = $this->args['validator'];
 		if ( is_array( $validator ) ) {
@@ -179,7 +181,7 @@ class Input extends Base implements FormElement
 				// Otherwise, just make sure the user's value and the default value are different.
 				return InputValidators::not( $this->value, $this->args['default_value']);
 			default:
-				
+				return true;
 		}
 	}
 	
