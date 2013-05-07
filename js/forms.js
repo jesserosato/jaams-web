@@ -19,6 +19,23 @@ $(document).ready(function() {
 		$(".dept").hide();
 		$(".major").show();
 	}
+	// Show or hide appropriate fieldsets based on account_type choice.
+	$('select', $('.account_type')).on('change', function() {
+		var val = $(this).val();
+		switch( val ) {
+			case 'pa':
+				$('.database_fieldset').hide();
+				$('.project_fieldset').show();
+				break;
+			case 'db':
+				$('.database_fieldset').show();
+				$('.project_fieldset').hide();
+				break;
+			default:
+				$('.database_fieldset').show();
+				$('.project_fieldset').show();
+		}
+	});
 	// Display appropriate amount of member info fieldsets.
 	participants.on('change', function() {
 		var i = parseInt($(this).val());
