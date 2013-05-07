@@ -217,6 +217,10 @@ class Input extends Base implements FormElement
 	 * @return void
 	 */
 	protected function _error( $validator ) {
-		return empty($this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
+		if (empty($this->errors['required']))
+			return empty($this->args['error_msgs'][$validator]) ? "Error of type '$validator'." : $this->args['error_msgs'][$validator];
+			
+		else
+			return $this->args['error_msgs']['required'];
 	}
 }

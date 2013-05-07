@@ -16,31 +16,32 @@ $error_msgs = array(
 	'advisor_email'	=> array(
 		// Now we add a key-message pair for every validator we're going to attach to the input in index.php.
 		'email'		=> 'Please enter a valid email address.',
-		'required'	=> 'The Email field is required, please provide a valid email address.'
+		'required'	=> 'The Advisor email field is required, please provide a valid email address.'
 	),
 	'class_no'			=> array(
 		'only_numbers' 	=>'Letters are not permitted in this field.',
+		'required'	=> 'The Class number field is required, please provide a valid class number.'
 	),
 	'project_name' 	=> array(
 		'only_letters'  =>  'Numbers are not permitted in this field.',
-        'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+        'required'	=> 'The Project Name field is required, please provide a valid project name.'
     
 	),
     'group_name'   		=> array(
         'only_letters'  =>  'Numbers are not permitted in this field.',
-        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+        'required'		=> 'The Group Name field is required, please provide a valid group name.'
     ),
     'indiv_major'		=> array(
         'only_letters'  =>  'Numbers are not permitted in this field.',
-        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+        'required'		=> 'The Major field is required, please provide a valid major.'
     ),
 	'first_name'		=> array(
         'only_letters'  =>  'Numbers are not permitted in this field.',
-        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+        'required'		=> 'The First Name field is required, please provide a valid first name.'
     ),
     'last_name'   		=> array(
         'only_letters'  =>  'Numbers are not permitted in this field.',
-        'required'		=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'
+        'required'		=> 'The Last Name field is required, please provide a valid last name.'
     ),
 	'email'	=> array(
 		// Now we add a key-message pair for every validator we're going to attach to the input in index.php.
@@ -53,7 +54,7 @@ $error_msgs = array(
 	),
     'disk_quota'   => array(
         'greater_zero' =>  'Your input must be greater than zero.',
-        'required'	=> 'The Phone Number field is required, please provside a valid U.S. telephone number.'
+        'required'	=> 'The disk quota field is required, please provside a valid amount.'
     ),
     'only_numbers'	=>	array(
     	'letters' 	=> 'Letters are not permitted in this field.',
