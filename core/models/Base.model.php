@@ -16,13 +16,13 @@ class Base {
 	protected $data			= array();
 	// - PRIVATE
 	protected $db_info		= array(
-		'driver'	=> \JAAMS\DB_DRIVER,
-		'host'		=> \JAAMS\DB_HOST,
-		'user'		=> \JAAMS\DB_USER,
-		'password'	=> \JAAMS\DB_PASSWORD,
-		'name'		=> \JAAMS\DB_NAME,
-		'port'		=> \JAAMS\DB_PORT,
-		'socket'	=> \JAAMS\DB_SOCKET
+		'driver'	=> \Application\DB_DRIVER,
+		'host'		=> \Application\DB_HOST,
+		'user'		=> \Application\DB_USER,
+		'password'	=> \Application\DB_PASSWORD,
+		'name'		=> \Application\DB_NAME,
+		'port'		=> \Application\DB_PORT,
+		'socket'	=> \Application\DB_SOCKET
 	);
 	protected $errmode		= PDO::ERRMODE_EXCEPTION;
 

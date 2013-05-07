@@ -1,9 +1,7 @@
 <?php
-namespace CSC131\ECS\Models;
+namespace Application\Models;
 
 // Load the SSH library.
-
-
 set_include_path(\JAAMS\VENDOR_ROOT . '/phpseclib');
 include('Net/SSH2.php');
 
@@ -13,6 +11,16 @@ class Base extends \Forms\Models\Base {
 
 	// METHODS
 	// - PUBLIC
+	
+	/**
+	 * __construct function.
+	 * 
+	 * @access public
+	 * @param mixed $controller
+	 * @param array $db_info (default: array())
+	 * @param array $ssh_info (default: array())
+	 * @return void
+	 */
 	public function __construct($controller, array $db_info = array(), array $ssh_info = array()) {
 		parent::__construct($controller, $db_info);
 		$this->ssh = $this->get_ssh($ssh_info);
@@ -32,8 +40,8 @@ class Base extends \Forms\Models\Base {
 		$date_expires		= $this->_get_date_expires();
 		$class_or_major		= $this->_get_class_or_major();
 		$server				= '';
-		$db					= $this->is_db_request();
-		$proj				= $this->is_proj_request();
+		$db					= $this->is_database_request();
+		$proj				= $this->is_project_request();
 		// DBs: dataman + project :: TABLE: dataman_database
 		$dataman_database = array(
 			'projName'			=> $this->data['project_name'],
@@ -161,12 +169,23 @@ class Base extends \Forms\Models\Base {
 		}
 	}
 	
+	/**
+	 * get_ssh function.
+	 * 
+	 * @access public
+	 * @param array $ssh_info
+	 * @return Net_SSH2
+	 */
 	public function get_ssh( array $ssh_info ) {
-		$user		= empty($ssh_info['user']) ? \CSC131\ECS\SSH_USER : $ssh_info['user'];
-		$password	= empty($ssh_info['password']) ? \CSC131\ECS\SSH_PASSWORD : $ssh_info['password'];
-		$ssh 		= new \Net_SSH2('athena.ecs.csus.edu');
-		if ( !$ssh->login( $user, $password ) )
-			throw new Exception("Unable to connect to server in " . __FILE__ . " on line " . __LINE__ . ".");
+		$user		= empty($ssh_info['user']) ? \Application\SSH_USER : $ssh_info['user'];
+		$password	= empty($ssh_info['password']) ? \Application\SSH_PASSWORD : $ssh_info['password'];
+		try {
+			$ssh 		= @new \Net_SSH2('athena.ecs.csus.edu');
+			if ( ! $ssh->login( $user, $password ) )
+				throw new \Exception("Unable to connect to server in " . __FILE__ . " on line " . __LINE__ . ".");
+		} catch ( \Exception $e ) {
+			throw $e;
+		}
 		return $ssh;
 	}
 	
@@ -176,7 +195,7 @@ class Base extends \Forms\Models\Base {
 	 * @access public
 	 * @param string $table
 	 * @param array $arr
-	 * @return void
+	 * @return string
 	 */
 	public function get_insert_query( $table, array $arr ) {
 		$keys = array_keys($arr);
@@ -189,6 +208,13 @@ class Base extends \Forms\Models\Base {
 	 	return "INSERT INTO $table ($cols) value ($placeholders)";
 	}
 	
+	/**
+	 * is_valid_ecs_account function.
+	 * 
+	 * @access public
+	 * @param string $user
+	 * @return bool
+	 */
 	public function is_valid_ecs_account( $user ) {
 		try {
 			return (bool)$this->ssh->exec("ypcat passwd | grep $user");
@@ -197,16 +223,35 @@ class Base extends \Forms\Models\Base {
 		}
 	}
 	
-	public function is_db_request() {
+	/**
+	 * is_database_request function.
+	 * 
+	 * @access public
+	 * @return bool
+	 */
+	public function is_database_request() {
 		$this->set_data($this->data);
 		return ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 	}
 	
-	public function is_proj_request() {
+	/**
+	 * is_project_request function.
+	 * 
+	 * @access public
+	 * @return bool
+	 */
+	public function is_project_request() {
 		$this->set_data($this->data);
 		return ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 	}
 	
+	/**
+	 * _flatten_value function.
+	 * 
+	 * @access protected
+	 * @param array $arr
+	 * @return array
+	 */
 	protected function _flatten_value( array $arr ) {
 		$ret = array();
 		foreach ( $arr as $key => $val ) {
@@ -227,8 +272,8 @@ class Base extends \Forms\Models\Base {
 	 */
 	protected function _get_semester_created() {
 		$now = time();
-		if ( ( strtotime( date( \CSC131\ECS\SPRING_START ) ) <= $now )
-			&& ( $now <= strtotime( date( \CSC131\ECS\SPRING_END ) ) ) )
+		if ( ( strtotime( date( \Application\SPRING_START ) ) <= $now )
+			&& ( $now <= strtotime( date( \Application\SPRING_END ) ) ) )
 			return 'Spring';
 		else
 			return 'Fall';
@@ -245,20 +290,20 @@ class Base extends \Forms\Models\Base {
 			if ( is_int( $this->data['active_other'] ) ) {
 				$semesters = intval($this->data['active_other']);
 			} else {
-				$semesters = \CSC131\ECS\DEFAULT_SEMESTERS_ACTIVE;
+				$semesters = \Application\DEFAULT_SEMESTERS_ACTIVE;
 			}
 		} else {
 			$semesters = intval($this->data['active']);
 		}
-		$sem_len = \CSC131\ECS\SEMESTER_LENGTH;
+		$sem_len = \Application\SEMESTER_LENGTH;
 		$exp_time = strtotime("+" . $sem_len * $semesters . " months");
 		
 		
-		if ( ( strtotime( date( \CSC131\ECS\SPRING_START ) ) <= $exp_time ) 
-			&& ( $exp_time <= strtotime( date( \CSC131\ECS\SPRING_END ) ) ) )
-			return date( \CSC131\ECS\SPRING_END );
+		if ( ( strtotime( date( \Application\SPRING_START ) ) <= $exp_time ) 
+			&& ( $exp_time <= strtotime( date( \Application\SPRING_END ) ) ) )
+			return date( \Application\SPRING_END );
 		else
-			return date( \CSC131\ECS\FALL_END );
+			return date( \Application\FALL_END );
 	}
 	
 	/**

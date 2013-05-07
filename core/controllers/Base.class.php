@@ -43,7 +43,7 @@ class Base {
 	 */
 	public function __construct( array $paths ) {
 		// Set default model path
-		$paths['model'] = empty( $paths['model'] ) ? array(ROOT.'/core/models') : $paths['model'];
+		$paths['model'] = empty( $paths['model'] ) ? array(\JAAMS\ROOT.'/core/models') : $paths['model'];
 		$this->dir_paths = $paths;
 		// Set the view_dir to the first readable directory.
 		foreach ( $paths as $component => $component_paths ) {
@@ -102,10 +102,12 @@ class Base {
 	public function &__get ( $property ) {
 		switch ( $property ) {
 			case 'view' :
-				return $this->get_view();
+				$this->get_view();
+				return $this->view;
 			break;
 			case 'model':
-				return $this->get_model();
+				$this->get_model();
+				return $this->model;
 			break;
 			default:
 				return $this->$property;

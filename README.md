@@ -49,6 +49,6 @@ TODO:
 - Add inputs that will be hidden/revealed by JS. - Adrian and Anthony
 - Define (and use in templates) error messages. - Adrian and Anthony
 - Javascript/AJAX. - Jesse
-- FIX CSC131\ECS\Models\Base::save() - Jesse
+- FIX \Application\Models\Base::save() - Jesse
 - Expand logging, move Debugger to Logger - Jesse
 - UPDATE SYSTEM DOCUMENTATION - Jesse

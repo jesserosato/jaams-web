@@ -1,5 +1,5 @@
 <?php
-namespace CSC131\ECS\Controllers;
+namespace Application\Controllers;
 
 class Form extends \Forms\Controllers\Form
 {
@@ -77,8 +77,8 @@ class Form extends \Forms\Controllers\Form
 	
 	protected function _unique_project_name() {
 		$project_name 	= $this->model->get_data('project_name');
-		$db 			= $this->model->is_db_request();
-		$proj			= $this->model->is_proj_request();
+		$db 			= $this->model->is_database_request();
+		$proj			= $this->model->is_project_request();
 		if ( $proj ) {
 			if ( ! $this->_project_unique_project_name( $project_name ) )
 				return false;
@@ -102,33 +102,16 @@ class Form extends \Forms\Controllers\Form
 	}
 	
 	protected function _database_unique_project_name($project_name) {
-		// Check for the project name in the database.
-		if ( ! $this->model->is_unique( 'dataman.dataman_dbaccounts', 'DBAccountUName', $project_name ) ) {
-			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("DB_DB");
-			return false;
-		}
-			
-		// TODO: Check if the project name is actually in the database?
-		$db_info = array(
-			'driver'	=> \CSC131\ECS\REMOTE_DB_DRIVER,
-			'host'		=> \CSC131\ECS\REMOTE_DB_HOST,
-			'user'		=> \CSC131\ECS\REMOTE_DB_USER,
-			'password'	=> \CSC131\ECS\REMOTE_DB_PASSWORD
-		);
-		$temp_model = new \JAAMS\Core\Models\Base($this, $db_info);
-		if ( ! $temp_model->is_unique( 'mysql.user', 'User', $project_name ) ) {
-			return false;
-		}
-		return true;
+		// Check for the project name in the database
+		return $this->model->is_unique( 'dataman.dataman_dbaccounts', 'DBAccountUName', $project_name );
 	}
 	
 	protected function _unset_empty_member_info_errors() {
 		$participants = $this->model->get_data('participants');
-		for ( $i = $participants; $i < \CSC131\ECS\MAX_PARTICIPANTS; $i++ ) {
+		for ( $i = $participants; $i < \Application\MAX_PARTICIPANTS; $i++ ) {
 			$errors = $this->fieldsets['team_fieldset']->fieldsets['member_info_'.$i]->errors;
 			unset($this->errors['team_fieldset']);
 			$this->fieldsets['team_fieldset']->fieldsets['member_info_'.$i]->errors = array();
-			$GLOBALS['JAAMS']['DEBUGGER']->debug_log($this->fieldsets['team_fieldset']->fieldsets['member_info_'.$i]->errors);
 			foreach ( $errors as $input => $error ) {
 				$this->fieldsets['team_fieldset']->errors['member_info_'.$i] = array();
 				$this->fieldsets['team_fieldset']->fieldsets['member_info_'.$i]->inputs[$input]->errors = array();

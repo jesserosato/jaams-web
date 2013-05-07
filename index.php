@@ -10,8 +10,10 @@ use \Forms\Controllers\Group as Group;
 use \Forms\Controllers\Input as Input;
 use \Forms\Controllers\InputTypes as InputTypes;
 use \Forms\Controllers\InputValidators as InputValidators;
-use \CSC131\ECS\Controllers\Form as Form;
-use \CSC131\ECS\Models\Base as FormModel;
+use \Application\Controllers\Form as Form;
+use \Application\Controllers\AdminEmail as AdminEmail;
+use \Application\Controllers\UserEmail as UserEmail;
+use \Application\Models\Base as FormModel;
 
 $template_dir_path			= array('view' => array(\JAAMS\ROOT.'/application/templates'));
 $model_dir_path				= array('model' => array(\Forms\ROOT.'/models'));
@@ -185,7 +187,7 @@ $class->inputs				= array(
 $class->atts				= array('class' => "select-plus-other");
 
 // Groups for Team Information fieldsets
-for ( $i = 0; $i < \CSC131\ECS\MAX_PARTICIPANTS; $i++ ) {
+for ( $i = 0; $i < \Application\MAX_PARTICIPANTS; $i++ ) {
 	// Inputs for Team Members fieldsets
 	$first_name 				= new Input('first_name_'.$i);
 	$first_name->label 			= 'First Name:';
@@ -399,7 +401,26 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 		echo '<h2>Thank you for your submission!</h2>';
 		try {
 			$form->save();
-			echo '<h4>Form Saved!</h4>';
+			$data = $form->model->get_data();
+			$admin_email	= new AdminEmail($data);
+			$user_email		= new UserEmail($data);
+			if ( ! $admin_email->send() ) {
+				$GLOBALS['JAAMS']['DEBUGGER']->debug_log("Error sending email.");
+			}
+			if ( $form->model->is_database_request() ) {
+				$user_email->hierarchies['view'] = array('email','user', 'database');
+				if ( ! $user_email->send() ) {
+					$form->errors['user_project_email'] = empty($error_msgs['user_project_email']) ? 'Error sending project account request confirmation email.' : $error_msgs['user_project_email'];
+				}
+			}
+			if ( $form->model->is_project_request() ) {
+				$user_email->hierarchies['view'] = array('email','user', 'project');
+				if ( ! $user_email->send() ) {
+					$form->errors['user_database_email'] = empty($error_msgs['user_database_email']) ? 'Error sending project account request confirmation email.' : $error_msgs['user_database_email'];
+				}
+			}
+			
+			include(\JAAMS\APP_ROOT.'/templates/success.php');
 		} catch( \Exception $e ) {
 			$form->errors['database_save'] = empty($error_msgs['database_save']) ? 'Error saving data to database' : $error_msgs['database_save'];
 			$form->print_html();
