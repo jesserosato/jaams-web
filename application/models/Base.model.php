@@ -1,11 +1,19 @@
 <?php
 namespace CSC131\ECS\Models;
 
+// Load the SSH library.
+set_include_path(\JAAMS\VENDOR_ROOT . '/phpseclib');
+include('Net/SSH2.php');
+
 class Base extends \Forms\Models\Base {
+	// PROPERTIES
+	protected $ssh;
+
 	// METHODS
 	// - PUBLIC
-	public function __construct($controller) {
-		parent::__construct($controller);
+	public function __construct($controller, array $db_info = array(), array $ssh_info = array()) {
+		parent::__construct($controller, $db_info);
+		$this->ssh = $this->get_ssh($ssh_info);
 	}
 	
 	/**
@@ -20,6 +28,7 @@ class Base extends \Forms\Models\Base {
 		$mysql_date			= date('Y-m-d');
 		$semester_created	= $this->_get_semester_created();
 		$date_expires		= $this->_get_date_expires();
+		$class_or_major		= $this->_get_class_or_major();
 		$db					= ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 		$proj				= ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 		// DBs: dataman + project :: TABLE: dataman_database
@@ -89,10 +98,12 @@ class Base extends \Forms\Models\Base {
 			
 		 	if ( $db ) {
 		 		// DB Call - dataman::dataman_database
+		 		$dataman_database = $this->_flatten_array($dataman_database);
 				$query = $this->get_insert_query('dataman.dataman_database', $dataman_database);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_database);
 				// DB Call - dataman::dataman_dbaccounts
+				$dataman_dbaccounts = $this->_flatten_array($dataman_dbaccounts);
 				$query = $this->get_insert_query('dataman.dataman_dbaccounts', $dataman_dbaccounts);
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($dataman_dbaccounts);
@@ -112,17 +123,13 @@ class Base extends \Forms\Models\Base {
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($project_history);
 			}
-			// Prep DB Calls to dataman::dataman_people and project::project_people.
-			$db_query	= $this->get_insert_query('dataman.dataman_people', $dataman_people);
-			$db_stmnt	= $this->dbh->prepare($db_query);
-			$proj_query = $this->get_insert_query('project.project_people', $dataman_people);
-			$proj_stmnt = $this->dbh->prepare($proj_query);
-			$num_people = intval($this->data['participants']);
 			// Loop through people and add them to DB
+			$num_people = intval($this->data['participants']);
 			for ( $i = 0; $i < $num_people; $i++ ) {
+				// TODO: appropriately set deptMajor
 				$dataman_people = array(
 					// -- peopleID
-					'deptMajor'			=> $this->data['dept'],
+					'deptMajor'			=> $class_or_major,
 					'pNamefirst'		=> $this->data['first_name_'. $i],
 					'pNameLast'			=> $this->data['last_name_' . $i],
 					'phoneNum'			=> $this->data['phone_number_' . $i],
@@ -130,9 +137,14 @@ class Base extends \Forms\Models\Base {
 					'projName'			=> $this->data['project_name'],
 				);
 				if ( $db ) {
+					// Prep DB Calls to dataman::dataman_people and project::project_people.
+					$db_query	= $this->get_insert_query('dataman.dataman_people', $dataman_people);
+					$db_stmnt	= $this->dbh->prepare($db_query);
 					$db_stmnt->execute($dataman_people);
 				}
 				if ( $proj ) {
+					$proj_query = $this->get_insert_query('project.project_people', $dataman_people);
+					$proj_stmnt = $this->dbh->prepare($proj_query);
 					$proj_stmnt->execute($dataman_people);
 				}
 			}
@@ -143,6 +155,15 @@ class Base extends \Forms\Models\Base {
 			$this->dbh->rollBack();
 			throw $e;
 		}
+	}
+	
+	public function get_ssh( array $ssh_info ) {
+		$user		= empty($ssh_info['user']) ? \CSC131\ECS\SSH_USER : $ssh_info['user'];
+		$password	= empty($ssh_info['password']) ? \CSC131\ECS\SSH_PASSWORD : $ssh_info['password'];
+		$ssh = new \Net_SSH2('athena.ecs.csus.edu');
+		if ( !$ssh->login( 'rosatoj', 'No7~Password' ) )
+			throw new Exception("Unable to connect to server in " . __FILE__ . " on line " . __LINE__ . ".");
+		return $ssh;
 	}
 	
 	/**
@@ -156,11 +177,32 @@ class Base extends \Forms\Models\Base {
 	public function get_insert_query( $table, array $arr ) {
 		$keys = array_keys($arr);
 	 	$cols = implode(', ', $keys);
+	 	$placeholders = array();
 	 	foreach ( $keys as $key ) {
 		 	$placeholders[] = ":".$key;
 	 	}
 	 	$placeholders = implode(', ', $placeholders);
 	 	return "INSERT INTO $table ($cols) value ($placeholders)";
+	}
+	
+	public function is_valid_ecs_account( $user ) {
+		try {
+			return (bool)$this->ssh->exec("ypcat passwd | grep $user");
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
+	
+	protected function _flatten_array( array $arr ) {
+		$ret = array();
+		foreach ( $arr as $key => $val ) {
+			if ( is_array( $val ) ) {
+				$ret[$key] = $val[0];
+			} else {
+				$ret[$key] = $val;
+			}
+		}
+		return $ret;
 	}
 	
 	/**
@@ -219,5 +261,9 @@ class Base extends \Forms\Models\Base {
 			}
 		}
 		return $ret;
+	}
+	
+	protected function _get_class_or_major() {
+		return intval($this->data['participants']) > 1 ? $this->data['dept'] . $this->data['class_no'] : $this->data['major'];
 	}
 }

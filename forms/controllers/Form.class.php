@@ -56,6 +56,7 @@ class Form extends Base
 	 *
 	 */
 	public function validate( ) {
+		$this->_validate();
 		foreach ( $this->fieldsets as &$fieldset ) {
 		    $fieldset->validate();
 		    if ( ! empty ( $fieldset->errors ) ) {
@@ -100,6 +101,10 @@ class Form extends Base
 	  */
 	 protected function _data_global_name( ) {
 		 return empty($this->atts['method']) ? 'POST' : strtoupper($this->atts['method']);
+	 }
+	 
+	 // Basically abstract.
+	 protected function _validate() {
 	 }
 }
 		
