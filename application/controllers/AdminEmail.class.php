@@ -2,10 +2,11 @@
 namespace Application\Controllers;
 
 class AdminEmail extends \JAAMS\Core\Controllers\Email {
-	public function __construct( array $data = array() ) {
-		$paths	= array('view' => \JAAMS\APP_ROOT.'/templates');
+	public function __construct( array $paths, array $data = array() ) {
+		
 		parent::__construct($paths, array(), $data);
-		$this->to = \Application\Email_Addresses::$admin;
+		$this->to = \Application\EmailAddresses::$admin;
 		$this->hierarchies['view'] = array('email', 'admin');
+		$this->exts['view'] = 'template.php';
 	}
 }

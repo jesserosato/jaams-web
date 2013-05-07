@@ -52,7 +52,7 @@ class Base {
 				continue;
 			}
 			foreach( $component_paths as $path ) {
-				if ( ( $this->_indices[$component] < 0 ) &&  @opendir($path) ) {
+				if ( ( $this->_indices[$component] < 0 ) &&  opendir($path) ) {
 					$this->_indices[$component] = $i;	
 				}
 				$i++;

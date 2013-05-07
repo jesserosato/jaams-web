@@ -65,7 +65,7 @@ $error_msgs = array(
 	
 	'unique_project_name' => "Sorry, it looks like your chosen project name is already taken.",
 	
-	'ssh_connection' => "Sorry, we're currently unable to connect to the project accounts server.  Please try again, and contact the  <a href=" . '"mailto:' . \Application\SITE_ADMIN_EMAIL . ">site administrator</a>. if the problem continues.",
+	'ssh_connection' => "Sorry, we're currently unable to connect to the project accounts server.  Please try again, and contact the  <a href=" . '"mailto:' . \Application\SITE_ADMIN_EMAIL . '">site administrator</a> if the problem continues.',
 	
 );
 $error_msgs['database_save']	= 'We were unable to save your request to the database.  Please try again, and contact the  <a href="mailto:' . \Application\SITE_ADMIN_EMAIL . '">site administrator</a>. if the problem continues.';

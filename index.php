@@ -393,39 +393,45 @@ $form->fieldsets			= array(
 $form->inputs			= array('ecs_submit' => $submit);
 
 if ( empty ( $_POST['ecs_submit'] ) ) {
-	// Output the form
+	// No submission output the form
 	$form->print_html();
 } else {
+	// Sanitize
 	$form->sanitize();
+	// Validate
 	if ( $form->validate() ) {
-		echo '<h2>Thank you for your submission!</h2>';
 		try {
+			// Save
 			$form->save();
-			$data = $form->model->get_data();
-			$admin_email	= new AdminEmail($data);
-			$user_email		= new UserEmail($data);
-			if ( ! $admin_email->send() ) {
-				$GLOBALS['JAAMS']['DEBUGGER']->debug_log("Error sending email.");
-			}
-			if ( $form->model->is_database_request() ) {
-				$user_email->hierarchies['view'] = array('email','user', 'database');
-				if ( ! $user_email->send() ) {
-					$form->errors['user_project_email'] = empty($error_msgs['user_project_email']) ? 'Error sending project account request confirmation email.' : $error_msgs['user_project_email'];
-				}
-			}
-			if ( $form->model->is_project_request() ) {
-				$user_email->hierarchies['view'] = array('email','user', 'project');
-				if ( ! $user_email->send() ) {
-					$form->errors['user_database_email'] = empty($error_msgs['user_database_email']) ? 'Error sending project account request confirmation email.' : $error_msgs['user_database_email'];
-				}
-			}
-			
-			include(\JAAMS\APP_ROOT.'/templates/success.php');
+			$data 			= $form->model->get_data();
 		} catch( \Exception $e ) {
-			$form->errors['database_save'] = empty($error_msgs['database_save']) ? 'Error saving data to database' : $error_msgs['database_save'];
+			$form->errors['database_save'] = empty($error_msgs['database_save']) ? 'Error saving data to database.' : $error_msgs['database_save'];
 			$form->print_html();
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("Error saving to database:");
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 		}
+		// Send emails
+		$paths			= array('view' => array(\JAAMS\APP_ROOT.'/templates'));
+		$admin_email	= new AdminEmail($paths, $data);
+		$user_email		= new UserEmail($paths, $form->model);
+		if ( ! $admin_email->send() ) {
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("Error sending administrator email:");
+			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($admin_email, true));
+		}
+		if ( $form->model->is_database_request() ) {
+			$user_email->hierarchies['view'] = array('email','user', 'database');
+			if ( ! $user_email->send() ) {
+				$form->errors['user_project_email'] = empty($error_msgs['user_project_email']) ? 'Error sending project account request confirmation email.' : $error_msgs['user_project_email'];
+			}
+		}
+		if ( $form->model->is_project_request() ) {
+			$user_email->hierarchies['view'] = array('email','user', 'project');
+			if ( ! $user_email->send() ) {
+				$form->errors['user_database_email'] = empty($error_msgs['user_database_email']) ? 'Error sending project account request confirmation email.' : $error_msgs['user_database_email'];
+			}
+		}
+		// SUCCESS!
+		include(\JAAMS\APP_ROOT.'/templates/success.template.php');
 	} else {
 		$form->print_html();
 	}

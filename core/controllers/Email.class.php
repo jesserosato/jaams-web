@@ -28,7 +28,8 @@ class Email extends Base {
 	}
 	
 	public function send() {
-		
+		$message = $this->get_message();
+	
 		$mail = new \PHPMailer();
 		$mail->Host			= $this->smtp_info['host'];
 		$mail->SMTPAuth		= $this->smtp_info['auth'];
@@ -43,12 +44,16 @@ class Email extends Base {
 		$mail->AltBody		= $this->alt_message;
 		$mail->IsHtml($this->is_html);
 		$mail->Subject		= $this->subject;
-		$mail->body			= $this->get_message();
+		$mail->Body			= $message;
 		
 		return $mail->Send();
 	}
 	
 	public function get_message() {
 		return $this->message ? $this->message : $this->get_view();
+	}
+	
+	public function get_template_data() {
+		return $this->data;
 	}
 }
