@@ -140,7 +140,7 @@ class Input extends Base implements FormElement
 		if ( is_array( $validator ) ) {
 			foreach ( $validator as $function ) {
 				if ( ! $this->_validate( $function ) ) {
-					$this->errors[$validator] = $this->_error($validator);
+					$this->errors[$function] = $this->_error($function);
 				}
 			}
 		} else {

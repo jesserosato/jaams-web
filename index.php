@@ -84,7 +84,7 @@ $advisor					= new Input('advisor');
 $advisor->label 			= 'Project Advisor:';
 $advisor->type 				= InputTypes::text;
 $advisor->args              = array(
-	'validator' 		=> 'only_letters',
+	'validator' 		=> 	array('required','only_letters',),
 	'error_msgs'		=>	$error_msgs['advisor']
 );
 
@@ -93,7 +93,7 @@ $advisor_email				= new Input('advisor_email');
 $advisor_email->label 		= 'Project Advisor Email Address:';
 $advisor_email->type 		= InputTypes::text;
 $advisor_email->args  		= array(
-	'validator'	 		=> 'email',
+	'validator'	 		=> array('required','email',),
 	'error_msgs' 		=> $error_msgs['advisor_email']
 
 ); 
@@ -151,7 +151,7 @@ $class_no->type 			= InputTypes::text;
 $class_no->label			= 'Class #: ';
 $class_no->atts				= array('class' => "other");
 $class_no->args             = array(
-	'validator'			=>	'only_numbers',
+	'validator'			=>	array('required','only_numbers',),
 	'error_msgs'		=> 	$error_msgs['class_no']	
 );
 
@@ -163,7 +163,7 @@ $project_name 				= new Input('project_name');
 $project_name->label 		= 'Project Name:';
 $project_name->type 		= InputTypes::text;
 $project_name->args         = array(
-	'validator' 		=> 'only_letters',
+	'validator' 		=> array('required','only_letters',),
 	'error_msgs'		=>	$error_msgs['project_name']
 );
 								
@@ -191,7 +191,7 @@ for ( $i = 0; $i < \CSC131\ECS\MAX_PARTICIPANTS; $i++ ) {
 	$first_name->label 			= 'First Name:';
 	$first_name->type 			= InputTypes::text;
 	$first_name->args           = array(
-		'validator' 		=> 'only_letters',
+		'validator' 		=> array('required','only_letters',),
 		'error_msgs'		=> $error_msgs['first_name']
 	);
 
@@ -199,7 +199,7 @@ for ( $i = 0; $i < \CSC131\ECS\MAX_PARTICIPANTS; $i++ ) {
 	$last_name->label 			= 'Last Name:';
 	$last_name->type 			= InputTypes::text;
 	$last_name->args           = array(
-		'validator' 		=> 'only_letters',
+		'validator' 		=> array('required','only_letters',),
 		'error_msgs'		=> $error_msgs['last_name']
 	);
 
@@ -207,13 +207,17 @@ for ( $i = 0; $i < \CSC131\ECS\MAX_PARTICIPANTS; $i++ ) {
 	$email->label 				= 'Email:';
 	$email->type 				= InputTypes::text;
 	$email->args           = array(
-		'validator'			=> 'email',
+		'validator'			=> array('required','email',),
 		'error_msgs'		=> $error_msgs['email']
 	);
 
 	$phone_number 				= new Input('phone_number_' . $i);
 	$phone_number->label 		= 'Phone Number:';
 	$phone_number->type 		= InputTypes::text;
+	$phone_number->args 		= array(
+		'validator'			=> array('required','phone',),
+		'error_msgs'		=> $error_msgs['phone_number']
+	);
 	
 	$member_info[$i] 				= new Fieldset('member_info_'.$i);
 	$member_info[$i]->atts			= array('id' => 'member_info_' . $i);
@@ -314,7 +318,7 @@ $disk_quota 				= new Input('disk_quota');
 $disk_quota->label 			= 'Disk Quota (in MB):';
 $disk_quota->type 			= InputTypes::text;
 $disk_quota->args 			= array(
-	'validator' 			=> 'greater_zero',
+	'validator' 			=> array('greater_zero', 'required'),
 	'error_msgs' 			=> $error_msgs['disk_quota'],
 	'default_value'			=> '1500'
 );
@@ -402,9 +406,6 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 		}
 	} else {
-		echo '<pre>';
-		print_r($form->errors);
-		echo '</pre>';
 		$form->print_html();
 	}
 }
