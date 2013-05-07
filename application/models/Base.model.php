@@ -1,11 +1,19 @@
 <?php
 namespace CSC131\ECS\Models;
 
+// Load the SSH library.
+set_include_path(\JAAMS\VENDOR_ROOT . '/phpseclib');
+include('Net/SSH2.php');
+
 class Base extends \Forms\Models\Base {
+	// PROPERTIES
+	protected $ssh;
+
 	// METHODS
 	// - PUBLIC
-	public function __construct($controller) {
-		parent::__construct($controller);
+	public function __construct($controller, array $db_info = array(), array $ssh_info = array()) {
+		parent::__construct($controller, $db_info);
+		$this->ssh = $this->get_ssh($ssh_info);
 	}
 	
 	/**
@@ -149,6 +157,15 @@ class Base extends \Forms\Models\Base {
 		}
 	}
 	
+	public function get_ssh( array $ssh_info ) {
+		$user		= empty($ssh_info['user']) ? \CSC131\ECS\SSH_USER : $ssh_info['user'];
+		$password	= empty($ssh_info['password']) ? \CSC131\ECS\SSH_PASSWORD : $ssh_info['password'];
+		$ssh = new \Net_SSH2('athena.ecs.csus.edu');
+		if ( !$ssh->login( 'rosatoj', 'No7~Password' ) )
+			throw new Exception("Unable to connect to server in " . __FILE__ . " on line " . __LINE__ . ".");
+		return $ssh;
+	}
+	
 	/**
 	 * get_insert_query function.
 	 * 
@@ -169,8 +186,11 @@ class Base extends \Forms\Models\Base {
 	}
 	
 	public function is_valid_ecs_account( $user ) {
-		// TODO: SSH and all that jazz
-		return true;
+		try {
+			return (bool)$this->ssh->exec("ypcat passwd | grep $user");
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
 	protected function _flatten_array( array $arr ) {

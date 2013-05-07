@@ -25,6 +25,10 @@ try {
 	echo '<h2 class="error">' . $error_msgs['database_connection'] . '</h2>';
 	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 	die();
+} catch (  \Exception $e ) {
+	echo '<h2 class="error">' . $error_msgs['ssh_connection'] . '</h2>';
+	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
+	die();
 }
 $form->hierarchies['view']		= array('form');
 $form->atts['action']			= $_SERVER['PHP_SELF'];
