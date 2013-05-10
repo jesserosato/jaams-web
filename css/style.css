@@ -6,10 +6,12 @@ body {
 	font-family:		'Helvetica', sans-serif;
 	font-weight:		100;
 	vertical-align:		top;
+	padding: 20px;
 }
 
 h2, h4, h6, h8 {
-	font-family:		'Times New Roman', serif;
+	font-family:		'Helvetica', sans-serif;
+	font-weight:		300;
 }
  
 form {
@@ -24,7 +26,7 @@ form {
 }
 
 form > .col {
-	max-width:			48%;
+	max-width:			45%;
 }
 
 /* Put border on column 2 because it probably has more stuff/is taller. */
@@ -99,9 +101,26 @@ label {
 	margin-left:		-5px;
 }
 
-.error {
-	color:				maroon;
+div.error {
+	margin:				20px;
+	border:				1px solid red;
+	background-color:	rgba(141,10,10,.8);
+	color: #fff;
 }
+
+.error ul {
+	list-style: circle;
+}
+
+.error li {
+	white-space: normal;
+}
+
+.error {
+	padding:			5px 10px;
+	
+}
+
 /* Make radios farther away from their labels */
 label + input[type="radio"] {
 	margin-left:		100px;
@@ -131,7 +150,7 @@ label + textarea {
 }
 
 .other-permissions-container label {
-	width:				120px;
+	width:				90px;
 	font-size:			80%;
 }
 
@@ -150,6 +169,7 @@ label + textarea {
 /* Input descriptions */
 .info {
 	font-size:			90%;
+	white-space: normal;
 }
 
 /* Submit button */

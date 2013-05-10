@@ -15,11 +15,11 @@ use \Application\Controllers\AdminEmail as AdminEmail;
 use \Application\Controllers\UserEmail as UserEmail;
 use \Application\Models\Base as FormModel;
 
-$template_dir_path			= array('view' => array(\JAAMS\ROOT.'/application/templates'));
-$model_dir_path				= array('model' => array(\Forms\ROOT.'/models'));
+$template_dir_path				= array('view' => array(\JAAMS\ROOT.'/application/templates'));
+$model_dir_path					= array('model' => array(\Forms\ROOT.'/models'));
 
 // Instantiate a JAAMSForms Form object, for a form named 'my_form'.
-$form						= new Form('my_form', $template_dir_path);
+$form							= new Form('my_form', $template_dir_path);
 try {
 	// Instantiate the model
 	$form->model				= new FormModel($form);
@@ -30,7 +30,6 @@ try {
 } catch (  \Exception $e ) {
 	echo '<h2 class="error">' . $error_msgs['ssh_connection'] . '</h2>';
 	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
-	die();
 }
 $form->hierarchies['view']		= array('form');
 $form->atts['action']			= $_SERVER['PHP_SELF'];

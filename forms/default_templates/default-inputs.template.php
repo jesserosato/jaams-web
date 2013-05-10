@@ -11,7 +11,6 @@ $value = empty( $value ) ? ( empty( $args['default_value'] ) ? '' : $args['defau
 ?>
 <div class="input-container <?php echo $name; ?>">
 <?php if ( !empty( $errors ) ) { ?>
-
 	<div class="error">
 		<ul>
 

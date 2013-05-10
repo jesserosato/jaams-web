@@ -41,6 +41,9 @@ class InputValidators {
 
         return preg_match( "/^[1]?[0-9]{10}([xX][0-9]{1-4})?$/", $new_phone);
     }
+    public static function required( $val ) {
+	    return ! empty( $val );
+    }
 
 	/**
 	 * Compare two values, return true if they are not EXACTLY (type too) equal.
@@ -180,6 +183,8 @@ class Input extends Base implements FormElement
 					return ! empty( $this->value );
 				// Otherwise, just make sure the user's value and the default value are different.
 				return InputValidators::not( $this->value, $this->args['default_value']);
+			case 'required':
+				return InputValidators::required( $this->value );
 			default:
 				return true;
 		}

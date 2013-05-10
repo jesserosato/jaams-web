@@ -13,21 +13,18 @@ class Form extends \Forms\Controllers\Form
 		$this->_validate();
 		$data_global = $this->_data_global_name();
 		foreach ( $this->fieldsets as &$fieldset ) {
-		    $fieldset->validate($data_global);
-		    if ( ! empty ( $fieldset->errors ) ) {
-		   	 $this->errors[$fieldset->name] = $fieldset->errors;
-		    }
+			if ( ! $fieldset->validate( $data_global ) ) {
+		   		$this->errors[$fieldset->name] = $fieldset->errors;
+		   	}
 		}
 		foreach ( $this->groups as &$group ) {
-		    $group->validate($data_global);
-		    if ( ! empty ( $group->errors ) ) {
-		   	 $this->errors[$group->name] = $group->errors;
+		    if ( ! $group->validate($data_global) ) {
+				$this->errors[$group->name] = $group->errors;
 		    }
 		}
 		foreach ( $this->inputs as &$input ) {
-		    $input->validate($data_global);
-		    if ( ! empty ( $input->errors ) ) {
-		   	 $this->errors[$input->name] = $input->errors;
+		    if ( ! $input->validate( $data_global ) ) {
+				$this->errors[$input->name] = $input->errors;
 		    }
 		}
 		$this->_unset_empty_member_info_errors();
@@ -51,8 +48,6 @@ class Form extends \Forms\Controllers\Form
 				$this->errors[$validator] = $this->_error($validator);
 			}
 		}
-		
-		return empty( $this->errors );
 	}
 	
 	protected function _call_validator( $function ) {
