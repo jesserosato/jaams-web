@@ -59,10 +59,9 @@ class Input extends Base implements FormElement
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $type						= InputTypes::text;
-	protected $value					= '';
-	protected $atts						= array();
-	protected $args						= array();
+	public $type						= InputTypes::text;
+	public $value						= '';
+	public $atts						= array();
 	
 	// METHODS
 	// - PUBLIC

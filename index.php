@@ -22,15 +22,20 @@ $model_dir_path					= array('model' => array(\Forms\ROOT.'/models'));
 $form							= new Form('my_form', $template_dir_path);
 try {
 	// Instantiate the model
-	$form->model				= new FormModel($form);
+	$model						= new FormModel($form);
+	$form->model				= $model;
 } catch ( \PDOException $e ) {
+	// Catch database exceptions.
 	echo '<h2 class="error">' . $error_msgs['database_connection'] . '</h2>';
 	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 	die();
 } catch (  \Exception $e ) {
+	// Catch SSH Exceptions.
 	echo '<h2 class="error">' . $error_msgs['ssh_connection'] . '</h2>';
 	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
+	die();
 }
+// Attach settings to the form.
 $form->hierarchies['view']		= array('form');
 $form->atts['action']			= $_SERVER['PHP_SELF'];
 $form->args['validator']		= array('has_ecs_email', 'unique_project_name');
@@ -119,16 +124,13 @@ $active_other->atts			= array(
 	'class' => "other"		
 	
 );
-							
+			
 $project_type 				= new Input('project_type');
 $project_type->label 		= 'Project Type:';
 $project_type->type 		= InputTypes::select;
 $project_type->args			= array(
 	'default_value'		=> '',
-	'options'			=> array(
-		'student'				=> 'Student',
-
-	),
+	'options'			=> $model->get_project_types(),
 );
 								
 $dept						= new Input('dept');
@@ -392,6 +394,7 @@ $form->fieldsets			= array(
 $form->inputs			= array('ecs_submit' => $submit);
 
 if ( empty ( $_POST['ecs_submit'] ) ) {
+	echo '<noscript><h3 class="error">You have Javascript disabled! Portions of this page may not work correctly.</h3></noscript>';
 	// No submission output the form
 	$form->print_html();
 } else {

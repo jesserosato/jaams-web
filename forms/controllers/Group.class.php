@@ -7,8 +7,8 @@ class Group extends Base implements FormElement
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $inputs					= array();
-	protected $atts						= array();
+	public $inputs					= array();
+	public $atts					= array();
 	
 	// METHODS
 	// - PUBLIC

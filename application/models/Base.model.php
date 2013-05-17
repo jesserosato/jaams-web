@@ -23,7 +23,9 @@ class Base extends \Forms\Models\Base {
 	 */
 	public function __construct($controller, array $db_info = array(), array $ssh_info = array()) {
 		parent::__construct($controller, $db_info);
-		$this->ssh = $this->get_ssh($ssh_info);
+		// Die if we don't get SSH.
+		if ( ! ( $this->ssh = $this->get_ssh( $ssh_info ) ) )
+			throw new \Exception("Unable to connect to server.");
 	}
 	
 	/**
@@ -163,7 +165,7 @@ class Base extends \Forms\Models\Base {
 			// Commit transaction.
 			return $this->dbh->commit();
 		} catch( \PDOException $e ) {
-			// Something went wrong, roll back commits.
+			// Something went wrong, roll back commits and pass along the exception.
 			$this->dbh->rollBack();
 			throw $e;
 		}
@@ -179,14 +181,9 @@ class Base extends \Forms\Models\Base {
 	public function get_ssh( array $ssh_info ) {
 		$user		= empty($ssh_info['user']) ? \Application\SSH_USER : $ssh_info['user'];
 		$password	= empty($ssh_info['password']) ? \Application\SSH_PASSWORD : $ssh_info['password'];
-		try {
-			$ssh 		= @new \Net_SSH2('athena.ecs.csus.edu');
-			if ( ! $ssh->login( $user, $password ) )
-				throw new \Exception("Unable to connect to server in " . __FILE__ . " on line " . __LINE__ . ".");
-		} catch ( \Exception $e ) {
-			throw $e;
-		}
-		return $ssh;
+		$ssh 		= @new \Net_SSH2('athena.ecs.csus.edu');
+		// If the user requests SSH, we assume they NEED SSH and die without it.
+		return ! $ssh->login( $user, $password ) ? false : $ssh;
 	}
 	
 	/**
@@ -245,6 +242,18 @@ class Base extends \Forms\Models\Base {
 		return ($this->data['account_type'] == 'db') || ($this->data['account_type'] == 'both');
 	}
 	
+	
+	/**
+	 * get_project_types function.
+	 * 
+	 * @access public
+	 * @return array
+	 */
+	public function get_project_types() {
+		$result = $this->query("SELECT groupName FROM dataman.dataman_group");
+		return $result->fetchAll(\PDO::FETCH_COLUMN, 0);
+	}
+	
 	/**
 	 * _flatten_value function.
 	 * 
@@ -295,6 +304,9 @@ class Base extends \Forms\Models\Base {
 		} else {
 			$semesters = intval($this->data['active']);
 		}
+		// If it's only for one semester, just set it for the end of this semester.
+		$semesters = $semesters == 1 ? 0 : $semesters;
+		
 		$sem_len = \Application\SEMESTER_LENGTH;
 		$exp_time = strtotime("+" . $sem_len * $semesters . " months");
 		

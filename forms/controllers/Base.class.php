@@ -3,17 +3,17 @@ namespace Forms\Controllers;
 // Include the JAAMS base class from core.
 require_once \JAAMS\ROOT . '/core/controllers/Base.class.php';
 
-// Define default template path.
-define('VIEWS_DIR_PATH', \Forms\ROOT.'/default_templates');
-define('MODELS_DIR_PATH', \Forms\ROOT.'/models');
+use \Forms\VIEWS_DIR_PATH as VIEWS_DIR_PATH;
+use \Forms\MODELS_DIR_PATH as MODELS_DIR_PATH;
 
 class Base extends \JAAMS\Core\Controllers\Base {
 	// PROPERTIES
 	// - PUBLIC
 	// - PROTECTED
 	protected $name;
-	protected $label					= '';
-	protected $errors					= array();
+	public $label					= '';
+	public $args					= array();
+	protected $errors				= array();
 	
 	// METHODS
 	// - PUBLIC
@@ -21,6 +21,7 @@ class Base extends \JAAMS\Core\Controllers\Base {
 	/**
 	 * __CONSTRUCT
 	 *
+	 * @access	public
 	 * @param	$name				String	HTML form tag “name” attribute. Used internally as a handle for the form.
 	 * @param	$dir_paths			Array	Array of paths to view and model directories, in desired search order.
 	 *
@@ -49,26 +50,47 @@ class Base extends \JAAMS\Core\Controllers\Base {
 		$this->name					= $name;
 	}
 	
+	
 	/**
-	 * Output the form using the object's template-related properties.
-	 *
+	 * get_name function.
+	 * 
+	 * @access public
+	 * @return void
 	 */
+	public function get_name() {
+		return $this->name;
+	}
+	
+	 /**
+	  * print_html function.
+	  * Output the form using the object's template-related properties.
+	  * 
+	  * @access public
+	  * @return void
+	  */
 	 public function print_html() {
 		echo $this->get_html();
 	}
 	
+
 	/**
-	 * Return the form using the object's template-related properties.
+	 * get_html function.
+	 * Return html string using the object's template-related properties.
 	 *
+	 * @access public
+	 * @return string
 	 */
 	public function get_html() {
-		return $this->get_view();
+		$this->set_view();
+		return $this->view;
 	}
 	
+	
 	/**
-	 * Return an array of data relating to this form ready to be used in an HTML template.
-	 *
-	 * @return Array
+	 * get_template_data function.
+	 * 
+	 * @access public
+	 * @return array
 	 */
 	public function get_template_data() {
 		$data = array();
@@ -90,7 +112,8 @@ class Base extends \JAAMS\Core\Controllers\Base {
 	 
 	/**
 	 * _error function.
-	 * 
+	 * OVERRIDE
+	 *
 	 * @access protected
 	 * @param mixed $validator
 	 * @return void

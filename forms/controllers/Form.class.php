@@ -6,16 +6,14 @@ class Form extends Base
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $fieldsets				= array();
-	protected $groups					= array();
-	protected $inputs					= array();
-	protected $atts						= array(
+	public $fieldsets				= array();
+	public $groups					= array();
+	public $inputs					= array();
+	public $atts					= array(
 		'method'		=> 'post',
 		'action'		=> '',
 		'enctype'		=> 'multipart/form-data'
 	);
-	protected $data;
-	
 	
 	// METHODS
 	// - PUBLIC

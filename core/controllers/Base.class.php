@@ -10,19 +10,19 @@ class Base {
 	// $model supports any class that takes a JAAMSBase object as first constructor arg.
 	protected $model				= null;		
 	protected $view					= '';
-	protected $dir_paths			= array(
+	public $dir_paths			= array(
 		'view'	=> array(),
 		'model'	=> array()
 	);
-	protected $hierarchies			= array(
+	public $hierarchies			= array(
 		'view'	=> array('default'),
 		'model'	=> array('Base.model')
 	);
-	protected $exts					= array(
+	public $exts					= array(
 		'view'	=> 'php',
 		'model'	=> 'php'
 	);
-	protected $seps					= array(
+	public $seps					= array(
 		'view'	=> '-',
 		'model'	=> '-'
 	);
@@ -31,6 +31,7 @@ class Base {
 		'view'	=> -1,
 		'model'	=> -1
 	);
+	
 	
 	// METHODS
 	// - PUBLIC
@@ -73,21 +74,12 @@ class Base {
 	 *
 	 */
 	public function __set ( $property , $value ) {
-		// For loose coupling, let the model and debugger be set directly, as otherwise
-		// we would need to know something about their types.
-		$direct = array('model', 'debugger');
-		if ( in_array( $property, $direct ) ) {
-			$this->$property = $value;
-			return;
-		}
-		// Otherwise, use the class defaults to make sure the value being passed is the same
-		// type as the default.
-		$defaults = get_class_vars(get_class($this));
-		// Make sure the new value is of the same type as the default value.
-		if ( gettype( $value ) != gettype( $defaults[$property] ) )
-			return;
-		
-		$this->$property = $value;
+		$funct = 'set_'.$property;
+		// Use setter methods where they exist.
+		if ( is_callable( array( $this, $funct ) ) )
+			$this->$funct($value);
+		else
+			user_error("Property '$property' cannot be set directly.");
 	}
 	
 	/**
@@ -100,63 +92,47 @@ class Base {
 	 * @return	Mixed
 	 */
 	public function &__get ( $property ) {
-		switch ( $property ) {
-			case 'view' :
-				$this->get_view();
-				return $this->view;
-			break;
-			case 'model':
-				$this->get_model();
-				return $this->model;
-			break;
-			default:
-				return $this->$property;
+		if ( ! property_exists( $this, $property ) )
+			user_error("Property '$property' doesn't exist in class " . get_class($this) . ".");
+		// use the get_ function if it exists.
+		if ( empty ( $this->$property ) ) {
+			if ( is_callable( array ( $this, ( $funct = 'set_'.$property ) ) ) ) {
+				$this->$funct();
+			}
 		}
-		
+		return $this->$property;
 	}
 	
+	
 	/**
-	 * get_view
-	 *
-	 * Use the search logic for views to return the contents of a view.
-	 *
-	 * @return	String		A string containing the contents of a view file, or an empty string.
-	 *
+	 * set_view function.
+	 * 
+	 * @access public
+	 * @return void
 	 */
-	public function get_view( $reset = false ) {
-		// If we've already created the view, and we're not resetting the view, return the set view.
-		if ( ! empty( $this->view ) && ! $reset )
-			return $this->view;
-		// Get the path to the view file.  If it's empty, return an empty string.
+	public function set_view() {
+		// Get view filename.
 		$filename = $this->get_path();
-		if ( ! ( $filename ) )
-			return ( $this->view  = '' );
-		// Get the contents of the view file.s
+		// If the filename doesn't exist, leave view unchanged.
+		if ( ! $filename )
+			return;
+		// Get the contents of the view file.
 		ob_start();
 		include($filename);
+		// Set view to the contents of ob_get_contents
 		$this->view = ob_get_contents();
 		ob_end_clean();
-		
-		return $this->view;
 	}
+	
 	
 	/**
-	 * get_model
-	 *
-	 * Use the search logic for models to return the contents of a model.
-	 *
-	 * @param	$reset		bool	Whether to reload the model if it already exists.
-	 *
-	 * @return	null		The model object (or null).
-	 *
+	 * set_model function.
+	 * NOTICE: YOUR MODEL MUST BE THE FIRST CLASS IN THE FILE!
+	 * 
+	 * @access public
+	 * @param mixed $model (default: null)
+	 * @return void
 	 */
-	public function get_model( $reset = false ) {
-		if ( ! empty( $this->model ) && ! $reset )
-			return $this->model;
-		$this->set_model();
-		
-	}
-	
 	public function set_model( $model = null ) {
 		if ( $model != null ) {
 			$this->model = $model;
@@ -164,9 +140,9 @@ class Base {
 		}
 		// Get the path to the model.
 		$filename = $this->get_path('model');
-		// Can't load the model if we couldn't read any fiels.
+		// Can't set the model if we couldn't find it, leave it what it was.
 		if ( ! ( $filename ) )
-			return null;
+			return;
 		// Get the PHP classes that are in the file
 		$classes = $this->_file_get_php_classes($filename);
 		// Use the first one.

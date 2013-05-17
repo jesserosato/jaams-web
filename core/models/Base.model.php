@@ -39,62 +39,14 @@ class Base {
 		// Controller
 		$this->_controller	= $controller;
 		$this->db_info = array_merge($this->db_info, $db_info);
-		// Initialize db handle
-		try {
-			$this->init_dbh();
-		} catch( PDOException $e ) {
-			throw $e;
-		}
+		$this->_init_dbh();
+		if ( empty( $this->dbh ) )
+			throw new \Ecxeption("Unable to connect to database.");
 	}
 	
-	
-	/**
-	 * __set function.
-	 * 
-	 * @access	public
-	 * @param	string	$property
-	 * @param	mixed	$value
-	 * @return	void
-	 */
-	public function __set( $property, $value ) {
-		// Try and call the set_$property method.
-		$method = 'set_'.$property;
-		if ( is_callable( $this, $method ) ) {
-			$this->$method($value);
-		}
-		// Otherwise, use the class defaults to make sure the value being passed is the same
-		// type as the default.
-		$defaults = get_class_vars(get_class($this));
-		// Make sure the new value is of the same type as the default value.
-		if ( gettype( $value ) != gettype( $defaults[$property] ) )
-			return;
-		
-		$this->$property = $value;
-	}
-	
-	/**
-	 * init_dbh function.
-	 * 
-	 * @access public
-	 * @param bool $reset (default: false)
-	 * @return void
-	 */
-	public function init_dbh( $reset = false ) {
-		if ( ! empty( $this->dbh ) && ! $reset )
-			return;
-		
-		$dsn = $this->get_dsn();
-		try {
-			$this->dbh = @new PDO($dsn, $this->db_info['user'], $this->db_info['password'], array(PDO::ATTR_PERSISTENT => true));
-			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, $this->errmode);
-		} catch ( PDOException $e ) {
-			throw $e;
-		}
-	}
-	
-	// TODO: Add more drivers.
 	/**
 	 * get_dsn function.
+	 * TODO: Add more drivers.
 	 * 
 	 * @access public
 	 * @return string
@@ -109,6 +61,19 @@ class Base {
 		return $dsn;
 	}
 	
+	
+	/**
+	 * query function.
+	 * Wrapper for \PDO::query()
+	 * 
+	 * @access public
+	 * @param string $query (default: '')
+	 * @return PDOStatement
+	 */
+	public function query( $query = '' ) {
+		return $this->dbh->query($query);
+	}
+	
 	/**
 	 * is_unique function.
 	 * 
@@ -119,13 +84,23 @@ class Base {
 	 * @return void
 	 */
 	public function is_unique($table, $key, $val) {
-		try {
-			$stmnt = $this->dbh->prepare("SELECT $key FROM $table WHERE $key = '$val'");
-			$stmnt->execute();
-			return !(bool)$stmnt->rowCount();
-		} catch ( \Exception $e ) {
-			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
-			return false;
-		}
+		$stmnt = $this->dbh->prepare("SELECT $key FROM $table WHERE $key = '$val'");
+		$stmnt->execute();
+		return !(bool)$stmnt->rowCount();
+	}
+	
+	// - PROTECTED
+	
+	/**
+	 * _init_dbh function.
+	 * 
+	 * @access protected
+	 * @return void
+	 */
+	protected function _init_dbh( ) {
+		$dsn = $this->get_dsn();
+		// Connect to the db.
+		$this->dbh = @new PDO($dsn, $this->db_info['user'], $this->db_info['password']);
+		$this->dbh->setAttribute(PDO::ATTR_ERRMODE, $this->errmode);
 	}
 }

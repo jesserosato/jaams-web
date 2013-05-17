@@ -13,10 +13,10 @@ class Fieldset extends Base implements FormElement
 {
 	// PROPERTIES
 	// - PROTECTED
-	protected $fieldsets				= array();
-	protected $groups					= array();
-	protected $inputs					= array();
-	protected $atts						= array();
+	public $fieldsets				= array();
+	public $groups					= array();
+	public $inputs					= array();
+	public $atts					= array();
 	
 	// METHODS
 	// - PUBLIC

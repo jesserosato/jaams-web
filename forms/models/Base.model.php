@@ -7,8 +7,8 @@ require_once(\JAAMS\ROOT.'/core/models/Base.model.php');
 
 class Base extends \JAAMS\Core\Models\Base {
 	// PROPERTIES
-	// - PROTECTED
-	protected $ignore_regexps = array('/submit/');
+	// - PUBLIC
+	public $ignore_regexps = array('/submit/');
 
 	// METHODS
 	// - PUBLIC
@@ -52,12 +52,7 @@ class Base extends \JAAMS\Core\Models\Base {
 		$values = implode("', '", $this->data);
 		$query = "INSERT into " . $this->db_info['table'] . " ($columns) VALUES ('$values')";
 
-		if ( $result = $this->dbh->query($query) ) {
-			return $result;
-		} else {
-			throw new \Exception("Error querying the database in ". get_class() . ".");
-		}
-		
+		return $this->dbh->query($query);
 	}
 	// - PROTECTED
 	
