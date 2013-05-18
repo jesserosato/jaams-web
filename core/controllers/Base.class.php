@@ -94,7 +94,7 @@ class Base {
 	public function &__get ( $property ) {
 		if ( ! property_exists( $this, $property ) )
 			user_error("Property '$property' doesn't exist in class " . get_class($this) . ".");
-		// use the get_ function if it exists.
+		// use the set_ function to ensure the value is set, if that function exists.
 		if ( empty ( $this->$property ) ) {
 			if ( is_callable( array ( $this, ( $funct = 'set_'.$property ) ) ) ) {
 				$this->$funct();

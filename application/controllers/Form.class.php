@@ -27,7 +27,10 @@ class Form extends \Forms\Controllers\Form
 				$this->errors[$input->name] = $input->errors;
 		    }
 		}
+		// Unset errors for empty member info fieldsets.
 		$this->_unset_empty_member_info_errors();
+		// Unset errors relating to class number if the number of participants is one.
+		$this->_unset_class_no_errors();
 		return empty ( $this->errors );
 	}
 
@@ -111,6 +114,16 @@ class Form extends \Forms\Controllers\Form
 				$this->fieldsets['team_fieldset']->errors['member_info_'.$i] = array();
 				$this->fieldsets['team_fieldset']->fieldsets['member_info_'.$i]->inputs[$input]->errors = array();
 			}
+		}
+	}
+	
+	protected function _unset_class_no_errors() {
+		$participants = $this->model->get_data('participants');
+		if ( $participants == 1 ) {
+			$this->fieldsets['info_fieldset']->inputs['class_no']->errors = array();
+			unset($this->fieldsets['info_fieldset']->errors['class']);
+			unset($this->fieldsets['info_fieldset']->groups['class']->errors['class_no']);
+			unset($this->errors['info_fieldset']['class']);
 		}
 	}
 }

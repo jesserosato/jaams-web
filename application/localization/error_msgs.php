@@ -46,6 +46,9 @@ $error_msgs = array(
 		'email'		=> 'Please enter a valid email address.',
 		'required'	=> 'The Email field is required, please provide a valid email address.'
 	),
+	'major'	=> array(
+		'required'	=> "The Major field is required, please enter the team member's major."
+	),
 	'phone_number'	=> array(
 		'phone'		=> 'Please enter a U.S. phone number.',
 		'required'	=> 'The Phone Number field is required, please provide a valid U.S. telephone number.'

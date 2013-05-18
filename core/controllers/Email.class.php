@@ -50,7 +50,12 @@ class Email extends Base {
 	}
 	
 	public function get_message() {
-		return $this->message ? $this->message : $this->get_view();
+		if ( $this->message ) {
+			return $this->message;
+		} else {
+			$this->set_view();
+			return $this->view;
+		}
 	}
 	
 	public function get_template_data() {

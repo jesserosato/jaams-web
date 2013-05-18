@@ -5,19 +5,15 @@ $(document).ready(function() {
 	// Get the number of participants.
 	var participants = $('select', '.participants');
 	var i = parseInt(participants.val());
+	// Display the appropriate field: Class or major
+	if ( i > 1 ) {
+		$(".class").show();
+	} else {
+		$(".class").hide();
+	}
 	// Display appropriate amount of member info fieldsets.
 	for ( ; i < 10; i++ ) {
 		$("#member_info_"+i).hide();
-	}
-	// Display the appropriate field: Class or major
-	if ( i == 1 ) {
-		$(".class_no").show();
-		$(".dept").show();
-		$(".major").hide();
-	} else {
-		$(".class_no").hide();
-		$(".dept").hide();
-		$(".major").show();
 	}
 	// Show or hide appropriate fieldsets based on account_type choice.
 	$('select', $('.account_type')).on('change', function() {
@@ -40,13 +36,9 @@ $(document).ready(function() {
 	participants.on('change', function() {
 		var i = parseInt($(this).val());
 		if ( i > 1 ) {
-			$(".class_no").show();
-			$(".dept").show();
-			$(".major").hide();
+			$(".class").show();
 		} else {
-			$(".class_no").hide();
-			$(".dept").hide();
-			$(".major").show();
+			$(".class").hide();
 		}
 		for ( var j = i; j < 10; j++ ) {
 			$("#member_info_"+j).hide();

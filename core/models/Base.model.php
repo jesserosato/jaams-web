@@ -44,6 +44,10 @@ class Base {
 			throw new \Ecxeption("Unable to connect to database.");
 	}
 	
+	public function __destruct() {
+		
+	}
+	
 	/**
 	 * get_dsn function.
 	 * TODO: Add more drivers.

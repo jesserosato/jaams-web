@@ -29,6 +29,18 @@ class Base extends \Forms\Models\Base {
 	}
 	
 	/**
+	 * __destruct function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function __destruct() {
+		if ( ! empty( $this->ssh ) ) {
+			$this->ssh->disconnect();
+		}
+	}
+	
+	/**
 	 * save function.
 	 * 
 	 * @access public
@@ -143,8 +155,8 @@ class Base extends \Forms\Models\Base {
 				// TODO: appropriately set deptMajor
 				$dataman_people = array(
 					// -- peopleID
-					'deptMajor'			=> $class_or_major,
-					'pNamefirst'		=> $this->data['first_name_'. $i],
+					'deptMajor'			=> $this->data['major_' . $i],
+					'pNamefirst'		=> $this->data['first_name_' . $i],
 					'pNameLast'			=> $this->data['last_name_' . $i],
 					'phoneNum'			=> $this->data['phone_number_' . $i],
 					'email'				=> $this->data['email_' . $i],
@@ -251,7 +263,11 @@ class Base extends \Forms\Models\Base {
 	 */
 	public function get_project_types() {
 		$result = $this->query("SELECT groupName FROM dataman.dataman_group");
-		return $result->fetchAll(\PDO::FETCH_COLUMN, 0);
+		$opts = array();
+		foreach ( $result->fetchAll(\PDO::FETCH_COLUMN, 0) as $val ) {
+			$opts[$val] = $val;
+		}
+		return $opts;
 	}
 	
 	/**
@@ -281,8 +297,8 @@ class Base extends \Forms\Models\Base {
 	 */
 	protected function _get_semester_created() {
 		$now = time();
-		if ( ( strtotime( date( \Application\SPRING_START ) ) <= $now )
-			&& ( $now <= strtotime( date( \Application\SPRING_END ) ) ) )
+		if ( ( strtotime( date( 'Y-'.\Application\SPRING_START ) ) <= $now )
+			&& ( $now <= strtotime( date( 'Y-'.\Application\SPRING_END ) ) ) )
 			return 'Spring';
 		else
 			return 'Fall';
@@ -308,14 +324,15 @@ class Base extends \Forms\Models\Base {
 		$semesters = $semesters == 1 ? 0 : $semesters;
 		
 		$sem_len = \Application\SEMESTER_LENGTH;
-		$exp_time = strtotime("+" . $sem_len * $semesters . " months");
+		$exp_time = $semesters > 1 ? strtotime("+" . $sem_len * $semesters . " months") : time();
+		$exp_year = date('Y', $exp_time);
 		
 		
-		if ( ( strtotime( date( \Application\SPRING_START ) ) <= $exp_time ) 
-			&& ( $exp_time <= strtotime( date( \Application\SPRING_END ) ) ) )
-			return date( \Application\SPRING_END );
+		if ( ( strtotime( date( $exp_year.'-'.\Application\SPRING_START ) ) <= $exp_time ) 
+			&& ( $exp_time <= strtotime( date( $exp_year.'-'.\Application\SPRING_END ) ) ) )
+			return date( $exp_year.'-'.\Application\SPRING_END );
 		else
-			return date( \Application\FALL_END );
+			return date( $exp_year.'-'.\Application\FALL_END );
 	}
 	
 	/**
@@ -335,6 +352,9 @@ class Base extends \Forms\Models\Base {
 	}
 	
 	protected function _get_class_or_major() {
-		return intval($this->data['participants']) > 1 ? $this->data['dept'] . $this->data['class_no'] : $this->data['major'];
+		if ( intval($this->data['participants']) == 1 )
+			return $this->data['major_0'];
+		else
+			return $this->data['dept'] . " " . $this->data['class_no'];
 	}
 }

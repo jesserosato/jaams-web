@@ -158,10 +158,6 @@ $class_no->args             = array(
 	'error_msgs'		=> 	$error_msgs['class_no']	
 );
 
-$major						= new Input('major');
-$major->label				= 'Major:';
-$major->type				= InputTypes::text;
-
 $project_name 				= new Input('project_name');
 $project_name->label 		= 'Project Name:';
 $project_name->type 		= InputTypes::text;
@@ -183,7 +179,6 @@ $class 						= new Group('class');
 $class->inputs				= array(
 	'dept'				=> $dept,
 	'class_no'			=> $class_no,
-	'major'				=> $major
 );
 $class->atts				= array('class' => "select-plus-other");
 
@@ -213,6 +208,14 @@ for ( $i = 0; $i < \Application\MAX_PARTICIPANTS; $i++ ) {
 		'validator'			=> array('required','email',),
 		'error_msgs'		=> $error_msgs['email']
 	);
+	
+	$major						= new Input('major_' . $i);
+	$major->label				= 'Major:';
+	$major->type				= InputTypes::text;
+	$major->args			= array(
+		'validator'			=> array('required'),
+		'error_msgs'		=> $error_msgs['major']
+	);
 
 	$phone_number 				= new Input('phone_number_' . $i);
 	$phone_number->label 		= 'Phone Number:';
@@ -229,6 +232,7 @@ for ( $i = 0; $i < \Application\MAX_PARTICIPANTS; $i++ ) {
 		'first_name_'.$i		=> $first_name,
 		'last_name_'.$i 		=> $last_name,
 		'email_'.$i				=> $email,
+		'major_'.$i				=> $major,
 		'phone_number_'.$i		=> $phone_number,
 	);
 }
@@ -394,7 +398,7 @@ $form->fieldsets			= array(
 $form->inputs			= array('ecs_submit' => $submit);
 
 if ( empty ( $_POST['ecs_submit'] ) ) {
-	echo '<noscript><h3 class="error">You have Javascript disabled! Portions of this page may not work correctly.</h3></noscript>';
+	echo '<noscript><div class="error"><h3>You have Javascript disabled! Portions of this page may not work correctly.</h3></div></noscript>';
 	// No submission output the form
 	$form->print_html();
 } else {
