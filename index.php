@@ -26,12 +26,7 @@ try {
 	$form->model				= $model;
 } catch ( \PDOException $e ) {
 	// Catch database exceptions.
-	echo '<h2 class="error">' . $error_msgs['database_connection'] . '</h2>';
-	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
-	die();
-} catch (  \Exception $e ) {
-	// Catch SSH Exceptions.
-	echo '<h2 class="error">' . $error_msgs['ssh_connection'] . '</h2>';
+	echo '<div class="error"><h2>' . $error_msgs['database_connection'] . '</h2></div>';
 	$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
 	die();
 }
@@ -404,17 +399,27 @@ if ( empty ( $_POST['ecs_submit'] ) ) {
 } else {
 	// Sanitize
 	$form->sanitize();
+	try {
+		// Initialize model's SSH connection.
+		$form->model->set_ssh();
+	}  catch (  \Exception $e ) {
+		// Catch SSH Exceptions.
+		echo '<div class="error"><h2>' . $error_msgs['ssh_connection'] . '</h2></div>';
+		$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
+		die();
+	}
 	// Validate
 	if ( $form->validate() ) {
 		try {
 			// Save
 			$form->save();
-			$data 			= $form->model->get_data();
+			$data = $form->model->get_data();
 		} catch( \Exception $e ) {
 			$form->errors['database_save'] = empty($error_msgs['database_save']) ? 'Error saving data to database.' : $error_msgs['database_save'];
 			$form->print_html();
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log("Error saving to database:");
 			$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($e, true));
+			exit();
 		}
 		// Send emails
 		$paths			= array('view' => array(\JAAMS\APP_ROOT.'/templates'));

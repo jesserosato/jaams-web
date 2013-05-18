@@ -23,9 +23,6 @@ class Base extends \Forms\Models\Base {
 	 */
 	public function __construct($controller, array $db_info = array(), array $ssh_info = array()) {
 		parent::__construct($controller, $db_info);
-		// Die if we don't get SSH.
-		if ( ! ( $this->ssh = $this->get_ssh( $ssh_info ) ) )
-			throw new \Exception("Unable to connect to server.");
 	}
 	
 	/**
@@ -89,7 +86,7 @@ class Base extends \Forms\Models\Base {
 			 	$dataman_dbaccounts[$permission] = $val;
 		 	}
 			// DB: dataman :: TABLE: dataman_history
-			$dataman_history = array(
+			$dataman_history = empty($this->data['db_comments']) ? false : array(
 				'hisDetail'		=> $this->data['db_comments'],
 				'projName'		=> $this->data['project_name'],
 				'hisShortDesc'	=> '',									// TODO: What is this?
@@ -111,7 +108,7 @@ class Base extends \Forms\Models\Base {
 				'shell'				=> $this->data['unix_shell']
 			);
 			// DB: project :: TABLE: project_history
-			$project_history = array(
+			$project_history = empty($this->data['project_comments']) ? false : array(
 				'hisDetail'		=> $this->data['project_comments'],
 				'projName'		=> $this->data['project_name'],
 				'hisShortDesc'	=> '',
@@ -127,7 +124,13 @@ class Base extends \Forms\Models\Base {
 		 		$dataman_database = $this->_flatten_value($dataman_database);
 				$query = $this->get_insert_query('dataman.dataman_database', $dataman_database);
 				$stmnt = $this->dbh->prepare($query);
+				ob_start();
+				$stmnt->debugDumpParams();
+				$contents = ob_get_contents();
+				$GLOBALS['JAAMS']['DEBUGGER']->debug_log(var_export($contents, true));
+				ob_end_clean();
 				$stmnt->execute($dataman_database);
+				
 				// DB Call - dataman::dataman_dbaccounts
 				$dataman_dbaccounts = $this->_flatten_value($dataman_dbaccounts);
 				$query = $this->get_insert_query('dataman.dataman_dbaccounts', $dataman_dbaccounts);
@@ -135,9 +138,11 @@ class Base extends \Forms\Models\Base {
 				$stmnt->execute($dataman_dbaccounts);
 
 				// DB Call - dataman::dataman_history
-				$query = $this->get_insert_query('dataman.dataman_history', $dataman_history);
-				$stmnt = $this->dbh->prepare($query);
-				$stmnt->execute($dataman_history);
+				if ( $dataman_history ) {
+					$query = $this->get_insert_query('dataman.dataman_history', $dataman_history);
+					$stmnt = $this->dbh->prepare($query);
+					$stmnt->execute($dataman_history);
+				}
 			}
 			if ( $proj ) {
 				// DB Call - project::project_info
@@ -145,9 +150,11 @@ class Base extends \Forms\Models\Base {
 				$stmnt = $this->dbh->prepare($query);
 				$stmnt->execute($project_info);
 				// DB Call - project::project_history
-				$query = $this->get_insert_query('project.project_history', $project_history);
-				$stmnt = $this->dbh->prepare($query);
-				$stmnt->execute($project_history);
+				if ( $project_history ) {
+					$query = $this->get_insert_query('project.project_history', $project_history);
+					$stmnt = $this->dbh->prepare($query);
+					$stmnt->execute($project_history);
+				}
 			}
 			// Loop through people and add them to DB
 			$num_people = intval($this->data['participants']);
@@ -183,19 +190,20 @@ class Base extends \Forms\Models\Base {
 		}
 	}
 	
+	
 	/**
-	 * get_ssh function.
+	 * set_ssh function.
 	 * 
 	 * @access public
 	 * @param array $ssh_info
-	 * @return Net_SSH2
+	 * @return bool
 	 */
-	public function get_ssh( array $ssh_info ) {
+	public function set_ssh( array $ssh_info = array() ) {
 		$user		= empty($ssh_info['user']) ? \Application\SSH_USER : $ssh_info['user'];
 		$password	= empty($ssh_info['password']) ? \Application\SSH_PASSWORD : $ssh_info['password'];
-		$ssh 		= @new \Net_SSH2('athena.ecs.csus.edu');
-		// If the user requests SSH, we assume they NEED SSH and die without it.
-		return ! $ssh->login( $user, $password ) ? false : $ssh;
+		$ssh 		= @new \Net_SSH2(\Application\SSH_SERVER);
+		$this->ssh = ( $ok = $ssh->login( $user, $password ) ) ? $ssh : null;
+		return $ok;
 	}
 	
 	/**
@@ -328,7 +336,7 @@ class Base extends \Forms\Models\Base {
 		$exp_year = date('Y', $exp_time);
 		
 		
-		if ( ( strtotime( date( $exp_year.'-'.\Application\SPRING_START ) ) <= $exp_time ) 
+		if ( ( strtotime( date( $exp_year.'-'.\Application\SPRING_START ) ) <= $exp_time )
 			&& ( $exp_time <= strtotime( date( $exp_year.'-'.\Application\SPRING_END ) ) ) )
 			return date( $exp_year.'-'.\Application\SPRING_END );
 		else

@@ -124,6 +124,9 @@ class Form extends \Forms\Controllers\Form
 			unset($this->fieldsets['info_fieldset']->errors['class']);
 			unset($this->fieldsets['info_fieldset']->groups['class']->errors['class_no']);
 			unset($this->errors['info_fieldset']['class']);
+			if ( empty( $this->errors['info_fieldset'] ) ) {
+				unset( $this->errors['info_fieldset'] );
+			}
 		}
 	}
 }
